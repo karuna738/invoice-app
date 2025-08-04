@@ -1,0 +1,76 @@
+<div class="invoice-container">
+  <h2>Create Invoice</h2>
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <!-- Invoice Details -->
+    <div formGroupName="invoice" class="invoice-info">
+      <!-- <label>Invoice Number</label>
+      <input type="text" formControlName="invoice_number" /> -->
+      <div class="input-container">
+      <label>bill_from_id</label>
+       <select name="" id="dropdown" formControlName="bill_from_id">
+        <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
+       </select>
+       <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_from_id')?.invalid && submited">error</p>
+      </div>
+
+      <div class="input-container">
+      <label>bill_to_id</label>
+      <select name="" id="dropdown" formControlName="bill_to_id">
+        <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
+       </select>
+      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_to_id')?.invalid && submited">error</p>
+      </div>
+
+      <div class="input-container">
+      <label>invoice_date</label>
+      <input type="date" formControlName="invoice_date" />
+      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.invoice_date')?.invalid && submited">error</p>
+      </div>
+
+      <div class="input-container">
+      <label>due_date</label>
+      <input type="date" formControlName="due_date" />
+      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.due_date')?.invalid && submited">error</p>
+      </div>
+
+      <div class="input-container">
+      <label>tax_rate (%)</label>
+      <input type="number" formControlName="tax_rate" (input)="calculateTotals()" />
+      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.tax_rate')?.invalid && submited">error</p>
+      </div>
+    </div>
+
+    <!-- Invoice Items -->
+    <h3>Items</h3>
+    <table class="invoice-table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody formArrayName="items">
+        <tr *ngFor="let item of getitemsForms().controls; let i = index" [formGroupName]="i">
+            <td><input type="text" formControlName="description" /></td>
+            <td><input type="number" formControlName="price" (input)="calculateTotals()" /></td>
+            <td><input type="number" formControlName="quantity" (input)="calculateTotals()" /></td>
+            <td>{{ item.get('total')?.value | currency }}</td>
+            <td><button type="button" (click)="removeItem(i)">Remove</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" class="add-btn" (click)="addItem()">+ Add Item</button>
+
+    <!-- Totals -->
+    <div class="totals">
+      <p>Subtotal: {{ invoiceForm.get('invoice.subtotal')?.value | currency }}</p>
+      <p>Total (with tax): {{ invoiceForm.get('invoice.total')?.value | currency }}</p>
+    </div>
+
+    <!-- Save Button -->
+    <button type="submit" class="save-btn">Save Invoice</button>
+  </form>
+</div>

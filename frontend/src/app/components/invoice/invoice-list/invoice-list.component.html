@@ -1,0 +1,30 @@
+<div class="invoice-list">
+  <div class="header">
+  <h2>Invoice List</h2>
+  <button (click)="addPage()">➕New</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Invoice Number</th>
+        <th>Bill From</th>
+        <th>Bill To</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ invoice.invoice_number }}</td>
+        <td>{{ invoice.bill_from_name }}</td>
+        <td>{{ invoice.bill_to_name }}</td>
+        <td>{{ invoice.total | currency }}</td>
+        <td>
+          <button (click)="viewPage()">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

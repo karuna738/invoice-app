@@ -1,0 +1,72 @@
+<div class="invoice-view">
+  <div class="invoice-header">
+    <img src="../../../../assets/logo.png" alt="">
+    <h1>Invoice</h1>
+    <div class="dates">
+      <h2>Invoice No :{{ invoice.invoice.invoice_number }}</h2>
+      <p><strong>Issue Date:</strong> {{ invoice.invoice.invoice_date | date }}</p>
+      <p><strong>Due Date:</strong> {{ invoice.invoice.due_date | date }}</p>
+    </div>
+  </div>
+
+  <div class="invoice-parties">
+    <div class="party">
+      <h3>Bill To</h3>
+      <p>{{ invoice.invoice.bill_to.name }}</p>
+      <p>{{ invoice.invoice.bill_to.company_name }}</p>
+      <p>{{ invoice.invoice.bill_to.address }}</p>
+      <p>{{ invoice.invoice.bill_to.city }}, {{ invoice.invoice.bill_to.state }} - {{ invoice.invoice.bill_to.zip_code }}</p>
+      <p>Email: {{ invoice.invoice.bill_to.email }}</p>
+      <p>Phone: {{ invoice.invoice.bill_to.phone }}</p>
+    </div>
+
+    <div class="party">
+      <h3>Bill From</h3>
+      <p>{{ invoice.invoice.bill_from.name }}</p>
+      <p>{{ invoice.invoice.bill_from.company_name }}</p>
+      <p>{{ invoice.invoice.bill_from.address }}</p>
+      <p>{{ invoice.invoice.bill_from.city }}, {{ invoice.invoice.bill_from.state }} - {{ invoice.invoice.bill_from.zip_code }}</p>
+      <p>Email: {{ invoice.invoice.bill_from.email }}</p>
+      <p>Phone: {{ invoice.invoice.bill_from.phone }}</p>
+    </div>
+  </div>
+
+  <h3 class="items-title">Items</h3>
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of invoice.invoice.items">
+        <td>{{ item.description }}</td>
+        <td>{{ item.price | currency }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.total | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <p>Subtotal: <strong>{{ invoice.invoice.summary.subtotal | currency }}</strong></p>
+    <p>Tax ({{ invoice.invoice.summary.tax_rate }}%): 
+      <strong>{{ (invoice.invoice.summary.subtotal * invoice.invoice.summary.tax_rate / 100) | currency }}</strong>
+    </p>
+    <p class="total">Total: <strong>{{ invoice.invoice.summary.total | currency }}</strong></p>
+  </div>
+
+  <div class="payment">
+    <h3>Payment Method</h3>
+    <p><strong>Bank:</strong> {{ invoice.invoice.payment_method.bank_name }}</p>
+    <p><strong>Account No:</strong> {{ invoice.invoice.payment_method.account_number }}</p>
+  </div>
+
+  <div class="terms">
+    <h3>Terms & Conditions</h3>
+    <p>{{ invoice.invoice.terms_conditions }}</p>
+  </div>
+</div>
