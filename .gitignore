@@ -11,4 +11,5 @@ backend/dist/
 
 # Environment files
 frontend/.env
-backend/.env
+frontend/.angular
+# backend/.env
