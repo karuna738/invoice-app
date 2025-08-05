@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InvoiceCreateComponent } from './components/invoice/invoice-create/invoice-create.component';
-import { InvoiceListComponent } from './components/invoice/invoice-list/invoice-list.component';
-import { InvoiceViewComponent } from './components/invoice/invoice-view/invoice-view.component';
+// import { InvoiceCreateComponent } from './components/invoice/invoice-create/invoice-create.component';
+// import { InvoiceListComponent } from './components/invoice/invoice-list/invoice-list.component';
+// import { InvoiceViewComponent } from './components/invoice/invoice-view/invoice-view.component';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/invoices', pathMatch: 'full' },
-  { path: 'invoices', component: InvoiceListComponent },
-  { path: 'invoices/create', component: InvoiceCreateComponent },
-  { path: 'invoices/view', component: InvoiceViewComponent}
+    {
+    path: '',
+    component: MainLayoutComponent,
+    // canActivate: [AuthGuard],
+    children: [
+      {
+        path:'',  loadChildren: () => import('./components/components.module').then(m => m.ComponentsModule)
+      }
+    ]
+  },
 ];
 
 
