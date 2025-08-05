@@ -21,7 +21,7 @@ export class InvoiceListComponent implements OnInit{
   addPage(){
     this.rout.navigate(['/invoices/create']);
   }
-  viewPage(){
-    this.rout.navigate(['/invoices/view']);
+  viewPage(item:any){
+    this.rout.navigate(['/invoices/view'],{queryParams: { id: item.invoice_id}});
   }
 }

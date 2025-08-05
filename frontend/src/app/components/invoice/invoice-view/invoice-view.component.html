@@ -3,13 +3,13 @@
     <img src="../../../../assets/logo.png" alt="">
     <h1>Invoice</h1>
     <div class="dates">
-      <h2>Invoice No :{{ invoice.invoice.invoice_number }}</h2>
-      <p><strong>Issue Date:</strong> {{ invoice.invoice.invoice_date | date }}</p>
-      <p><strong>Due Date:</strong> {{ invoice.invoice.due_date | date }}</p>
+      <h2>Invoice No :{{ invoice.invoice_number }}</h2>
+      <p><strong>Issue Date:</strong> {{ invoice.invoice_date | date }}</p>
+      <p><strong>Due Date:</strong> {{ invoice.due_date | date }}</p>
     </div>
   </div>
 
-  <div class="invoice-parties">
+  <!-- <div class="invoice-parties">
     <div class="party">
       <h3>Bill To</h3>
       <p>{{ invoice.invoice.bill_to.name }}</p>
@@ -29,7 +29,7 @@
       <p>Email: {{ invoice.invoice.bill_from.email }}</p>
       <p>Phone: {{ invoice.invoice.bill_from.phone }}</p>
     </div>
-  </div>
+  </div> -->
 
   <h3 class="items-title">Items</h3>
   <table class="items-table">
@@ -42,31 +42,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of invoice.invoice.items">
+      <tr *ngFor="let item of invoice.invoice_items">
         <td>{{ item.description }}</td>
         <td>{{ item.price | currency }}</td>
         <td>{{ item.quantity }}</td>
-        <td>{{ item.total | currency }}</td>
+        <td>{{ item.item_total | currency }}</td>
       </tr>
     </tbody>
   </table>
 
   <div class="totals">
-    <p>Subtotal: <strong>{{ invoice.invoice.summary.subtotal | currency }}</strong></p>
-    <p>Tax ({{ invoice.invoice.summary.tax_rate }}%): 
-      <strong>{{ (invoice.invoice.summary.subtotal * invoice.invoice.summary.tax_rate / 100) | currency }}</strong>
+    <p>Subtotal: <strong>{{ invoice.subtotal | currency }}</strong></p>
+    <p>Tax ({{ invoice.tax_rate }}%): 
+      <strong>{{ (invoice.subtotal * invoice.total / 100) | currency }}</strong>
     </p>
-    <p class="total">Total: <strong>{{ invoice.invoice.summary.total | currency }}</strong></p>
+    <p class="total">Total: <strong>{{ invoice.total | currency }}</strong></p>
   </div>
 
   <div class="payment">
     <h3>Payment Method</h3>
-    <p><strong>Bank:</strong> {{ invoice.invoice.payment_method.bank_name }}</p>
-    <p><strong>Account No:</strong> {{ invoice.invoice.payment_method.account_number }}</p>
+    <p><strong>Bank:</strong> {{ 'invoice.invoice.payment_method.bank_name' }}</p>
+    <p><strong>Account No:</strong> {{ 'invoice.invoice.payment_method.account_number' }}</p>
   </div>
 
   <div class="terms">
     <h3>Terms & Conditions</h3>
-    <p>{{ invoice.invoice.terms_conditions }}</p>
+    <p>{{ 'invoice.invoice.terms_conditions' }}</p>
   </div>
 </div>

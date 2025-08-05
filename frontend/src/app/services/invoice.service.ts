@@ -29,6 +29,11 @@ export class InvoiceService {
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(this.apiUrl);
   }
+
+getInvoiceItems(id: number): Observable<any> {
+  return this.http.get(`${this.apiUrl}/${id}`);
+}
+
 }
 
 

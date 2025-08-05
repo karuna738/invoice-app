@@ -22,7 +22,7 @@
         <td>{{ invoice.bill_to_name }}</td>
         <td>{{ invoice.total | currency }}</td>
         <td>
-          <button (click)="viewPage()">View</button>
+          <button (click)="viewPage(invoice)">View</button>
         </td>
       </tr>
     </tbody>

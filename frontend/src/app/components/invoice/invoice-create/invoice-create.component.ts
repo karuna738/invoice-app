@@ -84,17 +84,37 @@ export class InvoiceCreateComponent implements OnInit {
     this.invoiceForm.get('invoice.total')?.setValue(total);
   }
 
+  // onSubmit() {
+  //   this.submited = true;
+  //   this.customerData = this.getitemsForms().controls.map(() => true);
+  //   if (this.invoiceForm.invalid) {
+  //     return;
+  //   } else {
+  //     const params: any = this.invoiceForm.value.invoice;
+  //     params.item = this.invoiceForm.value.items;
+  //     console.log(params);
+  //     this.invoiceService.createInvoice(params).subscribe((res) => {
+  //       console.log('res', res);
+  //     });
+  //   }
+  // }
+
   onSubmit() {
-    this.submited = true;
-    this.customerData = this.getitemsForms().controls.map(() => true);
-    if (this.invoiceForm.invalid) {
-      return;
-    } else {
-      const params: any = this.invoiceForm.value.invoice;
-      params.item = this.invoiceForm.value.items;
-      this.invoiceService.createInvoice(params).subscribe((res) => {
-        console.log('res', res);
-      });
-    }
+  this.submited = true;
+  this.itemsValidation = this.getitemsForms().controls.map(() => true);
+
+  if (this.invoiceForm.invalid) {
+    return;
+  } else {
+    const params: any = this.invoiceForm.value.invoice;
+    params.items = this.invoiceForm.value.items; // ✅ FIXED (was params.item)
+
+    console.log('Payload:', params);
+
+    this.invoiceService.createInvoice(params).subscribe((res) => {
+      console.log('Invoice created:', res);
+    });
   }
+}
+
 }
