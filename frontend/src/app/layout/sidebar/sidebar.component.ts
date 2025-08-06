@@ -9,10 +9,10 @@ export class SidebarComponent implements OnInit{
   @Output() toggle = new EventEmitter<boolean>();
   isClosed = false;
     menuItems = [
-    // { label: 'Invoice', icon: 'fas fa-tachometer-alt', route: '/invoices' },
-    { label: 'Tasks', icon: 'fas fa-tasks', route: '/invoices' },
-    // { label: 'Users', icon: 'fas fa-users',  },
-    // { label: 'Settings', icon: 'fas fa-cog',  },
+    { label: 'Invoice', icon: 'fas fa-tasks', route: '/invoices' },
+    { label: 'Customers', icon: 'fas fa-users', route: '/customers' },
+    { label: 'Payments', icon: 'fas fa-credit-card', route: '/payments' },
+    { label: 'Terms & Conditions', icon: 'fas fa-file-contract', route: '/terms&conditions'}
   ];
 
     ngOnInit() {}

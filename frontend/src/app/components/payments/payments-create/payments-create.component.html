@@ -1,0 +1,18 @@
+<div class="invoice-container">
+  <h2>Create Customer</h2>
+  <form [formGroup]="paymentForm">
+    <div class="invoice-info">
+      <div class="input-container">
+        <label>Bank Name</label>
+        <input type="text" formControlName="bank_name">
+      </div>
+
+      <div class="input-container">
+        <label>Account Number</label>
+        <input type="text" formControlName="account_number">
+      </div>
+    </div>
+    <button type="button" class="add-btn" (click)="onSubmit()">Save Customer</button>
+  </form>
+</div>
+

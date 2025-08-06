@@ -9,7 +9,6 @@ const routes: Routes = [
     {
     path: '',
     component: MainLayoutComponent,
-    // canActivate: [AuthGuard],
     children: [
       {
         path:'',  loadChildren: () => import('./components/components.module').then(m => m.ComponentsModule)

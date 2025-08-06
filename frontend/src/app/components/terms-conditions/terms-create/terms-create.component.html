@@ -1,0 +1,12 @@
+<div class="invoice-container">
+  <h2>Create Customer</h2>
+  <form [formGroup]="termsForm">
+    <div class="invoice-info">
+      <div class="input-container">
+        <label>Terms & Conditions</label>
+        <input type="text" formControlName="terms">
+      </div>
+    </div>
+    <button type="button" class="add-btn" (click)="onSubmit()">Save</button>
+  </form>
+</div>

@@ -9,16 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    InvoiceListComponent,
-    InvoiceCreateComponent,
-    InvoiceViewComponent,
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

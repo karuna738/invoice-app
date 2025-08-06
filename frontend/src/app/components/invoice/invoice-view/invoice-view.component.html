@@ -1,4 +1,4 @@
-<div class="invoice-view">
+<div  id="invoice" class="invoice-view">
   <div class="invoice-header">
     <img src="../../../../assets/logo.png" alt="">
     <h1>Invoice</h1>
@@ -70,3 +70,10 @@
     <p>{{ 'invoice.invoice.terms_conditions' }}</p>
   </div>
 </div>
+
+<div class="download-container">
+  <button class="downloadBtn" (click)="downloadPDF()">
+    <i class="fas fa-file-pdf"></i> Download PDF
+  </button>
+</div>
+

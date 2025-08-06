@@ -1,0 +1,50 @@
+
+<div class="invoice-container">
+  <h2>Create Customer</h2>
+  <form [formGroup]="customerForm">
+    <div class="invoice-info">
+      <div class="input-container">
+        <label>Name</label>
+        <input type="text" formControlName="name">
+      </div>
+
+      <div class="input-container">
+        <label>company_name</label>
+        <input type="text" formControlName="company_name">
+      </div>
+
+      <div class="input-container">
+        <label>address</label>
+        <input type="text" formControlName="address" />
+      </div>
+
+      <div class="input-container">
+        <label>city</label>
+        <input type="text" formControlName="city" />
+      </div>
+
+      <div class="input-container">
+        <label>state</label>
+        <input type="text" formControlName="state" />
+      </div>
+      
+            <div class="input-container">
+        <label>zip_code</label>
+        <input type="text" formControlName="zip_code" />
+      </div>
+                  <div class="input-container">
+        <label>email</label>
+        <input type="text" formControlName="email" />
+      </div>
+                        <div class="input-container">
+        <label>phone</label>
+        <input type="text" formControlName="phone" />
+      </div>
+                              <div class="input-container">
+        <label>type</label>
+        <input type="text" formControlName="type" />
+      </div>
+    </div>
+    <button type="button" class="add-btn" (click)="onSubmit()">Save Customer</button>
+  </form>
+</div>

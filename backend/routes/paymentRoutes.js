@@ -3,6 +3,6 @@ const { addPaymentMethod, getPaymentsByInvoice } = require('../controllers/payme
 const router = express.Router();
 
 router.post('/', addPaymentMethod);
-router.get('/:invoice_id', getPaymentsByInvoice);
+router.get('/', getPaymentsByInvoice);
 
 module.exports = router;
