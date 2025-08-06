@@ -96,40 +96,40 @@ const Invoice = {
 
 
     getAll: (callback) => {
-    db.query(
-        `SELECT i.*, c1.name AS bill_to_name, c2.name AS bill_from_name
+        db.query(
+            `SELECT i.*, c1.name AS bill_to_name, c2.name AS bill_from_name
          FROM invoices i
          JOIN customers c1 ON i.bill_to_id = c1.customer_id
          JOIN customers c2 ON i.bill_from_id = c2.customer_id
          ORDER BY i.invoice_id DESC`,
-        callback
-    );
-},
+            callback
+        );
+    },
 
 
     getInvoiceWithItems: (id, callback) => {
         const query = `
-            SELECT 
-                i.invoice_id,
-                i.invoice_number,
-                i.due_date,
-                i.invoice_date,
-                i.subtotal,
-                i.tax_rate,
-                i.total,
-                c1.name AS bill_to_name,
-                c2.name AS bill_from_name,
-                ii.item_id,
-                ii.description,
-                ii.price,
-                ii.quantity,
-                ii.total AS item_total
-            FROM invoices i
-            JOIN customers c1 ON i.bill_to_id = c1.customer_id
-            JOIN customers c2 ON i.bill_from_id = c2.customer_id
-            LEFT JOIN invoice_items ii ON i.invoice_id = ii.invoice_id
-            WHERE i.invoice_id = ?;
-        `;
+        SELECT 
+            i.invoice_id,
+            i.invoice_number,
+            i.due_date,
+            i.invoice_date,
+            i.subtotal,
+            i.tax_rate,
+            i.total,
+            c1.customer_id AS bill_to_id,
+            c2.customer_id AS bill_from_id,
+            ii.item_id,
+            ii.description,
+            ii.price,
+            ii.quantity,
+            ii.total AS item_total
+        FROM invoices i
+        JOIN customers c1 ON i.bill_to_id = c1.customer_id
+        JOIN customers c2 ON i.bill_from_id = c2.customer_id
+        LEFT JOIN invoice_items ii ON i.invoice_id = ii.invoice_id
+        WHERE i.invoice_id = ?;
+    `;
         db.query(query, [id], callback);
     }
 };

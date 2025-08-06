@@ -6,37 +6,37 @@
       <!-- <label>Invoice Number</label>
       <input type="text" formControlName="invoice_number" /> -->
       <div class="input-container">
-      <label>bill_from_id</label>
-       <select name="" id="dropdown" formControlName="bill_from_id">
-        <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
-       </select>
-       <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_from_id')?.invalid && submited">error</p>
+        <label>bill_from_id</label>
+        <select name="" id="dropdown" formControlName="bill_from_id">
+          <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
+        </select>
+        <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_from_id')?.invalid && submited">error</p>
       </div>
 
       <div class="input-container">
-      <label>bill_to_id</label>
-      <select name="" id="dropdown" formControlName="bill_to_id">
-        <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
-       </select>
-      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_to_id')?.invalid && submited">error</p>
+        <label>bill_to_id</label>
+        <select name="" id="dropdown" formControlName="bill_to_id">
+          <option *ngFor="let item of customerData" [ngValue]="item.customer_id">{{item.company_name}}</option>
+        </select>
+        <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.bill_to_id')?.invalid && submited">error</p>
       </div>
 
       <div class="input-container">
-      <label>invoice_date</label>
-      <input type="date" formControlName="invoice_date" />
-      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.invoice_date')?.invalid && submited">error</p>
+        <label>invoice_date</label>
+        <input type="date" formControlName="invoice_date" />
+        <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.invoice_date')?.invalid && submited">error</p>
       </div>
 
       <div class="input-container">
-      <label>due_date</label>
-      <input type="date" formControlName="due_date" />
-      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.due_date')?.invalid && submited">error</p>
+        <label>due_date</label>
+        <input type="date" formControlName="due_date" />
+        <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.due_date')?.invalid && submited">error</p>
       </div>
 
       <div class="input-container">
-      <label>tax_rate (%)</label>
-      <input type="number" formControlName="tax_rate" (input)="calculateTotals()" />
-      <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.tax_rate')?.invalid && submited">error</p>
+        <label>tax_rate (%)</label>
+        <input type="number" formControlName="tax_rate" (input)="calculateTotals()" />
+        <p class="error-msg" *ngIf="this.invoiceForm.get('invoice.tax_rate')?.invalid && submited">error</p>
       </div>
     </div>
 
@@ -52,17 +52,45 @@
           <th>Action</th>
         </tr>
       </thead>
-        <tbody formArrayName="items">
+      <tbody formArrayName="items">
         <tr *ngFor="let item of getitemsForms().controls; let i = index" [formGroupName]="i">
-            <td><input type="text" formControlName="description" /></td>
-            <td><input type="number" formControlName="price" (input)="calculateTotals()" /></td>
-            <td><input type="number" formControlName="quantity" (input)="calculateTotals()" /></td>
-            <td>{{ item.get('total')?.value | currency }}</td>
-            <td><button type="button" (click)="removeItem(i)">Remove</button></td>
+          <td><input type="text" formControlName="description" /></td>
+          <td><input type="number" formControlName="price" (input)="calculateTotals()" /></td>
+          <td><input type="number" formControlName="quantity" (input)="calculateTotals()" /></td>
+          <td>{{ item.get('total')?.value | currency }}</td>
+          <td><button type="button" (click)="removeItem(i)">Remove</button></td>
         </tr>
-        </tbody>
+      </tbody>
     </table>
     <button type="button" class="add-btn" (click)="addItem()">+ Add Item</button>
+
+<!-- %%%%%% this two feild add backend table colums store id only***************************** -->
+    <!-- <div class="invoice-info" style="margin-top: 20px;">
+    <div class="input-container">
+      <label>Payment Method</label>
+      <select formControlName="payment_methods">
+        <option value="">Select payment method</option>
+        <option *ngFor="let method of paymentMethods" [value]="method.value">
+          {{ method.label }}
+        </option>
+      </select>
+      <p class="error-msg" *ngIf="invoiceForm.get('invoice.payment_methods')?.invalid && submited">
+        Please select a payment method
+      </p>
+    </div>
+
+    <div class="input-container">
+      <label>Terms & Conditions</label>
+      <select formControlName="terms_conditions">
+        <option value="">Select terms</option>
+        <option *ngFor="let term of termsOptions" [value]="term">
+          {{ term }}
+        </option>
+      </select>
+    </div>
+    </div> -->
+
+<!-- --/// -->
 
     <!-- Totals -->
     <div class="totals">

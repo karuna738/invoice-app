@@ -63,8 +63,8 @@ exports.getInvoiceItems = (req, res) => {
             subtotal: results[0].subtotal,
             tax_rate: results[0].tax_rate,
             total: results[0].total,
-            bill_to_name: results[0].bill_to_name,
-            bill_from_name: results[0].bill_from_name,
+            bill_to_id: results[0].bill_to_id,
+            bill_from_id: results[0].bill_from_id,
             invoice_items: results
                 .filter(row => row.item_id)
                 .map(row => ({
@@ -75,6 +75,7 @@ exports.getInvoiceItems = (req, res) => {
                     item_total: row.item_total
                 }))
         };
+
 
         res.status(200).json(invoice);
     });

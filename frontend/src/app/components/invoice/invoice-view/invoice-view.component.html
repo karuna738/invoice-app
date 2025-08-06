@@ -3,33 +3,33 @@
     <img src="../../../../assets/logo.png" alt="">
     <h1>Invoice</h1>
     <div class="dates">
-      <h2>Invoice No :{{ invoice.invoice_number }}</h2>
-      <p><strong>Issue Date:</strong> {{ invoice.invoice_date | date }}</p>
-      <p><strong>Due Date:</strong> {{ invoice.due_date | date }}</p>
+      <h2>Invoice No : {{ invoice.invoice_number }}</h2>
+      <p><strong>Issue Date: </strong> {{ invoice.invoice_date | date }}</p>
+      <p><strong>Due Date: </strong> {{ invoice.due_date | date }}</p>
     </div>
   </div>
 
-  <!-- <div class="invoice-parties">
+  <div class="invoice-parties">
     <div class="party">
       <h3>Bill To</h3>
-      <p>{{ invoice.invoice.bill_to.name }}</p>
-      <p>{{ invoice.invoice.bill_to.company_name }}</p>
-      <p>{{ invoice.invoice.bill_to.address }}</p>
-      <p>{{ invoice.invoice.bill_to.city }}, {{ invoice.invoice.bill_to.state }} - {{ invoice.invoice.bill_to.zip_code }}</p>
-      <p>Email: {{ invoice.invoice.bill_to.email }}</p>
-      <p>Phone: {{ invoice.invoice.bill_to.phone }}</p>
+      <p>{{ billTo?.name }}</p>
+      <p>{{ billTo?.company_name }}</p>
+      <p>{{ billTo?.address }}</p>
+      <p>{{ billTo?.city }}, {{ billTo?.state }} - {{ billTo?.zip_code }}</p>
+      <p>Email: {{ billTo?.email }}</p>
+      <p>Phone: {{ billTo?.phone }}</p>
     </div>
 
     <div class="party">
       <h3>Bill From</h3>
-      <p>{{ invoice.invoice.bill_from.name }}</p>
-      <p>{{ invoice.invoice.bill_from.company_name }}</p>
-      <p>{{ invoice.invoice.bill_from.address }}</p>
-      <p>{{ invoice.invoice.bill_from.city }}, {{ invoice.invoice.bill_from.state }} - {{ invoice.invoice.bill_from.zip_code }}</p>
-      <p>Email: {{ invoice.invoice.bill_from.email }}</p>
-      <p>Phone: {{ invoice.invoice.bill_from.phone }}</p>
+      <p>{{ billFrom?.name }}</p>
+      <p>{{ billFrom?.company_name }}</p>
+      <p>{{ billFrom?.address }}</p>
+      <p>{{ billFrom?.city }}, {{ billFrom?.state }} - {{ billFrom?.zip_code }}</p>
+      <p>Email: {{ billFrom?.email }}</p>
+      <p>Phone: {{ billFrom?.phone }}</p>
     </div>
-  </div> -->
+  </div>
 
   <h3 class="items-title">Items</h3>
   <table class="items-table">
