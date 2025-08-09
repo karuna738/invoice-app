@@ -19,8 +19,8 @@ export class TermsService {
     return this.http.post(this.apiUrl, terms);
   }
 
-  getTermsByInvoice(invoiceId: number): Observable<Terms[]> {
-    return this.http.get<Terms[]>(`${this.apiUrl}/${invoiceId}`);
+  getTermsByInvoice(): Observable<Terms[]> {
+    return this.http.get<Terms[]>(`${this.apiUrl}`);
   }
 }
 

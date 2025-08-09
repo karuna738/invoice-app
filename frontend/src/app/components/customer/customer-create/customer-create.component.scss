@@ -1,0 +1,119 @@
+.invoice-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.invoice-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input,
+  select {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+    }
+  }
+}
+
+.error-msg {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.save-btn,
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  // transition: background 0.3s ease;
+  font-size: 14px;
+  transition: background 0.25s ease, transform 0.15s ease;
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.save-btn {
+  background: #007bff;
+  color: #fff;
+
+  &:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+  }
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: #fff;
+
+  &:hover {
+    background: #b02a37;
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 600px) {
+  .invoice-info {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

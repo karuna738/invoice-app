@@ -1,0 +1,74 @@
+<!-- <div class="customer-list">
+  <h2>Customer List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Company Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.company_name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.type }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="invoice-list">
+  <div class="header">
+    <h2>Customer List</h2>
+    <button (click)="addPage()">➕ Add</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Company Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Type</th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.company_name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.type }}</td>      
+        <!-- <td>
+          <button (click)="viewPage(customer)">View</button>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Custom Pagination -->
+  <!-- <div class="pagination">
+    <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>
+
+    <button 
+      *ngFor="let p of [].constructor(totalPages); let index = index"
+      (click)="changePage(index + 1)"
+      [class.active]="page === index + 1">
+      {{ index + 1 }}
+    </button>
+
+    <button (click)="changePage(page + 1)" [disabled]="page === totalPages">Next</button>
+  </div> -->
+</div>
+

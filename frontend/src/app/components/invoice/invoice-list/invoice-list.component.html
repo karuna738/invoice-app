@@ -1,8 +1,9 @@
 <div class="invoice-list">
   <div class="header">
-  <h2>Invoice List</h2>
-  <button (click)="addPage()">➕New</button>
+    <h2>Invoice List</h2>
+    <button (click)="addPage()">➕ Add</button>
   </div>
+
   <table>
     <thead>
       <tr>
@@ -15,16 +16,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let invoice of invoices; let i = index">
-        <td>{{ i+1 }}</td>
+      <tr *ngFor="let invoice of paginatedInvoices; let i = index">
+        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ invoice.invoice_number }}</td>
         <td>{{ invoice.bill_from_name }}</td>
         <td>{{ invoice.bill_to_name }}</td>
         <td>{{ invoice.total | currency }}</td>
-        <td>
-          <button (click)="viewPage(invoice)">View</button>
+        <td class="action-col">
+          <button class="btn btn-view" (click)="viewPage(invoice)"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-delete" (click)="deleteInvoice(invoice)"><i class="fas fa-trash-alt"></i></button>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <!-- Custom Pagination -->
+  <div class="pagination">
+    <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>
+
+    <button 
+      *ngFor="let p of [].constructor(totalPages); let index = index"
+      (click)="changePage(index + 1)"
+      [class.active]="page === index + 1">
+      {{ index + 1 }}
+    </button>
+
+    <button (click)="changePage(page + 1)" [disabled]="page === totalPages">Next</button>
+  </div>
 </div>

@@ -14,8 +14,7 @@ exports.addPaymentMethod = (req, res) => {
 };
 
 exports.getPaymentsByInvoice = (req, res) => {
-    const { invoice_id } = req.params;
-    db.query('SELECT * FROM payment_methods WHERE invoice_id = ?', [invoice_id], (err, results) => {
+    db.query('SELECT * FROM payment_methods', (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.json(results);
     });

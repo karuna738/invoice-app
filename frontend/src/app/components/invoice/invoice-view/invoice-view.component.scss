@@ -143,3 +143,50 @@
         }
     }
 }
+
+.download-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; // space above and below the button
+}
+
+.downloadBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s;
+
+  i {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.cancel-btn{
+  margin-left: 4px;
+  background: #e74c3c;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+ color: white;
+  border: none;
+
+ i {
+    font-size: 18px;
+  }
+  &:hover {
+    background: #c0392b;
+  }
+}
+

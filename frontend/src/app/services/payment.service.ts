@@ -20,8 +20,8 @@ export class PaymentService {
     return this.http.post(this.apiUrl, payment);
   }
 
-  getPaymentsByInvoice(invoiceId: number): Observable<PaymentMethod[]> {
-    return this.http.get<PaymentMethod[]>(`${this.apiUrl}/${invoiceId}`);
+  getPaymentsByInvoice(): Observable<PaymentMethod[]> {
+    return this.http.get<PaymentMethod[]>(`${this.apiUrl}`);
   }
 }
 

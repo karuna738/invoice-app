@@ -14,8 +14,7 @@ exports.addTerms = (req, res) => {
 };
 
 exports.getTermsByInvoice = (req, res) => {
-    const { invoice_id } = req.params;
-    db.query('SELECT * FROM terms_conditions WHERE invoice_id = ?', [invoice_id], (err, results) => {
+    db.query('SELECT * FROM terms_conditions', (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.json(results);
     });

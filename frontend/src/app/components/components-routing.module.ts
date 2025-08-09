@@ -1,14 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InvoiceCreateComponent } from './invoice/invoice-create/invoice-create.component';
-import { InvoiceListComponent } from './invoice/invoice-list/invoice-list.component';
-import { InvoiceViewComponent } from './invoice/invoice-view/invoice-view.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/invoices', pathMatch: 'full' },
-    { path: 'invoices', component: InvoiceListComponent },
-    { path: 'invoices/create', component: InvoiceCreateComponent },
-    { path: 'invoices/view', component: InvoiceViewComponent}
+   { path: '', redirectTo: '/invoices', pathMatch: 'full' },
+  {
+    path: 'invoices',
+    loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
+  },
+  {
+    path: 'customers',
+    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
+  },
+  {
+    path: 'payments',
+    loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule)
+  },
+  {
+    path: 'terms&conditions',
+    loadChildren: () => import('./terms-conditions/terms-conditions.module').then(m => m.TermsConditionsModule)
+  }
 ];
 
 @NgModule({

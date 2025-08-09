@@ -1,0 +1,24 @@
+<div class="invoice-container">
+  <h2>Create Terms & Conditions</h2>
+
+  <form [formGroup]="termsForm">
+    <div class="invoice-info">
+      <div class="input-container">
+        <label>Terms & Conditions</label>
+        <input 
+          type="text" 
+          formControlName="terms" 
+          placeholder="Enter terms and conditions" 
+        />
+        <div class="error-msg" *ngIf="submitted && termsForm.controls['terms'].invalid">
+          Terms & Conditions are required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="add-btn" (click)="onSubmit()">Save</button>
+      <button type="button" class="cancel-btn" [routerLink]="['/terms&conditions']">Cancel</button>
+    </div>
+  </form>
+</div>
