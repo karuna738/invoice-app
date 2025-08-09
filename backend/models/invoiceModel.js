@@ -2,7 +2,9 @@ const db = require('../config/db');
 
 const Invoice = {
     createWithItems: (data, callback) => {
-        const { bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, items } = data;
+        // const { bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, items } = data;
+        const { bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id, items } = data;
+
 
         db.getConnection((err, connection) => {
             if (err) return callback(err);
@@ -28,9 +30,9 @@ const Invoice = {
                     // Insert invoice
                     connection.query(
                         `INSERT INTO invoices 
-                        (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-                        [invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total],
+                        (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                        [invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id],
                         (err, invoiceResult) => {
                             if (err) {
                                 return connection.rollback(() => {
@@ -118,7 +120,14 @@ const Invoice = {
             i.tax_rate,
             i.total,
             c1.customer_id AS bill_to_id,
+            c1.name AS bill_to_name,
             c2.customer_id AS bill_from_id,
+            c2.name AS bill_from_name,
+            pm.payment_id,
+            pm.bank_name,
+            pm.account_number,
+            tc.term_id,
+            tc.terms,
             ii.item_id,
             ii.description,
             ii.price,
@@ -127,10 +136,64 @@ const Invoice = {
         FROM invoices i
         JOIN customers c1 ON i.bill_to_id = c1.customer_id
         JOIN customers c2 ON i.bill_from_id = c2.customer_id
+        LEFT JOIN payment_methods pm ON i.payment_id = pm.payment_id
+        LEFT JOIN terms_conditions tc ON i.term_id = tc.term_id
         LEFT JOIN invoice_items ii ON i.invoice_id = ii.invoice_id
         WHERE i.invoice_id = ?;
     `;
         db.query(query, [id], callback);
+    },
+
+    deleteInvoice: (id, callback) => {
+        db.getConnection((err, connection) => {
+            if (err) return callback(err);
+
+            connection.beginTransaction(err => {
+                if (err) {
+                    connection.release();
+                    return callback(err);
+                }
+
+                // First delete invoice_items
+                connection.query(
+                    'DELETE FROM invoice_items WHERE invoice_id = ?',
+                    [id],
+                    (err) => {
+                        if (err) {
+                            return connection.rollback(() => {
+                                connection.release();
+                                callback(err);
+                            });
+                        }
+
+                        // Then delete the invoice
+                        connection.query(
+                            'DELETE FROM invoices WHERE invoice_id = ?',
+                            [id],
+                            (err, result) => {
+                                if (err) {
+                                    return connection.rollback(() => {
+                                        connection.release();
+                                        callback(err);
+                                    });
+                                }
+
+                                connection.commit(err => {
+                                    if (err) {
+                                        return connection.rollback(() => {
+                                            connection.release();
+                                            callback(err);
+                                        });
+                                    }
+                                    connection.release();
+                                    callback(null, result.affectedRows > 0);
+                                });
+                            }
+                        );
+                    }
+                );
+            });
+        });
     }
 };
 

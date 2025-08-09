@@ -61,19 +61,22 @@
 
   <div class="payment">
     <h3>Payment Method</h3>
-    <p><strong>Bank:</strong> {{ 'invoice.invoice.payment_method.bank_name' }}</p>
-    <p><strong>Account No:</strong> {{ 'invoice.invoice.payment_method.account_number' }}</p>
+    <p><strong>Bank:</strong> {{ invoice.bank_name || '-' }}</p>
+    <p><strong>Account No:</strong> {{ invoice.account_number || '-' }}</p>
   </div>
 
   <div class="terms">
     <h3>Terms & Conditions</h3>
-    <p>{{ 'invoice.invoice.terms_conditions' }}</p>
+    <p>{{ invoice.terms || '-' }}</p>
   </div>
 </div>
 
 <div class="download-container">
   <button class="downloadBtn" (click)="downloadPDF()">
     <i class="fas fa-file-pdf"></i> Download PDF
+  </button>
+  <button class="cancel-btn" [routerLink]="['/invoices']">
+    <i class="fas fa-times-circle"></i> Cancel
   </button>
 </div>
 

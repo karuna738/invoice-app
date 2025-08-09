@@ -1,96 +1,86 @@
 .invoice-container {
-  max-width: 900px;
+  max-width: 600px;
   margin: 20px auto;
-  padding: 20px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: #333;
+  }
 }
 
-h2, h3 {
-  text-align: center;
+.input-container {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15px;
+
+  label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+    }
+
+    &::placeholder {
+      color: #999;
+      font-size: 13px;
+    }
+  }
 }
 
-.input-container{
-  width: 100%;
-}
-
-.invoice-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.invoice-info label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.invoice-info input {
-  padding: 8px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 4px;
-}
-
-.invoice-info select {
-  padding: 8px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 4px;
-}
-
-.invoice-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
-}
-
-.invoice-table th, .invoice-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-.add-btn, .save-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin-top: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.add-btn:hover, .save-btn:hover {
-  background: #0056b3;
-}
-
-.totals {
-  text-align: right;
-  margin-top: 15px;
-}
-
-button[type="button"] {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button[type="button"]:hover {
-  background: #b02a37;
-}
-
-.error-msg{
+.error-msg {
   color: #dc3545;
-  margin: 0px;
+  font-size: 13px;
+  margin-top: 4px;
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.add-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #5a6268;
+  }
+}

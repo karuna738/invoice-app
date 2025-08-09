@@ -18,7 +18,11 @@ export class InvoiceListComponent implements OnInit {
   constructor(private invoiceService: InvoiceService, private rout: Router) {}
 
   ngOnInit() {
-    this.invoiceService.getInvoices().subscribe(data => {
+     this.getInvoiceData();
+  }
+
+  getInvoiceData(){
+      this.invoiceService.getInvoices().subscribe(data => {
       this.invoices = data;
       this.totalPages = Math.ceil(this.invoices.length / this.itemsPerPage);
       this.updatePaginatedInvoices();
@@ -44,5 +48,11 @@ export class InvoiceListComponent implements OnInit {
 
   viewPage(item: any) {
     this.rout.navigate(['/invoices/view'], { queryParams: { id: item.invoice_id } });
+  }
+
+  deleteInvoice(Item: any){
+    this.invoiceService.deleteInvoiceItem(Item.invoice_id).subscribe(res => {
+          this.getInvoiceData();
+    })
   }
 }

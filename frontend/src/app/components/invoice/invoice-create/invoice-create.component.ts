@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
+import { PaymentService } from 'src/app/services/payment.service';
+import { TermsService } from 'src/app/services/terms.service';
 
 @Component({
   selector: 'app-invoice-create',
@@ -13,28 +16,22 @@ export class InvoiceCreateComponent implements OnInit {
   customerData: any = [];
   itemsValidation: boolean[] = [];
   submited:boolean = false;
-
-  paymentMethods = [
-  { value: 'cash', label: 'Cash' },
-  { value: 'credit_card', label: 'Credit Card' },
-  { value: 'bank_transfer', label: 'Bank Transfer' },
-  { value: 'upi', label: 'UPI' }
-];
-
-termsOptions = [
-  'Payment due within 7 days',
-  'Payment due within 15 days',
-  'Payment due within 30 days'
-];
+  paymentMethods:any = [];
+  termsOptions:any = [];
 
   constructor(
     private fb: FormBuilder,
     private invoiceService: InvoiceService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private paymentService: PaymentService,
+    private termService: TermsService,
+    private route: Router
   ) {}
   ngOnInit() {
     this.formInit();
     this.getCustomer();
+    this.getPayments();
+    this.getTerms();
   }
 
 formInit() {
@@ -47,8 +44,8 @@ formInit() {
       subtotal: [0],
       tax_rate: [0],
       total: [0],
-      // payment_methods: ['', Validators.required], // Added
-      // terms_conditions: [''] // Added
+      payment_id: ['', Validators.required],
+      term_id: ['']
     }),
     items: this.fb.array([this.itemformInit()]),
   });
@@ -78,6 +75,18 @@ formInit() {
     this.customerService.getCustomers().subscribe((res) => {
       this.customerData = res;
     });
+  }
+
+  getPayments(){
+    this.paymentService.getPaymentsByInvoice().subscribe(res => {
+      this.paymentMethods = res;
+    })
+  }
+
+  getTerms(){
+    this.termService.getTermsByInvoice().subscribe(res => {
+      this.termsOptions = res;
+    })
   }
 
   removeItem(index: number) {
@@ -110,11 +119,10 @@ onSubmit() {
   } else {
     const params: any = this.invoiceForm.value.invoice;
     params.items = this.invoiceForm.value.items;
-
-    console.log('Payload:', params);
-
     this.invoiceService.createInvoice(params).subscribe((res) => {
-      console.log('Invoice created:', res);
+      if(res){
+        this.route.navigate(['/invoices']);
+      }
     });
   }
 }
