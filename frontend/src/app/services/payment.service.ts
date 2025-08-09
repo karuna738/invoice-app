@@ -23,6 +23,10 @@ export class PaymentService {
   getPaymentsByInvoice(): Observable<PaymentMethod[]> {
     return this.http.get<PaymentMethod[]>(`${this.apiUrl}`);
   }
+
+  deletePayments(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
 
 // Add Payment Method

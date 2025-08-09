@@ -31,6 +31,7 @@ export class PaymentsListComponent implements OnInit{
 deletePayment(payment: any) {
   console.log("Delete payment:", payment);
   // Add delete confirmation and logic here
+  // this.paymentService.deletePayments(payment.)
 }
 
 }

@@ -34,7 +34,10 @@ export class CustomerListComponent implements OnInit {
 
 deleteCustomer(customer: any) {
   console.log("Delete customer:", customer);
-  // Add delete logic here
+  this.customerService.deleteCustomers(customer.customer_id).subscribe(res => {
+    console.log('dddd');
+    
+  })
 }
 
 }
