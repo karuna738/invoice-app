@@ -1,23 +1,27 @@
-const db = require('../config/db');
+const Customer = require('../models/customerModel');
 
-// Create Customer
 exports.createCustomer = (req, res) => {
-    const { name, company_name, address, city, state, zip_code, email, phone, type } = req.body;
-
-    db.query(
-        'INSERT INTO customers (name, company_name, address, city, state, zip_code, email, phone, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [name, company_name, address, city, state, zip_code, email, phone, type],
-        (err, result) => {
-            if (err) return res.status(500).json({ error: err });
-            res.status(201).json({ message: 'Customer created', customerId: result.insertId });
-        }
-    );
+    Customer.create(req.body, (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+        res.status(201).json({ message: 'Customer created', customerId: result.insertId });
+    });
 };
 
-// Get All Customers
 exports.getCustomers = (req, res) => {
-    db.query('SELECT * FROM customers', (err, results) => {
+    Customer.getAll((err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.json(results);
     });
 };
+
+exports.deleteCustomer = (req, res) => {
+    const { id } = req.params;
+    Customer.deleteCustomer(id, (err, success) => {
+        if (err) return res.status(500).json({ error: err });
+        if (!success) {
+            return res.status(404).json({ message: 'Customer not found' });
+        }
+        res.status(200).json({ message: 'Customer deleted successfully' });
+    });
+};
+

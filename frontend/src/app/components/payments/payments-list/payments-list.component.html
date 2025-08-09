@@ -1,16 +1,16 @@
 <div class="invoice-list">
   <div class="header">
     <h2>Payments List</h2>
-    <button [routerLink]="['/payments/create']">➕ Add</button>
+    <button class="btn-add" [routerLink]="['/payments/create']">➕ Add</button>
   </div>
 
   <table>
     <thead>
       <tr>
-       <th>#</th>
+        <th>#</th>
         <th>Bank Name</th>
         <th>Account Number</th>
-        <!-- <th>Action</th> -->
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -18,25 +18,15 @@
         <td>{{ i + 1 }}</td>
         <td>{{ payment.bank_name }}</td>
         <td>{{ payment.account_number }}</td>
-        <!-- <td>
-          <button (click)="viewPage(invoice)">View</button>
-        </td> -->
+        <td class="action-col">
+          <button class="btn btn-edit" (click)="editPayment(payment)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-delete" (click)="deletePayment(payment)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-
-  <!-- Custom Pagination -->
-  <!-- <div class="pagination">
-    <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>
-
-    <button 
-      *ngFor="let p of [].constructor(totalPages); let index = index"
-      (click)="changePage(index + 1)"
-      [class.active]="page === index + 1">
-      {{ index + 1 }}
-    </button>
-
-    <button (click)="changePage(page + 1)" [disabled]="page === totalPages">Next</button>
-  </div> -->
 </div>
-

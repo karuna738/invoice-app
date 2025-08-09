@@ -8,12 +8,12 @@
 
     <ul class="menu">
         <li *ngFor="let item of menuItems">
-            <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a [routerLink]="item.route" routerLinkActive="active">
                 <i [class]="item.icon"></i>
                 <span *ngIf="!isClosed">{{ item.label }}</span>
             </a>
         </li>
-        <!-- <li (click)="logout()" class="logout-btn">
+        <!-- <li class="logout-btn">
           <a href="javascript:void(0)">
             <i class="fas fa-sign-out-alt"></i>
             <span *ngIf="!isClosed">Logout</span>

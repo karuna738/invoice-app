@@ -22,4 +22,16 @@ export class PaymentsListComponent implements OnInit{
       this.payments = res;
     });
   }
+
+  editPayment(payment: any) {
+  console.log("Edit payment:", payment);
+  // Navigate to edit form or open modal
+}
+
+deletePayment(payment: any) {
+  console.log("Delete payment:", payment);
+  // Add delete confirmation and logic here
+  // this.paymentService.deletePayments(payment.)
+}
+
 }

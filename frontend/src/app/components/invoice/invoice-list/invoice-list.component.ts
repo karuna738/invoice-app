@@ -55,4 +55,11 @@ export class InvoiceListComponent implements OnInit {
           this.getInvoiceData();
     })
   }
+
+  editPage(invoice: any) {
+  console.log('Editing invoice:', invoice);
+  // Navigate to edit page
+  // this.router.navigate(['/invoice-edit', invoice.id]);
+}
+
 }

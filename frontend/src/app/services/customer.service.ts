@@ -30,6 +30,10 @@ export class CustomerService {
   getCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(this.apiUrl);
   }
+
+  deleteCustomers(id:any): Observable<any> {
+     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
 
 // Create Customer
