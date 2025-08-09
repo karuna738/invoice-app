@@ -22,4 +22,15 @@ export class TermsListComponent {
       this.terms = res;
     });
   }
+
+  editTerm(item: any) {
+  console.log("Edit term:", item);
+  // Navigate to edit form or modal
+}
+
+deleteTerm(item: any) {
+  console.log("Delete term:", item);
+  // Add delete confirmation & API call here
+}
+
 }

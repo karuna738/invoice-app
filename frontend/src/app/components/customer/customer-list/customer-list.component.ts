@@ -26,4 +26,15 @@ export class CustomerListComponent implements OnInit {
     this.rout.navigate(['/customers/create']);
   }
   viewPage(dd:any){}
+
+  editCustomer(customer: any) {
+  console.log("Edit customer:", customer);
+  // Navigate to edit form or open modal
+}
+
+deleteCustomer(customer: any) {
+  console.log("Delete customer:", customer);
+  // Add delete logic here
+}
+
 }
