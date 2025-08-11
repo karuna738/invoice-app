@@ -1,21 +1,30 @@
-const db = require('../config/db');
+const Payment = require('../models/paymentModel');
 
 exports.addPaymentMethod = (req, res) => {
-    const { invoice_id, bank_name, account_number } = req.body;
-
-    db.query(
-        'INSERT INTO payment_methods (invoice_id, bank_name, account_number) VALUES (?, ?, ?)',
-        [invoice_id, bank_name, account_number],
-        (err, result) => {
-            if (err) return res.status(500).json({ error: err });
-            res.status(201).json({ message: 'Payment method added', paymentId: result.insertId });
-        }
-    );
+    Payment.add(req.body, (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+        res.status(201).json({
+            message: 'Payment method added',
+            paymentId: result.insertId
+        });
+    });
 };
 
 exports.getPaymentsByInvoice = (req, res) => {
-    db.query('SELECT * FROM payment_methods', (err, results) => {
+    const { invoice_id } = req.params; // expecting /payments/:invoice_id
+    Payment.getByInvoice(invoice_id, (err, results) => {
         if (err) return res.status(500).json({ error: err });
         res.json(results);
+    });
+};
+
+exports.deletePayment = (req, res) => {
+    const { id } = req.params;
+    Payment.delete(id, (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+        res.status(200).json({
+            message: 'Payment deleted successfully',
+            deleted: result.affectedRows > 0
+        });
     });
 };

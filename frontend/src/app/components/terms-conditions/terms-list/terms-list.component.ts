@@ -14,10 +14,10 @@ export class TermsListComponent {
   constructor(private termsService: TermsService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-      this.getPayments();
+      this.getTerm();
   }
 
-  getPayments() {
+  getTerm() {
     this.termsService.getTermsByInvoice().subscribe((res) => {
       this.terms = res;
     });
@@ -29,8 +29,11 @@ export class TermsListComponent {
 }
 
 deleteTerm(item: any) {
-  console.log("Delete term:", item);
-  // Add delete confirmation & API call here
+  this.termsService.deleteTerms(item.term_id).subscribe(res => {
+    if(res){
+      this.getTerm();
+    }
+  })
 }
 
 }

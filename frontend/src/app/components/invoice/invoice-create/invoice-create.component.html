@@ -9,7 +9,7 @@
         <select name="" id="dropdown" formControlName="bill_from_id">
           <option value="" disabled selected>Select bill from</option>
           <option *ngFor="let item of customerData" [ngValue]="item.customer_id">
-            {{item.company_name}}
+            {{item.name}}
           </option>
         </select>
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_from_id')?.invalid && submited">This field is required</p>
@@ -20,7 +20,7 @@
         <select name="" id="dropdown" formControlName="bill_to_id">
           <option value="" disabled selected>Select bill to</option>
           <option *ngFor="let item of customerData" [ngValue]="item.customer_id">
-            {{item.company_name}}
+            {{item.name}}
           </option>
         </select>
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">This field is required</p>

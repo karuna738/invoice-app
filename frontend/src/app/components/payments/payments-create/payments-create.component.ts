@@ -34,13 +34,14 @@ export class PaymentsCreateComponent implements OnInit{
     if (this.paymentForm.invalid) return;
 
     const paymentData = {
-      invoice_id: this.invoiceId,
+      // invoice_id: this.invoiceId,
       ...this.paymentForm.value
     };
 
-    this.paymentService.addPaymentMethod(paymentData).subscribe(() => {
-      alert('Payment method added successfully!');
-      this.router.navigate(['/payments'], { queryParams: { invoice_id: this.invoiceId } });
+    this.paymentService.addPaymentMethod(paymentData).subscribe(res => {
+      if(res){
+      this.router.navigate(['/payments']);
+      }
     });
   }
 }

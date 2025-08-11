@@ -14,6 +14,8 @@ export class TermsCreateComponent {
 
   constructor(
     private fb: FormBuilder,
+    private termsService: TermsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -23,17 +25,15 @@ export class TermsCreateComponent {
   }
 
   onSubmit() {
-    // this.submitted = true;
-    // if (this.termsForm.invalid) return;
+    this.submitted = true;
+    if (this.termsForm.invalid) return;
 
-    // const paymentData = {
-    //   invoice_id: this.invoiceId,
-    //   ...this.termsForm.value
-    // };
+    const paymentData = {
+      ...this.termsForm.value
+    };
 
-    // this.paymentService.addPaymentMethod(paymentData).subscribe(() => {
-    //   alert('Payment method added successfully!');
-    //   this.router.navigate(['/payments'], { queryParams: { invoice_id: this.invoiceId } });
-    // });
+    this.termsService.addTerms(paymentData).subscribe(() => {
+      this.router.navigate(['/terms&conditions']);
+    });
   }
 }

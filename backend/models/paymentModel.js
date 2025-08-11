@@ -1,15 +1,27 @@
-const Payment = require('../models/paymentModel');
+const db = require('../config/db');
 
-exports.addPaymentMethod = (req, res) => {
-    Payment.add(req.body, (err, result) => {
-        if (err) return res.status(500).json({ error: err });
-        res.status(201).json({ message: 'Payment method added', paymentId: result.insertId });
-    });
+exports.add = (data, callback) => {
+    const { bank_name, account_number } = data;
+
+    db.query(
+        'INSERT INTO payment_methods (bank_name, account_number) VALUES (?, ?)',
+        [bank_name, account_number],
+        callback
+    );
 };
 
-exports.getPaymentsByInvoice = (req, res) => {
-    Payment.getByInvoice(req.params.invoice_id, (err, results) => {
-        if (err) return res.status(500).json({ error: err });
-        res.json(results);
-    });
+exports.getByInvoice = (invoice_id, callback) => {
+    db.query(
+        'SELECT * FROM payment_methods',
+        [invoice_id],
+        callback
+    );
+};
+
+exports.delete = (id, callback) => {
+    db.query(
+        'DELETE FROM payment_methods WHERE payment_id = ?',
+        [id],
+        callback
+    );
 };
