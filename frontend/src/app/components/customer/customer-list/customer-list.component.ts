@@ -29,7 +29,7 @@ export class CustomerListComponent implements OnInit {
 
   editCustomer(customer: any) {
   console.log("Edit customer:", customer);
-  // Navigate to edit form or open modal
+   this.rout.navigate(['/customers/create'],{queryParams: { id: customer.customer_id }});
 }
 
 deleteCustomer(customer: any) {

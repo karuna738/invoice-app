@@ -57,9 +57,7 @@ export class InvoiceListComponent implements OnInit {
   }
 
   editPage(invoice: any) {
-  console.log('Editing invoice:', invoice);
-  // Navigate to edit page
-  // this.router.navigate(['/invoice-edit', invoice.id]);
-}
+  this.rout.navigate(['/invoices/create'],{queryParams: { id: invoice.invoice_id }});
+  }
 
 }

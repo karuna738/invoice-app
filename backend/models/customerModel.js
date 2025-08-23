@@ -19,7 +19,23 @@ const Customer = {
             if (err) return callback(err);
             callback(null, result.affectedRows > 0);
         });
-    }
+    },
+
+    update: (id, data, callback) => {
+    const { name, company_name, address, city, state, zip_code, email, phone, type } = data;
+    db.query(
+        `UPDATE customers 
+         SET name = ?, company_name = ?, address = ?, city = ?, state = ?, 
+             zip_code = ?, email = ?, phone = ?, type = ?
+         WHERE customer_id = ?`,
+        [name, company_name, address, city, state, zip_code, email, phone, type, id],
+        (err, result) => {
+            if (err) return callback(err);
+            callback(null, result.affectedRows > 0);
+        }
+    );
+},
+
 
 };
 

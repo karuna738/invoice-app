@@ -25,3 +25,14 @@ exports.delete = (id, callback) => {
         callback
     );
 };
+
+
+exports.update = (id, data, callback) => {
+    const { bank_name, account_number } = data;
+    db.query(
+        'UPDATE payment_methods SET bank_name = ?, account_number = ? WHERE payment_id = ?',
+        [bank_name, account_number, id],
+        callback
+    );
+};
+

@@ -23,3 +23,14 @@ exports.delete = (id, callback) => {
         callback
     );
 };
+
+
+exports.update = (id, data, callback) => {
+    const { terms } = data;
+    db.query(
+        'UPDATE terms_conditions SET terms = ? WHERE term_id = ?',
+        [terms, id],
+        callback
+    );
+};
+

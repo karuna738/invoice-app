@@ -26,6 +26,10 @@ export class TermsService {
   deleteTerms(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+  updateTerms(id: number, terms: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, terms);
+  }
+
 }
 
 

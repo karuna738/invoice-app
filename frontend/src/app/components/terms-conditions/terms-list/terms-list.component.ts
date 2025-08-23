@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TermsService } from 'src/app/services/terms.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class TermsListComponent {
   invoiceId!: number;
   terms: any[] = [];
 
-  constructor(private termsService: TermsService, private route: ActivatedRoute) {}
+  constructor(private termsService: TermsService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
       this.getTerm();
@@ -25,7 +25,7 @@ export class TermsListComponent {
 
   editTerm(item: any) {
   console.log("Edit term:", item);
-  // Navigate to edit form or modal
+    this.router.navigate(['/terms&conditions/create'], { queryParams: {'id': item.term_id}})
 }
 
 deleteTerm(item: any) {

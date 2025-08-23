@@ -28,3 +28,20 @@ exports.deletePayment = (req, res) => {
         });
     });
 };
+
+exports.updatePayment = (req, res) => {
+    const { id } = req.params;
+    Payment.update(id, req.body, (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Payment method not found' });
+        }
+
+        res.status(200).json({
+            message: 'Payment method updated successfully',
+            updated: true
+        });
+    });
+};
+

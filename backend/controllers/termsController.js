@@ -28,3 +28,20 @@ exports.deleteTerms = (req, res) => {
         });
     });
 };
+
+exports.updateTerms = (req, res) => {
+    const { id } = req.params;
+    Terms.update(id, req.body, (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+        
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Term not found' });
+        }
+
+        res.status(200).json({
+            message: 'Term updated successfully',
+            updated: true
+        });
+    });
+};
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class PaymentsListComponent implements OnInit{
   invoiceId!: number;
   payments: any[] = [];
 
-  constructor(private paymentService: PaymentService, private route: ActivatedRoute) {}
+  constructor(private paymentService: PaymentService, private rout: ActivatedRoute, private route: Router) {}
 
   ngOnInit(): void {
       this.getPayments();
@@ -25,7 +25,7 @@ export class PaymentsListComponent implements OnInit{
 
   editPayment(payment: any) {
   console.log("Edit payment:", payment);
-  // Navigate to edit form or open modal
+    this.route.navigate(['/payments/create'],{ queryParams: {'id': payment.payment_id}});
 }
 
 deletePayment(payment: any) {

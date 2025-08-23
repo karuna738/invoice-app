@@ -36,4 +36,9 @@ export class InvoiceService {
   deleteInvoiceItem(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updateInvoice(id: number, invoiceData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, invoiceData);
+  }
+
 }
