@@ -57,7 +57,7 @@ export class InvoiceCreateComponent implements OnInit {
         tax_rate: [0],
         total: [0],
         payment_id: ['', Validators.required],
-        term_id: [''],
+        term_id: ['',  Validators.required],
       }),
       items: this.fb.array([this.itemformInit()]),
     });

@@ -5,6 +5,7 @@ import { TermsConditionsRoutingModule } from './terms-conditions-routing.module'
 import { TermsListComponent } from './terms-list/terms-list.component';
 import { TermsCreateComponent } from './terms-create/terms-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SheredModule } from 'src/app/shered/shered.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     TermsConditionsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SheredModule
   ]
 })
 export class TermsConditionsModule { }

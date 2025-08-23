@@ -37,17 +37,10 @@
     </tbody>
   </table>
 
-  <!-- Custom Pagination -->
-  <div class="pagination">
-    <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>
+  <!-- Common Pagination -->
+  <app-pagination [totalItems]="invoices.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"
+    [currentPage]="page" (pageChange)="onPageChanged($event)" (pageSizeChange)="onPageSizeChanged($event)">
+  </app-pagination>
 
-    <button 
-      *ngFor="let p of [].constructor(totalPages); let index = index"
-      (click)="changePage(index + 1)"
-      [class.active]="page === index + 1">
-      {{ index + 1 }}
-    </button>
 
-    <button (click)="changePage(page + 1)" [disabled]="page === totalPages">Next</button>
-  </div>
 </div>

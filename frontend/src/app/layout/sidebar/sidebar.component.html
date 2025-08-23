@@ -1,6 +1,7 @@
 <div class="sidebar" [class.closed]="isClosed">
     <div class="logo">
         <h3 *ngIf="!isClosed">My Code</h3>
+      <!-- <img src="../../../../assets/logo.png" alt="Logo"> -->
     </div>
     <div class="toggle-btn" (click)="toggleSidebar()">
         <i class="fas" [class.fa-bars]="isClosed" [class.fa-times]="!isClosed"></i>

@@ -34,9 +34,11 @@
     outline: none;
     transition: border-color 0.3s;
 
-    &:focus {
-      border-color: #007bff;
-    }
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+      }
 
     &::placeholder {
       color: #999;
@@ -53,34 +55,46 @@
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 10px;
 }
 
-.add-btn {
+.save-btn,
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  // transition: background 0.3s ease;
+  font-size: 14px;
+  transition: background 0.25s ease, transform 0.15s ease;
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.save-btn {
   background: #007bff;
   color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
 
   &:hover {
     background: #0056b3;
+    transform: translateY(-1px);
   }
 }
 
 .cancel-btn {
-  background: #6c757d;
+  background: #dc3545;
   color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
 
   &:hover {
-    background: #5a6268;
+    background: #b02a37;
+    transform: translateY(-1px);
   }
 }
+

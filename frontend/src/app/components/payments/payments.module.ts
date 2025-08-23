@@ -5,6 +5,7 @@ import { PaymentsRoutingModule } from './payments-routing.module';
 import { PaymentsListComponent } from './payments-list/payments-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentsCreateComponent } from './payments-create/payments-create.component';
+import { SheredModule } from 'src/app/shered/shered.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PaymentsCreateComponent } from './payments-create/payments-create.compo
     CommonModule,
     PaymentsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SheredModule
   ]
 })
 export class PaymentsModule { }
