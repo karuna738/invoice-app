@@ -57,7 +57,7 @@
       <!-- Phone -->
       <div class="input-container">
         <label>Phone</label>
-        <input type="text" placeholder="Enter phone number" formControlName="phone">
+        <input type="text" appOnlyNumbers placeholder="Enter phone number" formControlName="phone">
         <div class="error-msg" *ngIf="submitted && customerForm.get('phone')?.errors">
           Phone number is required.
         </div>

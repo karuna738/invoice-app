@@ -5,6 +5,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerCreateComponent } from './customer-create/customer-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SheredModule } from 'src/app/shered/shered.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     CustomerRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SheredModule
   ]
 })
 export class CustomerModule { }

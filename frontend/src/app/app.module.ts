@@ -21,7 +21,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
     BrowserAnimationsModule,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

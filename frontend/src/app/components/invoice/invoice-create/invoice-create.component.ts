@@ -15,10 +15,10 @@ export class InvoiceCreateComponent implements OnInit {
   invoiceForm!: FormGroup;
   customerData: any = [];
   itemsValidation: boolean[] = [];
-  submited:boolean = false;
-  paymentMethods:any = [];
-  termsOptions:any = [];
-  editId:any;
+  submited: boolean = false;
+  paymentMethods: any = [];
+  termsOptions: any = [];
+  editId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -37,33 +37,32 @@ export class InvoiceCreateComponent implements OnInit {
     this.getTerms();
   }
 
-  getQuaryParams(){
-    this.actroute.queryParams.subscribe(res => {
-      if(res){
-      this.editId = res['id'];
-      this.getEditValues(this.editId);
+  getQuaryParams() {
+    this.actroute.queryParams.subscribe((res) => {
+      if (res) {
+        this.editId = res['id'];
+        this.getEditValues(this.editId);
       }
-    })
+    });
   }
 
-formInit() {
-  this.invoiceForm = this.fb.group({
-    invoice: this.fb.group({
-      bill_from_id: ['', Validators.required],
-      bill_to_id: ['', Validators.required],
-      invoice_date: ['', Validators.required],
-      due_date: ['', Validators.required],
-      subtotal: [0],
-      tax_rate: [0],
-      total: [0],
-      payment_id: ['', Validators.required],
-      term_id: ['']
-    }),
-    items: this.fb.array([this.itemformInit()]),
-  });
-  this.itemsValidation = [false];
-}
-
+  formInit() {
+    this.invoiceForm = this.fb.group({
+      invoice: this.fb.group({
+        bill_from_id: ['', Validators.required],
+        bill_to_id: ['', Validators.required],
+        invoice_date: ['', Validators.required],
+        due_date: ['', Validators.required],
+        subtotal: [0],
+        tax_rate: [0],
+        total: [0],
+        payment_id: ['', Validators.required],
+        term_id: [''],
+      }),
+      items: this.fb.array([this.itemformInit()]),
+    });
+    this.itemsValidation = [false];
+  }
 
   itemformInit() {
     return this.fb.group({
@@ -78,38 +77,36 @@ formInit() {
     return this.invoiceForm.get('items') as FormArray;
   }
 
-getEditValues(id: any) {
-  this.invoiceService.getInvoiceItems(id).subscribe((res: any) => {
-    console.log(res);
-    
-this.invoiceForm.get('invoice')?.patchValue({
-  bill_from_id: res.bill_from_id,
-  bill_to_id: res.bill_to_id,
-  invoice_date: res.invoice_date ? res.invoice_date.split('T')[0] : '',
-  due_date: res.due_date ? res.due_date.split('T')[0] : '',
-  subtotal: res.subtotal,
-  tax_rate: res.tax_rate,
-  total: res.total,
-  payment_id: res.payment_id,
-  term_id: res.term_id
-});
+  getEditValues(id: any) {
+    this.invoiceService.getInvoiceItems(id).subscribe((res: any) => {
+      this.invoiceForm.get('invoice')?.patchValue({
+        bill_from_id: res.bill_from_id,
+        bill_to_id: res.bill_to_id,
+        invoice_date: res.invoice_date ? res.invoice_date.split('T')[0] : '',
+        due_date: res.due_date ? res.due_date.split('T')[0] : '',
+        subtotal: res.subtotal,
+        tax_rate: res.tax_rate,
+        total: res.total,
+        payment_id: res.payment_id,
+        term_id: res.term_id,
+      });
 
+      const itemsFormArray = this.invoiceForm.get('items') as FormArray;
+      itemsFormArray.clear();
 
-    const itemsFormArray = this.invoiceForm.get('items') as FormArray;
-    itemsFormArray.clear();
-
-    res.invoice_items.forEach((item: any) => {
-      itemsFormArray.push(this.fb.group({
-        description: [item.description, Validators.required],
-        price: [item.price, Validators.required],
-        quantity: [item.quantity, Validators.required],
-        total: [item.item_total],
-      }));
+      res.invoice_items.forEach((item: any) => {
+        itemsFormArray.push(
+          this.fb.group({
+            description: [item.description, Validators.required],
+            price: [item.price, Validators.required],
+            quantity: [item.quantity, Validators.required],
+            total: [item.item_total],
+          })
+        );
+      });
+      this.itemsValidation = res.invoice_items.map(() => false);
     });
-    this.itemsValidation = res.invoice_items.map(() => false);
-  });
-}
-
+  }
 
   addItem() {
     this.getitemsForms().push(this.itemformInit());
@@ -122,16 +119,16 @@ this.invoiceForm.get('invoice')?.patchValue({
     });
   }
 
-  getPayments(){
-    this.paymentService.getPaymentsByInvoice().subscribe(res => {
+  getPayments() {
+    this.paymentService.getPaymentsByInvoice().subscribe((res) => {
       this.paymentMethods = res;
-    })
+    });
   }
 
-  getTerms(){
-    this.termService.getTermsByInvoice().subscribe(res => {
+  getTerms() {
+    this.termService.getTermsByInvoice().subscribe((res) => {
       this.termsOptions = res;
-    })
+    });
   }
 
   removeItem(index: number) {
@@ -155,33 +152,28 @@ this.invoiceForm.get('invoice')?.patchValue({
     this.invoiceForm.get('invoice.total')?.setValue(total);
   }
 
-onSubmit() {
-  this.submited = true;
-  this.itemsValidation = this.getitemsForms().controls.map(() => true);
+  onSubmit() {
+    this.submited = true;
+    this.itemsValidation = this.getitemsForms().controls.map(() => true);
 
-  if (this.invoiceForm.invalid) return;
+    if (this.invoiceForm.invalid) return;
 
-  const invoiceData = {
-    ...this.invoiceForm.get('invoice')?.value,
-    items: this.invoiceForm.get('items')?.value
-  };
+    const invoiceData = {
+      ...this.invoiceForm.get('invoice')?.value,
+      items: this.invoiceForm.get('items')?.value,
+    };
 
-  const request$ = this.editId
-    ? this.invoiceService.updateInvoice(this.editId, invoiceData)
-    : this.invoiceService.createInvoice(invoiceData);
+    const request$ = this.editId
+      ? this.invoiceService.updateInvoice(this.editId, invoiceData)
+      : this.invoiceService.createInvoice(invoiceData);
 
-  request$.subscribe({
-    next: (res) => {
-      console.log('Invoice saved successfully:', res);
-      this.route.navigate(['/invoices']);
-    },
-    error: (err) => {
-      console.error('Save failed:', err);
-    }
-  });
-}
-
-
-
-
+    request$.subscribe({
+      next: (res) => {
+        this.route.navigate(['/invoices']);
+      },
+      error: (err) => {
+        console.error('Save failed:', err);
+      },
+    });
+  }
 }

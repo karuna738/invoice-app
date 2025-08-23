@@ -24,12 +24,10 @@ export class PaymentsListComponent implements OnInit{
   }
 
   editPayment(payment: any) {
-  console.log("Edit payment:", payment);
     this.route.navigate(['/payments/create'],{ queryParams: {'id': payment.payment_id}});
 }
 
 deletePayment(payment: any) {
-  console.log("Delete payment:", payment);
   this.paymentService.deletePayments(payment.payment_id).subscribe(res => {
     if(res){
       this.getPayments();

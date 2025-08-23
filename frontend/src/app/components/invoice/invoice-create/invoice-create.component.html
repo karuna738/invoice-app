@@ -5,42 +5,46 @@
     <div formGroupName="invoice" class="invoice-info">
 
       <div class="input-container">
-        <label>bill_from_id</label>
+        <label>Bill from</label>
         <select name="" id="dropdown" formControlName="bill_from_id">
           <option value="" disabled selected>Select bill from</option>
           <option *ngFor="let item of customerData" [ngValue]="item.customer_id">
             {{item.name}}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_from_id')?.invalid && submited">This field is required</p>
+        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_from_id')?.invalid && submited">This field is required
+        </p>
       </div>
 
       <div class="input-container">
-        <label>bill_to_id</label>
+        <label>Bill to</label>
         <select name="" id="dropdown" formControlName="bill_to_id">
           <option value="" disabled selected>Select bill to</option>
           <option *ngFor="let item of customerData" [ngValue]="item.customer_id">
             {{item.name}}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">This field is required</p>
+        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">This field is required
+        </p>
       </div>
 
       <div class="input-container">
-        <label>invoice_date</label>
+        <label>Invoice date</label>
         <input type="date" formControlName="invoice_date" placeholder="Select invoice date" />
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.invoice_date')?.invalid && submited">This field is required</p>
+        <p class="error-msg" *ngIf="invoiceForm.get('invoice.invoice_date')?.invalid && submited">This field is required
+        </p>
       </div>
 
       <div class="input-container">
-        <label>due_date</label>
+        <label>Due date</label>
         <input type="date" formControlName="due_date" placeholder="Select due date" />
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.due_date')?.invalid && submited">This field is required</p>
       </div>
 
       <div class="input-container">
-        <label>tax_rate (%)</label>
-        <input type="number" formControlName="tax_rate" placeholder="Enter tax rate" (input)="calculateTotals()" />
+        <label>Tax rate (%)</label>
+        <input type="text" appDecimalOnly formControlName="tax_rate" placeholder="Enter tax rate"
+          (input)="calculateTotals()" />
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.tax_rate')?.invalid && submited">This field is required</p>
       </div>
     </div>
@@ -60,8 +64,10 @@
       <tbody formArrayName="items">
         <tr *ngFor="let item of getitemsForms().controls; let i = index" [formGroupName]="i">
           <td><input type="text" formControlName="description" placeholder="Item description" /></td>
-          <td><input type="number" formControlName="price" placeholder="Price" (input)="calculateTotals()" /></td>
-          <td><input type="number" formControlName="quantity" placeholder="Qty" (input)="calculateTotals()" /></td>
+          <td><input type="text" appOnlyNumbers formControlName="price" placeholder="Price"
+              (input)="calculateTotals()" /></td>
+          <td><input type="text" appOnlyNumbers formControlName="quantity" placeholder="Qty"
+              (input)="calculateTotals()" /></td>
           <td>{{ item.get('total')?.value | currency }}</td>
           <td>
             <button type="button" [disabled]="getitemsForms().length == 1" (click)="removeItem(i)">Remove</button>

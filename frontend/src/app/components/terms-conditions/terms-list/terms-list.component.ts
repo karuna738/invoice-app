@@ -24,7 +24,6 @@ export class TermsListComponent {
   }
 
   editTerm(item: any) {
-  console.log("Edit term:", item);
     this.router.navigate(['/terms&conditions/create'], { queryParams: {'id': item.term_id}})
 }
 

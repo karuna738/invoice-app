@@ -28,15 +28,11 @@ export class CustomerListComponent implements OnInit {
   viewPage(dd:any){}
 
   editCustomer(customer: any) {
-  console.log("Edit customer:", customer);
    this.rout.navigate(['/customers/create'],{queryParams: { id: customer.customer_id }});
 }
 
 deleteCustomer(customer: any) {
-  console.log("Delete customer:", customer);
   this.customerService.deleteCustomers(customer.customer_id).subscribe(res => {
-    console.log('dddd');
-    
   })
 }
 
