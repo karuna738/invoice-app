@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from 'src/app/services/customer.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -13,7 +14,8 @@ import { TermsService } from 'src/app/services/terms.service';
 })
 export class InvoiceCreateComponent implements OnInit {
   invoiceForm!: FormGroup;
-  customerData: any = [];
+  customerDataFrom: any = [];
+  customerDataTo: any = [];
   itemsValidation: boolean[] = [];
   submited: boolean = false;
   paymentMethods: any = [];
@@ -27,7 +29,8 @@ export class InvoiceCreateComponent implements OnInit {
     private paymentService: PaymentService,
     private termService: TermsService,
     private route: Router,
-    private actroute: ActivatedRoute
+    private actroute: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
   ngOnInit() {
     this.getQuaryParams();
@@ -67,8 +70,8 @@ export class InvoiceCreateComponent implements OnInit {
   itemformInit() {
     return this.fb.group({
       description: ['', Validators.required],
-      price: [0, Validators.required],
-      quantity: [1, Validators.required],
+      price: ['', Validators.required],
+      quantity: ['', Validators.required],
       total: [0],
     });
   }
@@ -115,7 +118,8 @@ export class InvoiceCreateComponent implements OnInit {
 
   getCustomer() {
     this.customerService.getCustomers().subscribe((res) => {
-      this.customerData = res;
+      this.customerDataFrom = res.filter(res => res.type === 'BILL_FROM');
+      this.customerDataTo = res.filter(res => res.type === 'BILL_TO');
     });
   }
 
@@ -136,21 +140,43 @@ export class InvoiceCreateComponent implements OnInit {
     this.calculateTotals();
   }
 
-  calculateTotals() {
-    let subtotal = 0;
-    this.getitemsForms().controls.forEach((item) => {
-      const price = item.get('price')?.value || 0;
-      const quantity = item.get('quantity')?.value || 0;
-      const total = price * quantity;
-      item.get('total')?.setValue(total, { emitEvent: false });
-      subtotal += total;
-    });
+  // calculateTotals() {
+  //   let subtotal = 0;
+  //   this.getitemsForms().controls.forEach((item) => {
+  //     const price = item.get('price')?.value || 0;
+  //     const quantity = item.get('quantity')?.value || 0;
+  //     const total = price * quantity;
+  //     item.get('total')?.setValue(total, { emitEvent: false });
+  //     subtotal += total;
+  //   });
 
-    this.invoiceForm.get('invoice.subtotal')?.setValue(subtotal);
-    const tax = this.invoiceForm.get('invoice.tax')?.value || 0;
-    const total = subtotal + (subtotal * tax) / 100;
-    this.invoiceForm.get('invoice.total')?.setValue(total);
-  }
+  //   this.invoiceForm.get('invoice.subtotal')?.setValue(subtotal);
+  //   const tax = this.invoiceForm.get('invoice.tax')?.value || 0;
+  //   const total = subtotal + (subtotal * tax) / 100;
+  //   this.invoiceForm.get('invoice.total')?.setValue(total);
+  // }
+
+  calculateTotals() {
+  let subtotal = 0;
+
+  this.getitemsForms().controls.forEach((item) => {
+    const price = +item.get('price')?.value || 0;
+    const quantity = +item.get('quantity')?.value || 0;
+    const total = price * quantity;
+
+    item.get('total')?.setValue(total, { emitEvent: false });
+    subtotal += total;
+  });
+
+  this.invoiceForm.get('invoice.subtotal')?.setValue(subtotal);
+
+  const taxRate = +this.invoiceForm.get('invoice.tax_rate')?.value || 0;
+  const taxAmount = (subtotal * taxRate) / 100;
+  const total = subtotal + taxAmount;
+
+  this.invoiceForm.get('invoice.total')?.setValue(total);
+}
+
 
   onSubmit() {
     this.submited = true;
@@ -169,9 +195,11 @@ export class InvoiceCreateComponent implements OnInit {
 
     request$.subscribe({
       next: (res) => {
+        this.toastr.success(`Data ${this.editId ? 'updated' : 'created'}  successfully!`, 'Success');
         this.route.navigate(['/invoices']);
       },
       error: (err) => {
+        this.toastr.error('Something went wrong!', 'Error');
         console.error('Save failed:', err);
       },
     });

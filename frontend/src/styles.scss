@@ -112,3 +112,84 @@ ul {
   }
 }
 
+
+
+
+
+/* Base Toast */
+.toast {
+  border-radius: 14px !important;
+  padding: 16px 20px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  border-left: 6px solid transparent;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  animation: slideIn 0.5s ease forwards;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* When closing */
+.toast.ng-leave {
+  animation: slideOut 0.4s ease forwards !important;
+}
+
+/* Success */
+.toast-success {
+  background: #e8f5e9 !important;
+  color: #2e7d32 !important;
+  border-left-color: #4caf50 !important;
+}
+
+/* Error */
+.toast-error {
+  background: #ffebee !important;
+  color: #c62828 !important;
+  border-left-color: #e53935 !important;
+}
+
+/* Warning */
+.toast-warning {
+  background: #fff8e1 !important;
+  color: #f57c00 !important;
+  border-left-color: #ffa000 !important;
+}
+
+/* Info */
+.toast-info {
+  background: #e3f2fd !important;
+  color: #1565c0 !important;
+  border-left-color: #2196f3 !important;
+}
+
+/* Progress bar */
+#toast-container > div .toast-progress {
+  background-color: currentColor !important;
+  height: 3px !important;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%) scale(0.9);
+    opacity: 0;
+  }
+}

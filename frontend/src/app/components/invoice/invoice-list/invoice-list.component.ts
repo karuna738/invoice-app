@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class InvoiceListComponent implements OnInit {
   paginatedInvoices: any[] = [];
   page = 1;
   itemsPerPage = 5;
-  constructor(private invoiceService: InvoiceService, private rout: Router) {}
+  constructor(private invoiceService: InvoiceService, private rout: Router, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.getInvoiceData();
@@ -55,6 +56,7 @@ export class InvoiceListComponent implements OnInit {
   deleteInvoice(Item: any) {
     this.invoiceService.deleteInvoiceItem(Item.invoice_id).subscribe((res) => {
       this.getInvoiceData();
+      this.toastr.success('Data deleted successfully!', 'Success');
     });
   }
 

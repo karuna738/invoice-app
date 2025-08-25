@@ -8,13 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidebarComponent,
-    MainLayoutComponent
-  ],
+  declarations: [AppComponent, SidebarComponent, MainLayoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,9 +19,15 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
+    ToastrModule.forRoot({
+      timeOut: 4000, // duration
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true,
+      closeButton: true,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

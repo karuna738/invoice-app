@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -11,14 +12,15 @@ import { CustomerService } from 'src/app/services/customer.service';
 export class CustomerCreateComponent implements OnInit {
  customerForm!: FormGroup;
   submitted = false;
-  customerTypes = ['BILL_TO', 'BILL_FROM'];
+  customerTypes = ['BILL_FROM', 'BILL_TO'];
   customerId: any;
 
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
     this.route.queryParams.subscribe(res =>{
       if(res){
@@ -58,14 +60,14 @@ export class CustomerCreateComponent implements OnInit {
       // update
       this.customerService.updateCustomer(this.customerId, this.customerForm.value)
         .subscribe(() => {
-          alert('Customer updated successfully');
+          this.toastr.success(`'Customer updated successfully'!`, 'Success');
           this.router.navigate(['/customers']);
         });
     } else {
       // create
       this.customerService.createCustomer(this.customerForm.value)
         .subscribe(() => {
-          alert('Customer created successfully');
+          this.toastr.success(`'Customer created successfully'!`, 'Success');
           this.router.navigate(['/customers']);
         });
     }

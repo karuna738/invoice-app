@@ -68,7 +68,7 @@
         <label>Type</label>
         <select formControlName="type">
           <option value="">Select type</option>
-          <option *ngFor="let type of customerTypes" [value]="type">{{ type }}</option>
+          <option *ngFor="let type of customerTypes" [value]="type">{{ type == 'BILL_FROM' ? "Bill from" : "Bill to" }}</option>
         </select>
         <div class="error-msg" *ngIf="submitted && customerForm.get('type')?.errors">
           Customer type is required.

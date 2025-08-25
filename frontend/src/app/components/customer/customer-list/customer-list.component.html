@@ -23,7 +23,7 @@
         <td>{{ customer.company_name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.phone }}</td>
-        <td>{{ customer.type }}</td>
+        <td>{{ customer.type == 'BILL_FROM' ? "Bill from" : "Bill to" }}</td>
         <td class="action-col">
           <button class="btn btn-edit" (click)="editCustomer(customer)">
             <i class="fas fa-edit"></i>

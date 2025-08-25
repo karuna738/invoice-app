@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class CustomerListComponent implements OnInit {
   page = 1;
   itemsPerPage = 5;
 
-  constructor(private customerService: CustomerService, private rout: Router) {}
+  constructor(private customerService: CustomerService, private rout: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getCustomers();
@@ -57,6 +58,8 @@ export class CustomerListComponent implements OnInit {
   deleteCustomer(customer: any) {
     this.customerService
       .deleteCustomers(customer.customer_id)
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        this.toastr.success('Data deleted successfully!', 'Success');
+      });
   }
 }
