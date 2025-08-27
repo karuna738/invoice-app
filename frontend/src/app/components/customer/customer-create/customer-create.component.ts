@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -8,17 +9,28 @@ import { CustomerService } from 'src/app/services/customer.service';
   templateUrl: './customer-create.component.html',
   styleUrls: ['./customer-create.component.scss']
 })
-export class CustomerCreateComponent {
+export class CustomerCreateComponent implements OnInit {
  customerForm!: FormGroup;
   submitted = false;
-  customerTypes = ['BILL_TO', 'BILL_FROM'];
+  customerTypes = ['BILL_FROM', 'BILL_TO'];
+  customerId: any;
 
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {
-    this.customerForm = this.fb.group({
+    this.route.queryParams.subscribe(res =>{
+      if(res){
+        this.customerId = +res['id'];
+        this.loadCustomer();
+      }
+    })
+  }
+  ngOnInit(): void {
+  this.customerForm = this.fb.group({
       name: ['', Validators.required],
       company_name: [''],
       address: [''],
@@ -31,20 +43,33 @@ export class CustomerCreateComponent {
     });
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.customerForm.invalid) {
-      return;
-    }
-
-    this.customerService.createCustomer(this.customerForm.value).subscribe({
-      next: (res) => {
-        console.log('Customer created:', res);
-        alert('Customer created successfully');
-        this.router.navigate(['/customers']);
-      },
-      error: (err) => console.error(err)
+  loadCustomer(): void {
+    this.customerService.getCustomers().subscribe(customers => {
+      const customer = customers.find((c: any) => c.customer_id === this.customerId);
+      if (customer) {
+        this.customerForm.patchValue(customer);
+      }
     });
+  }
+
+  onSubmit(): void {
+      this.submitted = true;
+    if (this.customerForm.invalid) return;
+
+    if (this.customerId) {
+      // update
+      this.customerService.updateCustomer(this.customerId, this.customerForm.value)
+        .subscribe(() => {
+          this.toastr.success(`'Customer updated successfully'!`, 'Success');
+          this.router.navigate(['/customers']);
+        });
+    } else {
+      // create
+      this.customerService.createCustomer(this.customerForm.value)
+        .subscribe(() => {
+          this.toastr.success(`'Customer created successfully'!`, 'Success');
+          this.router.navigate(['/customers']);
+        });
+    }
   }
 }

@@ -1,37 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-payments-list',
   templateUrl: './payments-list.component.html',
-  styleUrls: ['./payments-list.component.scss']
+  styleUrls: ['./payments-list.component.scss'],
 })
-export class PaymentsListComponent implements OnInit{
-  invoiceId!: number;
+export class PaymentsListComponent implements OnInit {
   payments: any[] = [];
+  paginatedPayments: any[] = [];
+  page = 1;
+  itemsPerPage = 5;
 
-  constructor(private paymentService: PaymentService, private route: ActivatedRoute) {}
+  constructor(
+    private paymentService: PaymentService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
-      this.getPayments();
+    this.getPayments();
   }
 
   getPayments() {
     this.paymentService.getPaymentsByInvoice().subscribe((res) => {
       this.payments = res;
+      this.updatePaginatedPayments();
     });
   }
 
+  updatePaginatedPayments() {
+    const startIndex = (this.page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedPayments = this.payments.slice(startIndex, endIndex);
+  }
+
+  onPageChanged(p: number) {
+    this.page = p;
+    this.updatePaginatedPayments();
+  }
+
+  onPageSizeChanged(size: number) {
+    this.itemsPerPage = size;
+    this.page = 1;
+    this.updatePaginatedPayments();
+  }
+
   editPayment(payment: any) {
-  console.log("Edit payment:", payment);
-  // Navigate to edit form or open modal
-}
+    this.route.navigate(['/payments/create'], {
+      queryParams: { id: payment.payment_id },
+    });
+  }
 
-deletePayment(payment: any) {
-  console.log("Delete payment:", payment);
-  // Add delete confirmation and logic here
-  // this.paymentService.deletePayments(payment.)
-}
-
+  deletePayment(payment: any) {
+    this.paymentService.deletePayments(payment.payment_id).subscribe((res) => {
+      if (res) {
+        this.getPayments();
+      }
+    });
+  }
 }

@@ -6,6 +6,7 @@ import { InvoiceCreateComponent } from './invoice-create/invoice-create.componen
 import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoiceViewComponent } from './invoice-view/invoice-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SheredModule } from 'src/app/shered/shered.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     InvoiceRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SheredModule
   ]
 })
 export class InvoiceModule { }

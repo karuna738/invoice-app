@@ -33,12 +33,10 @@ ngOnInit() {
 
 getbill(){
   this.customerService.getCustomers().subscribe(res => {
-    console.log('ddd',this.invoice);
     
     if(res){
     this.billTo = res.find(item => item.customer_id === this.invoice.bill_to_id);
     this.billFrom = res.find(item => item.customer_id === this.invoice.bill_from_id);
-    console.log('bill',this.billFrom);
     
     }
   })

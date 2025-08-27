@@ -1,0 +1,29 @@
+<div class="common-table">
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let col of columns">{{ col.label }}</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of data; let i = index">
+                <td *ngFor="let col of columns">
+                    {{ row[col.key] }}
+                </td>
+
+                <td class="action-col">
+                    <button class="btn btn-view" (click)="view.emit(row)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-edit" (click)="edit.emit(row)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-delete" (click)="delete.emit(row)">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

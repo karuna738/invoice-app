@@ -13,8 +13,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of terms; let i = index">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let item of paginatedTerms; let i = index">
+         <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ item.terms }}</td>
         <td class="action-col">
           <button class="btn btn-edit" (click)="editTerm(item)">
@@ -27,4 +27,8 @@
       </tr>
     </tbody>
   </table>
+  <!-- Common Pagination -->
+  <app-pagination [totalItems]="terms.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"
+    [currentPage]="page" (pageChange)="onPageChanged($event)" (pageSizeChange)="onPageSizeChanged($event)">
+  </app-pagination>
 </div>

@@ -1,30 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
   selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html',
-  styleUrls: ['./invoice-list.component.scss']
+  styleUrls: ['./invoice-list.component.scss'],
 })
 export class InvoiceListComponent implements OnInit {
   invoices: any[] = [];
   paginatedInvoices: any[] = [];
-
-  page: number = 1;
-  itemsPerPage: number = 10;
-  totalPages: number = 0;
-
-  constructor(private invoiceService: InvoiceService, private rout: Router) {}
+  page = 1;
+  itemsPerPage = 5;
+  columns = [
+    { key: 'invoice_number', label: 'Invoice Number' },
+    { key: 'bill_from_name', label: 'Bill From' },
+    { key: 'bill_to_name', label: 'Bill To' },
+    { key: 'total', label: 'Total' },
+  ];
+  constructor(
+    private invoiceService: InvoiceService,
+    private rout: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
-     this.getInvoiceData();
+    this.getInvoiceData();
   }
 
-  getInvoiceData(){
-      this.invoiceService.getInvoices().subscribe(data => {
+  getInvoiceData() {
+    this.invoiceService.getInvoices().subscribe((data) => {
       this.invoices = data;
-      this.totalPages = Math.ceil(this.invoices.length / this.itemsPerPage);
       this.updatePaginatedInvoices();
     });
   }
@@ -35,11 +42,15 @@ export class InvoiceListComponent implements OnInit {
     this.paginatedInvoices = this.invoices.slice(startIndex, endIndex);
   }
 
-  changePage(pageNumber: number) {
-    if (pageNumber >= 1 && pageNumber <= this.totalPages) {
-      this.page = pageNumber;
-      this.updatePaginatedInvoices();
-    }
+  onPageChanged(p: number) {
+    this.page = p;
+    this.updatePaginatedInvoices();
+  }
+
+  onPageSizeChanged(size: number) {
+    this.itemsPerPage = size;
+    this.page = 1;
+    this.updatePaginatedInvoices();
   }
 
   addPage() {
@@ -47,19 +58,21 @@ export class InvoiceListComponent implements OnInit {
   }
 
   viewPage(item: any) {
-    this.rout.navigate(['/invoices/view'], { queryParams: { id: item.invoice_id } });
+    this.rout.navigate(['/invoices/view'], {
+      queryParams: { id: item.invoice_id },
+    });
   }
 
-  deleteInvoice(Item: any){
-    this.invoiceService.deleteInvoiceItem(Item.invoice_id).subscribe(res => {
-          this.getInvoiceData();
-    })
+  deleteInvoice(Item: any) {
+    this.invoiceService.deleteInvoiceItem(Item.invoice_id).subscribe((res) => {
+      this.getInvoiceData();
+      this.toastr.success('Data deleted successfully!', 'Success');
+    });
   }
 
   editPage(invoice: any) {
-  console.log('Editing invoice:', invoice);
-  // Navigate to edit page
-  // this.router.navigate(['/invoice-edit', invoice.id]);
-}
-
+    this.rout.navigate(['/invoices/create'], {
+      queryParams: { id: invoice.invoice_id },
+    });
+  }
 }

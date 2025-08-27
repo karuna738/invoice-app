@@ -27,6 +27,10 @@ export class PaymentService {
   deletePayments(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updatePayment(id: number, paymentData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, paymentData);
+  }
 }
 
 // Add Payment Method

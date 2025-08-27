@@ -25,3 +25,17 @@ exports.deleteCustomer = (req, res) => {
     });
 };
 
+
+exports.updateCustomer = (req, res) => {
+    const { id } = req.params;
+
+    Customer.update(id, req.body, (err, success) => {
+        if (err) return res.status(500).json({ error: err });
+        if (!success) {
+            return res.status(404).json({ message: 'Customer not found' });
+        }
+        res.status(200).json({ message: 'Customer updated successfully' });
+    });
+};
+
+

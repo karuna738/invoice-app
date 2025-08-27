@@ -1,15 +1,36 @@
-const Terms = require('../models/termsModel');
+const db = require('../config/db');
 
-exports.addTerms = (req, res) => {
-    Terms.add(req.body, (err, result) => {
-        if (err) return res.status(500).json({ error: err });
-        res.status(201).json({ message: 'Terms added', termId: result.insertId });
-    });
+exports.add = (data, callback) => {
+    const { terms } = data;
+    db.query(
+        'INSERT INTO terms_conditions (terms) VALUES (?)',
+        [terms],
+        callback
+    );
 };
 
-exports.getTermsByInvoice = (req, res) => {
-    Terms.getByInvoice(req.params.invoice_id, (err, results) => {
-        if (err) return res.status(500).json({ error: err });
-        res.json(results);
-    });
+exports.getByInvoice = (invoice_id, callback) => {
+    db.query(
+        'SELECT * FROM terms_conditions',
+        callback
+    );
 };
+
+exports.delete = (id, callback) => {
+    db.query(
+        'DELETE FROM terms_conditions WHERE term_id = ?',
+        [id],
+        callback
+    );
+};
+
+
+exports.update = (id, data, callback) => {
+    const { terms } = data;
+    db.query(
+        'UPDATE terms_conditions SET terms = ? WHERE term_id = ?',
+        [terms, id],
+        callback
+    );
+};
+

@@ -11,10 +11,21 @@ import { TermsService } from 'src/app/services/terms.service';
 export class TermsCreateComponent {
   termsForm!: FormGroup;
   submitted = false;
+  termsId: any;
 
   constructor(
     private fb: FormBuilder,
-  ) {}
+    private termsService: TermsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(res =>{
+      this.termsId = +res['id'];
+      if(this.termsId){
+        this.getTermsData();
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.termsForm = this.fb.group({
@@ -22,18 +33,27 @@ export class TermsCreateComponent {
     });
   }
 
+  getTermsData(){
+    this.termsService.getTermsByInvoice().subscribe(res => {
+      const termsAndService = res.find(vl => vl.term_id === this.termsId);
+      if(termsAndService){
+        this.termsForm.patchValue(termsAndService);
+      }
+    })
+  }
+
   onSubmit() {
-    // this.submitted = true;
-    // if (this.termsForm.invalid) return;
+    this.submitted = true;
+    if (this.termsForm.invalid) return;
 
-    // const paymentData = {
-    //   invoice_id: this.invoiceId,
-    //   ...this.termsForm.value
-    // };
-
-    // this.paymentService.addPaymentMethod(paymentData).subscribe(() => {
-    //   alert('Payment method added successfully!');
-    //   this.router.navigate(['/payments'], { queryParams: { invoice_id: this.invoiceId } });
-    // });
+    if (this.termsId) {
+      this.termsService.updateTerms(this.termsId, this.termsForm.value).subscribe(() => {
+        this.router.navigate(['/terms&conditions']);
+      });
+    } else {
+      this.termsService.addTerms(this.termsForm.value).subscribe(() => {
+        this.router.navigate(['/terms&conditions']);
+      });
+    }
   }
 }

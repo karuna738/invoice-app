@@ -22,6 +22,14 @@ export class TermsService {
   getTermsByInvoice(): Observable<Terms[]> {
     return this.http.get<Terms[]>(`${this.apiUrl}`);
   }
+
+  deleteTerms(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+  updateTerms(id: number, terms: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, terms);
+  }
+
 }
 
 

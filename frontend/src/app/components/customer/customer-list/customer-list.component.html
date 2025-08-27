@@ -17,13 +17,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let customer of customers; let i = index">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let customer of paginatedCustomers; let i = index">
+         <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ customer.name }}</td>
         <td>{{ customer.company_name }}</td>
         <td>{{ customer.email }}</td>
         <td>{{ customer.phone }}</td>
-        <td>{{ customer.type }}</td>
+        <td>{{ customer.type == 'BILL_FROM' ? "Bill from" : "Bill to" }}</td>
         <td class="action-col">
           <button class="btn btn-edit" (click)="editCustomer(customer)">
             <i class="fas fa-edit"></i>
@@ -35,4 +35,8 @@
       </tr>
     </tbody>
   </table>
+  <!-- Common Pagination -->
+  <app-pagination [totalItems]="customers.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"
+    [currentPage]="page" (pageChange)="onPageChanged($event)" (pageSizeChange)="onPageSizeChanged($event)">
+  </app-pagination>
 </div>

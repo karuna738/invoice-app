@@ -14,8 +14,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let payment of payments; let i = index">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let payment of paginatedPayments; let i = index">
+        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ payment.bank_name }}</td>
         <td>{{ payment.account_number }}</td>
         <td class="action-col">
@@ -29,4 +29,8 @@
       </tr>
     </tbody>
   </table>
+  <!-- Common Pagination -->
+  <app-pagination [totalItems]="payments.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"
+    [currentPage]="page" (pageChange)="onPageChanged($event)" (pageSizeChange)="onPageSizeChanged($event)">
+  </app-pagination>
 </div>
