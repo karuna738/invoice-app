@@ -5,13 +5,15 @@ import { SheredRoutingModule } from './shered-routing.module';
 import { DecimalOnlyDirective } from './directives/decimal-only.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { PaginationComponent } from './common-components/pagination/pagination.component';
+import { TableComponent } from './common-components/table/table.component';
 
 
 @NgModule({
   declarations: [
     DecimalOnlyDirective,
     OnlyNumbersDirective,
-    PaginationComponent
+    PaginationComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { PaginationComponent } from './common-components/pagination/pagination.c
   exports: [
     DecimalOnlyDirective,
     OnlyNumbersDirective,
-    PaginationComponent
+    PaginationComponent,
+    TableComponent
   ]
 })
 export class SheredModule { }

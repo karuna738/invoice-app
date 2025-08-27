@@ -4,7 +4,7 @@
     <button (click)="addPage()">➕ Add</button>
   </div>
 
-  <table>
+  <!-- <table>
     <thead>
       <tr>
         <th>#</th>
@@ -35,7 +35,11 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <app-table [columns]="columns" [data]="paginatedInvoices" (view)="viewPage($event)" (edit)="editPage($event)"
+    (delete)="deleteInvoice($event)">
+  </app-table>
 
   <!-- Common Pagination -->
   <app-pagination [totalItems]="invoices.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"

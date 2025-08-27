@@ -13,7 +13,17 @@ export class InvoiceListComponent implements OnInit {
   paginatedInvoices: any[] = [];
   page = 1;
   itemsPerPage = 5;
-  constructor(private invoiceService: InvoiceService, private rout: Router, private toastr: ToastrService) {}
+  columns = [
+    { key: 'invoice_number', label: 'Invoice Number' },
+    { key: 'bill_from_name', label: 'Bill From' },
+    { key: 'bill_to_name', label: 'Bill To' },
+    { key: 'total', label: 'Total' },
+  ];
+  constructor(
+    private invoiceService: InvoiceService,
+    private rout: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getInvoiceData();

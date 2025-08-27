@@ -5,99 +5,46 @@
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-}
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pagination {
-  margin-top: 10px;
-  display: flex;
-  gap: 5px;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   button {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background: #2c3e50;
-    cursor: pointer;
-
-    &.active {
-      background: #007bff;
-      color: white;
-      font-weight: bold;
-    }
-
-    &:disabled {
-      background: #0404047d;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.action-col {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-
-  .btn {
-    padding: 6px 14px;
-    font-size: 14px;
+    background: #007bff;
+    color: white;
     border: none;
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s ease;
 
-    &.btn-view {
-      background-color: #007bff;
-      color: white;
-
-      &:hover {
-        background-color: #0056b3;
-      }
+    &:hover {
+      background: #0056b3;
     }
+  }
 
-    &.btn-edit {
-      background-color: #ffc107;
-      color: white;
+  .pagination {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
 
-      &:hover {
-        background-color: #e0a800;
+    button {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background: #2c3e50;
+      cursor: pointer;
+
+      &.active {
+        background: #007bff;
+        color: white;
+        font-weight: bold;
       }
-    }
 
-    &.btn-delete {
-      background-color: #f44336;
-      color: white;
-
-      &:hover {
-        background-color: #d32f2f;
+      &:disabled {
+        background: #0404047d;
+        cursor: not-allowed;
       }
     }
   }
