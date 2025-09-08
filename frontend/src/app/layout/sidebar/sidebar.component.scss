@@ -33,7 +33,6 @@
   //   }
   // }
 
-
   .toggle-btn {
     position: absolute;
     top: 10px;
@@ -52,7 +51,7 @@
 
     li {
       transition: background 0.3s;
-        margin-bottom: 10px;
+      margin-bottom: 10px;
       a {
         display: flex;
         align-items: center;
@@ -78,5 +77,3 @@
     }
   }
 }
-
-

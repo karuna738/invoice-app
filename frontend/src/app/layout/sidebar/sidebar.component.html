@@ -1,24 +1,24 @@
 <div class="sidebar" [class.closed]="isClosed">
-    <div class="logo">
-        <h3 *ngIf="!isClosed">My Code</h3>
-      <!-- <img src="../../../../assets/logo.png" alt="Logo"> -->
-    </div>
-    <div class="toggle-btn" (click)="toggleSidebar()">
-        <i class="fas" [class.fa-bars]="isClosed" [class.fa-times]="!isClosed"></i>
-    </div>
+  <div class="logo">
+    <h3 *ngIf="!isClosed">My Code</h3>
+    <!-- <img src="../../../../assets/logo.png" alt="Logo"> -->
+  </div>
+  <div class="toggle-btn" (click)="toggleSidebar()">
+    <i class="fas" [class.fa-bars]="isClosed" [class.fa-times]="!isClosed"></i>
+  </div>
 
-    <ul class="menu">
-        <li *ngFor="let item of menuItems">
-            <a [routerLink]="item.route" routerLinkActive="active">
-                <i [class]="item.icon"></i>
-                <span *ngIf="!isClosed">{{ item.label }}</span>
-            </a>
-        </li>
-        <!-- <li class="logout-btn">
+  <ul class="menu">
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="item.route" routerLinkActive="active">
+        <i [class]="item.icon"></i>
+        <span *ngIf="!isClosed">{{ item.label }}</span>
+      </a>
+    </li>
+    <!-- <li class="logout-btn">
           <a href="javascript:void(0)">
             <i class="fas fa-sign-out-alt"></i>
             <span *ngIf="!isClosed">Logout</span>
           </a>
         </li> -->
-    </ul>
+  </ul>
 </div>

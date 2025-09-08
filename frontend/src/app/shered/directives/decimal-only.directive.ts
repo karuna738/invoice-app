@@ -2,12 +2,10 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appDecimalOnly]'
+  selector: '[appDecimalOnly]',
 })
 export class DecimalOnlyDirective {
-  private allowedKeys: string[] = [
-    'Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'
-  ];
+  private allowedKeys: string[] = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'];
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {

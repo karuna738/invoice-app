@@ -40,5 +40,4 @@ export class InvoiceService {
   updateInvoice(id: number, invoiceData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, invoiceData);
   }
-
 }

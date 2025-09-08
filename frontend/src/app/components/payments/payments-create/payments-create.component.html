@@ -3,13 +3,17 @@
 
   <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
     <div class="invoice-info">
-      
       <!-- Bank Name -->
       <div class="input-container">
         <label for="bankName">Bank Name</label>
         <div class="input-with-icon">
           <i class="fas fa-university"></i>
-          <input id="bankName" type="text" placeholder="Enter bank name" formControlName="bank_name">
+          <input
+            id="bankName"
+            type="text"
+            placeholder="Enter bank name"
+            formControlName="bank_name"
+          />
         </div>
         <div class="error-msg" *ngIf="submitted && paymentForm.get('bank_name')?.errors">
           Bank name is required.
@@ -21,7 +25,12 @@
         <label for="accountNumber">Account Number</label>
         <div class="input-with-icon">
           <i class="fas fa-credit-card"></i>
-          <input id="accountNumber" type="text" placeholder="Enter account number" formControlName="account_number">
+          <input
+            id="accountNumber"
+            type="text"
+            placeholder="Enter account number"
+            formControlName="account_number"
+          />
         </div>
         <div class="error-msg" *ngIf="submitted && paymentForm.get('account_number')?.errors">
           Account number is required.
@@ -31,9 +40,7 @@
 
     <!-- Buttons -->
     <div class="button-group">
-      <button type="submit" class="save-btn">
-        <i class="fas fa-save"></i> Save Payment
-      </button>
+      <button type="submit" class="save-btn"><i class="fas fa-save"></i> Save Payment</button>
       <button type="button" class="cancel-btn" [routerLink]="['/payments']">
         <i class="fas fa-times"></i> Cancel
       </button>

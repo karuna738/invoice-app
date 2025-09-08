@@ -1,6 +1,6 @@
 <div id="invoice" class="invoice-view">
   <div class="invoice-header">
-    <img src="../../../../assets/logo.png" alt="">
+    <img src="../../../../assets/logo.png" alt="" />
     <h1>Invoice</h1>
     <div class="dates">
       <h2>Invoice No : {{ invoice.invoice_number }}</h2>
@@ -52,12 +52,18 @@
   </table>
 
   <div class="totals">
-    <p>Subtotal: <strong>{{ invoice.subtotal | currency }}</strong></p>
+    <p>
+      Subtotal: <strong>{{ invoice.subtotal | currency }}</strong>
+    </p>
     <p>
       Tax ({{ invoice.tax_rate }}%):
-      <strong>{{ (invoice.subtotal * invoice.tax_rate / 100) | currency:'INR':'symbol':'1.2-2' }}</strong>
+      <strong>{{
+        (invoice.subtotal * invoice.tax_rate) / 100 | currency: 'INR' : 'symbol' : '1.2-2'
+      }}</strong>
     </p>
-    <p class="total">Total: <strong>{{ invoice.total | currency }}</strong></p>
+    <p class="total">
+      Total: <strong>{{ invoice.total | currency }}</strong>
+    </p>
   </div>
 
   <div class="payment">

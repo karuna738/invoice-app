@@ -7,18 +7,14 @@ import { TermsCreateComponent } from './terms-create/terms-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SheredModule } from 'src/app/shered/shered.module';
 
-
 @NgModule({
-  declarations: [
-    TermsListComponent,
-    TermsCreateComponent
-  ],
+  declarations: [TermsListComponent, TermsCreateComponent],
   imports: [
     CommonModule,
     TermsConditionsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    SheredModule
-  ]
+    SheredModule,
+  ],
 })
-export class TermsConditionsModule { }
+export class TermsConditionsModule {}

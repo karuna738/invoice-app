@@ -5,11 +5,7 @@
     <div class="invoice-info">
       <div class="input-container">
         <label>Terms & Conditions</label>
-        <input 
-          type="text" 
-          formControlName="terms" 
-          placeholder="Enter terms and conditions" 
-        />
+        <input type="text" formControlName="terms" placeholder="Enter terms and conditions" />
         <div class="error-msg" *ngIf="submitted && termsForm.controls['terms'].invalid">
           Terms & Conditions are required.
         </div>
@@ -17,8 +13,12 @@
     </div>
 
     <div class="form-actions">
-      <button type="button" class="save-btn" (click)="onSubmit()"><i class="fas fa-save"></i>Save</button>
-      <button type="button" class="cancel-btn" [routerLink]="['/terms&conditions']"><i class="fas fa-times"></i>Cancel</button>
+      <button type="button" class="save-btn" (click)="onSubmit()">
+        <i class="fas fa-save"></i>Save
+      </button>
+      <button type="button" class="cancel-btn" [routerLink]="['/terms&conditions']">
+        <i class="fas fa-times"></i>Cancel
+      </button>
     </div>
   </form>
 </div>

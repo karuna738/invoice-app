@@ -6,7 +6,7 @@
       <!-- Name -->
       <div class="input-container">
         <label>Name</label>
-        <input type="text" placeholder="Enter full name" formControlName="name">
+        <input type="text" placeholder="Enter full name" formControlName="name" />
         <div class="error-msg" *ngIf="submitted && customerForm.get('name')?.errors">
           Name is required.
         </div>
@@ -15,37 +15,37 @@
       <!-- Company -->
       <div class="input-container">
         <label>Company Name</label>
-        <input type="text" placeholder="Enter company name" formControlName="company_name">
+        <input type="text" placeholder="Enter company name" formControlName="company_name" />
       </div>
 
       <!-- Address -->
       <div class="input-container">
         <label>Address</label>
-        <input type="text" placeholder="Enter address" formControlName="address">
+        <input type="text" placeholder="Enter address" formControlName="address" />
       </div>
 
       <!-- City -->
       <div class="input-container">
         <label>City</label>
-        <input type="text" placeholder="Enter city" formControlName="city">
+        <input type="text" placeholder="Enter city" formControlName="city" />
       </div>
 
       <!-- State -->
       <div class="input-container">
         <label>State</label>
-        <input type="text" placeholder="Enter state" formControlName="state">
+        <input type="text" placeholder="Enter state" formControlName="state" />
       </div>
 
       <!-- Zip -->
       <div class="input-container">
         <label>Zip Code</label>
-        <input type="text" placeholder="Enter zip code" formControlName="zip_code">
+        <input type="text" placeholder="Enter zip code" formControlName="zip_code" />
       </div>
 
       <!-- Email -->
       <div class="input-container">
         <label>Email</label>
-        <input type="email" placeholder="Enter email address" formControlName="email">
+        <input type="email" placeholder="Enter email address" formControlName="email" />
         <div class="error-msg" *ngIf="submitted && customerForm.get('email')?.errors?.['required']">
           Email is required.
         </div>
@@ -57,7 +57,12 @@
       <!-- Phone -->
       <div class="input-container">
         <label>Phone</label>
-        <input type="text" appOnlyNumbers placeholder="Enter phone number" formControlName="phone">
+        <input
+          type="text"
+          appOnlyNumbers
+          placeholder="Enter phone number"
+          formControlName="phone"
+        />
         <div class="error-msg" *ngIf="submitted && customerForm.get('phone')?.errors">
           Phone number is required.
         </div>
@@ -68,7 +73,9 @@
         <label>Type</label>
         <select formControlName="type">
           <option value="">Select type</option>
-          <option *ngFor="let type of customerTypes" [value]="type">{{ type == 'BILL_FROM' ? "Bill from" : "Bill to" }}</option>
+          <option *ngFor="let type of customerTypes" [value]="type">
+            {{ type == 'BILL_FROM' ? 'Bill from' : 'Bill to' }}
+          </option>
         </select>
         <div class="error-msg" *ngIf="submitted && customerForm.get('type')?.errors">
           Customer type is required.
@@ -78,9 +85,7 @@
 
     <!-- Buttons -->
     <div class="button-group">
-      <button type="submit" class="save-btn">
-        <i class="fas fa-save"></i> Save Customer
-      </button>
+      <button type="submit" class="save-btn"><i class="fas fa-save"></i> Save Customer</button>
       <button type="button" class="cancel-btn" [routerLink]="['/customers']">
         <i class="fas fa-times"></i> Cancel
       </button>

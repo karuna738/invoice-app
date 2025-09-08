@@ -47,9 +47,9 @@ app-navbar {
 }
 
 .content-area {
-//   margin-top: 60px; // navbar height
+  //   margin-top: 60px; // navbar height
   padding: 1rem;
-//   height: calc(100vh - 60px);
+  //   height: calc(100vh - 60px);
   overflow-y: auto; // ✅ scroll only this area
   background-color: #f4f4f4;
 }

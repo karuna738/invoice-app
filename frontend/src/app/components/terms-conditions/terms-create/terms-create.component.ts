@@ -6,7 +6,7 @@ import { TermsService } from 'src/app/services/terms.service';
 @Component({
   selector: 'app-terms-create',
   templateUrl: './terms-create.component.html',
-  styleUrls: ['./terms-create.component.scss']
+  styleUrls: ['./terms-create.component.scss'],
 })
 export class TermsCreateComponent {
   termsForm!: FormGroup;
@@ -19,12 +19,12 @@ export class TermsCreateComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.route.queryParams.subscribe(res =>{
+    this.route.queryParams.subscribe((res) => {
       this.termsId = +res['id'];
-      if(this.termsId){
+      if (this.termsId) {
         this.getTermsData();
       }
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -33,13 +33,13 @@ export class TermsCreateComponent {
     });
   }
 
-  getTermsData(){
-    this.termsService.getTermsByInvoice().subscribe(res => {
-      const termsAndService = res.find(vl => vl.term_id === this.termsId);
-      if(termsAndService){
+  getTermsData() {
+    this.termsService.getTermsByInvoice().subscribe((res) => {
+      const termsAndService = res.find((vl) => vl.term_id === this.termsId);
+      if (termsAndService) {
         this.termsForm.patchValue(termsAndService);
       }
-    })
+    });
   }
 
   onSubmit() {

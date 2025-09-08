@@ -7,23 +7,9 @@ import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { PaginationComponent } from './common-components/pagination/pagination.component';
 import { TableComponent } from './common-components/table/table.component';
 
-
 @NgModule({
-  declarations: [
-    DecimalOnlyDirective,
-    OnlyNumbersDirective,
-    PaginationComponent,
-    TableComponent
-  ],
-  imports: [
-    CommonModule,
-    SheredRoutingModule
-  ],
-  exports: [
-    DecimalOnlyDirective,
-    OnlyNumbersDirective,
-    PaginationComponent,
-    TableComponent
-  ]
+  declarations: [DecimalOnlyDirective, OnlyNumbersDirective, PaginationComponent, TableComponent],
+  imports: [CommonModule, SheredRoutingModule],
+  exports: [DecimalOnlyDirective, OnlyNumbersDirective, PaginationComponent, TableComponent],
 })
-export class SheredModule { }
+export class SheredModule {}

@@ -7,18 +7,8 @@ import { CustomerCreateComponent } from './customer-create/customer-create.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SheredModule } from 'src/app/shered/shered.module';
 
-
 @NgModule({
-  declarations: [
-    CustomerListComponent,
-    CustomerCreateComponent
-  ],
-  imports: [
-    CommonModule,
-    CustomerRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SheredModule
-  ]
+  declarations: [CustomerListComponent, CustomerCreateComponent],
+  imports: [CommonModule, CustomerRoutingModule, FormsModule, ReactiveFormsModule, SheredModule],
 })
-export class CustomerModule { }
+export class CustomerModule {}

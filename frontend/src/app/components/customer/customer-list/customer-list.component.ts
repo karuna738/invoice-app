@@ -14,7 +14,11 @@ export class CustomerListComponent implements OnInit {
   page = 1;
   itemsPerPage = 5;
 
-  constructor(private customerService: CustomerService, private rout: Router, private toastr: ToastrService) {}
+  constructor(
+    private customerService: CustomerService,
+    private rout: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getCustomers();
@@ -56,10 +60,8 @@ export class CustomerListComponent implements OnInit {
   }
 
   deleteCustomer(customer: any) {
-    this.customerService
-      .deleteCustomers(customer.customer_id)
-      .subscribe((res) => {
-        this.toastr.success('Data deleted successfully!', 'Success');
-      });
+    this.customerService.deleteCustomers(customer.customer_id).subscribe((res) => {
+      this.toastr.success('Data deleted successfully!', 'Success');
+    });
   }
 }
