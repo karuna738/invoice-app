@@ -14,6 +14,18 @@ export class CustomerListComponent implements OnInit {
   page = 1;
   itemsPerPage = 5;
 
+  columns = [
+    { key: 'name', label: 'Name' },
+    { key: 'company_name', label: 'Company Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'phone', label: 'Phone' },
+    {
+      key: 'type',
+      label: 'Type',
+      formatter: (row: any) => (row.type === 'BILL_FROM' ? 'Bill from' : 'Bill to'),
+    },
+  ];
+
   constructor(
     private customerService: CustomerService,
     private rout: Router,

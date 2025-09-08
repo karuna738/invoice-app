@@ -1,41 +1,17 @@
-<div class="invoice-list">
+<div class="common-list">
   <div class="header">
     <h2>Customer List</h2>
     <button class="btn-add" (click)="addPage()">➕ Add</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Company Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Type</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let customer of paginatedCustomers; let i = index">
-        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.company_name }}</td>
-        <td>{{ customer.email }}</td>
-        <td>{{ customer.phone }}</td>
-        <td>{{ customer.type == 'BILL_FROM' ? 'Bill from' : 'Bill to' }}</td>
-        <td class="action-col">
-          <button class="btn btn-edit" (click)="editCustomer(customer)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn btn-delete" (click)="deleteCustomer(customer)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <!-- Common Pagination -->
+  <app-table
+    [columns]="columns"
+    [data]="paginatedCustomers"
+    (edit)="editCustomer($event)"
+    (delete)="deleteCustomer($event)"
+    class="common-action"
+  ></app-table>
+
   <app-pagination
     [totalItems]="customers.length"
     [pageSize]="itemsPerPage"
@@ -43,6 +19,5 @@
     [currentPage]="page"
     (pageChange)="onPageChanged($event)"
     (pageSizeChange)="onPageSizeChanged($event)"
-  >
-  </app-pagination>
+  ></app-pagination>
 </div>

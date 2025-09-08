@@ -1,6 +1,8 @@
+/* ===== Imports ===== */
 @import 'ngx-toastr/toastr';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+/* ===== Reset & Base ===== */
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +26,7 @@ ul {
   padding: 0;
 }
 
-/* ===== Layout Utility Classes ===== */
+/* ===== Layout Utilities ===== */
 .container {
   max-width: 1200px;
   margin: auto;
@@ -51,7 +53,17 @@ ul {
   text-align: center;
 }
 
-/* ===== Button Styles ===== */
+/* ===== Layout Structure ===== */
+.layout {
+  display: flex;
+
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+  }
+}
+
+/* ===== Buttons ===== */
 .btn {
   padding: 0.5rem 1rem;
   border: none;
@@ -60,13 +72,13 @@ ul {
   color: #fff;
   cursor: pointer;
   transition: 0.3s;
+
+  &:hover {
+    background-color: #2980b9;
+  }
 }
 
-.btn:hover {
-  background-color: #2980b9;
-}
-
-/* ===== Card Component Style ===== */
+/* ===== Card ===== */
 .card {
   background-color: #fff;
   padding: 1rem;
@@ -75,7 +87,7 @@ ul {
   margin-bottom: 1rem;
 }
 
-/* ===== Navbar & Sidebar Common ===== */
+/* ===== Navbar & Sidebar ===== */
 .navbar {
   background-color: #2c3e50;
   padding: 1rem;
@@ -86,6 +98,43 @@ ul {
   background-color: #34495e;
   color: white;
   padding: 1rem;
+}
+
+/* ===== Common List Pages ===== */
+.common-list {
+  max-width: 90%;
+  margin: 20px auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .btn-add {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #0056b3;
+      }
+    }
+  }
 }
 
 /* ===== Responsive Utilities ===== */
@@ -99,16 +148,7 @@ ul {
   }
 }
 
-.layout {
-  display: flex;
-
-  .main-content {
-    flex: 1;
-    padding: 1rem;
-  }
-}
-
-/* Base Toast */
+/* ===== Toast Notifications ===== */
 .toast {
   border-radius: 14px !important;
   padding: 16px 20px !important;
@@ -125,47 +165,44 @@ ul {
     opacity 0.3s ease;
 }
 
-/* When closing */
+/* Closing Animation */
 .toast.ng-leave {
   animation: slideOut 0.4s ease forwards !important;
 }
 
-/* Success */
+/* Toast Variants */
 .toast-success {
   background: #e8f5e9 !important;
   color: #2e7d32 !important;
   border-left-color: #4caf50 !important;
 }
 
-/* Error */
 .toast-error {
   background: #ffebee !important;
   color: #c62828 !important;
   border-left-color: #e53935 !important;
 }
 
-/* Warning */
 .toast-warning {
   background: #fff8e1 !important;
   color: #f57c00 !important;
   border-left-color: #ffa000 !important;
 }
 
-/* Info */
 .toast-info {
   background: #e3f2fd !important;
   color: #1565c0 !important;
   border-left-color: #2196f3 !important;
 }
 
-/* Progress bar */
+/* Toast Progress */
 #toast-container > div .toast-progress {
   background-color: currentColor !important;
   height: 3px !important;
   border-radius: 0 0 12px 12px;
 }
 
-/* Animations */
+/* ===== Animations ===== */
 @keyframes slideIn {
   from {
     transform: translateX(100%) scale(0.95);

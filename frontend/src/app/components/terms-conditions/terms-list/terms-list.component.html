@@ -1,32 +1,17 @@
-<div class="invoice-list">
+<div class="common-list">
   <div class="header">
     <h2>Terms & Conditions List</h2>
     <button class="btn-add" [routerLink]="['/terms&conditions/create']">➕ Add</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Terms & Conditions</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of paginatedTerms; let i = index">
-        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{ item.terms }}</td>
-        <td class="action-col">
-          <button class="btn btn-edit" (click)="editTerm(item)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn btn-delete" (click)="deleteTerm(item)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <app-table
+    [columns]="columns"
+    [data]="paginatedTerms"
+    (edit)="editTerm($event)"
+    (delete)="deleteTerm($event)"
+  >
+  </app-table>
+
   <!-- Common Pagination -->
   <app-pagination
     [totalItems]="terms.length"

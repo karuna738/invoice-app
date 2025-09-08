@@ -1,34 +1,16 @@
-<div class="invoice-list">
+<div class="common-list">
   <div class="header">
     <h2>Payments List</h2>
     <button class="btn-add" [routerLink]="['/payments/create']">➕ Add</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Bank Name</th>
-        <th>Account Number</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let payment of paginatedPayments; let i = index">
-        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{ payment.bank_name }}</td>
-        <td>{{ payment.account_number }}</td>
-        <td class="action-col">
-          <button class="btn btn-edit" (click)="editPayment(payment)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn btn-delete" (click)="deletePayment(payment)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <app-table
+    [columns]="columns"
+    [data]="paginatedPayments"
+    (edit)="editPayment($event)"
+    (delete)="deletePayment($event)"
+  >
+  </app-table>
   <!-- Common Pagination -->
   <app-pagination
     [totalItems]="payments.length"

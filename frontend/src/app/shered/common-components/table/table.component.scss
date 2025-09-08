@@ -19,6 +19,7 @@
     display: flex;
     gap: 8px;
     justify-content: center;
+    flex-wrap: wrap;
 
     .btn {
       padding: 6px 14px;
@@ -54,6 +55,63 @@
           background-color: #d32f2f;
         }
       }
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 10px;
+  }
+
+  /* ===== Responsive Table ===== */
+  @media (max-width: 1000px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+      width: 100%;
+    }
+
+    thead {
+      display: none; /* hide header on small screens */
+    }
+
+    tr {
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px;
+      background: #fff;
+    }
+
+    td {
+      text-align: left;
+      padding: 8px;
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      /* Add label before each cell */
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        color: #555;
+      }
+    }
+
+    .action-col {
+      justify-content: flex-start;
     }
   }
 }

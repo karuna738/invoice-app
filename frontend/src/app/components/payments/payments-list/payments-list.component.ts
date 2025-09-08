@@ -13,6 +13,11 @@ export class PaymentsListComponent implements OnInit {
   page = 1;
   itemsPerPage = 5;
 
+  columns = [
+    { key: 'bank_name', label: 'Bank Name' },
+    { key: 'account_number', label: 'Account Number' },
+  ];
+
   constructor(
     private paymentService: PaymentService,
     private route: Router

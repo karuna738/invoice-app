@@ -14,6 +14,8 @@ export class TermsListComponent {
   page = 1;
   itemsPerPage = 5;
 
+  columns = [{ key: 'terms', label: 'Terms & Conditions' }];
+
   constructor(
     private termsService: TermsService,
     private route: ActivatedRoute,
