@@ -1,41 +1,8 @@
-<div class="invoice-list">
+<div class="common-list">
   <div class="header">
     <h2>Invoice List</h2>
-    <button (click)="addPage()">➕ Add</button>
+    <button class="btn-add" (click)="addPage()">➕ Add</button>
   </div>
-
-  <!-- <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Invoice Number</th>
-        <th>Bill From</th>
-        <th>Bill To</th>
-        <th>Total</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let invoice of paginatedInvoices; let i = index">
-        <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{ invoice.invoice_number }}</td>
-        <td>{{ invoice.bill_from_name }}</td>
-        <td>{{ invoice.bill_to_name }}</td>
-        <td>{{ invoice.total | currency }}</td>
-        <td class="action-col">
-          <button class="btn btn-view" (click)="viewPage(invoice)">
-            <i class="fas fa-eye"></i>
-          </button>
-          <button class="btn btn-edit" (click)="editPage(invoice)">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button class="btn btn-delete" (click)="deleteInvoice(invoice)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
 
   <app-table
     [columns]="columns"
