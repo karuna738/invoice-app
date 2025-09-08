@@ -49,18 +49,6 @@
       }
     }
 
-    select {
-      appearance: none;
-      background: #fafafa url("data:image/svg+xml,%3Csvg width='12' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23777' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 12px center/12px 8px;
-      cursor: pointer;
-    }
-
-    option {
-      padding: 10px;
-      background: #fff;
-      color: #333;
-    }
-
     .error-msg {
       color: #e74c3c;
       font-size: 12px;
