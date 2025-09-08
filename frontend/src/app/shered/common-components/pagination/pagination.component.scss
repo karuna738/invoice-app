@@ -1,54 +1,54 @@
 .pagination {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    justify-content: center;
-    margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 12px;
 
-    button {
-        min-width: 36px;
-        padding: 6px 10px;
-        border: 1px solid #ccc;
-        background: #ffffff;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: all .2s;
+  button {
+    min-width: 36px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
 
-        &.active {
-            background: #1abc9c;
-            border-color: #1abc9c;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        &:hover:not(:disabled) {
-            background: #16a085;
-            color: #fff;
-            border-color: #16a085;
-        }
-
-        &:disabled {
-            opacity: .5;
-            cursor: not-allowed;
-        }
+    &.active {
+      background: #1abc9c;
+      border-color: #1abc9c;
+      color: #fff;
+      font-weight: 600;
     }
 
-    select {
-        padding: 4px 8px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-
-        &:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
-        }
+    &:hover:not(:disabled) {
+      background: #16a085;
+      color: #fff;
+      border-color: #16a085;
     }
 
-    .ellipsis {
-        padding: 0 4px;
-        color: #888;
-        user-select: none;
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
+  }
+
+  select {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+    }
+  }
+
+  .ellipsis {
+    padding: 0 4px;
+    color: #888;
+    user-select: none;
+  }
 }

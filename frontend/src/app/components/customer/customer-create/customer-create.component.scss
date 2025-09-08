@@ -75,7 +75,9 @@ h2 {
   cursor: pointer;
   // transition: background 0.3s ease;
   font-size: 14px;
-  transition: background 0.25s ease, transform 0.15s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease;
 
   i {
     font-size: 16px;

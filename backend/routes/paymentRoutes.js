@@ -1,5 +1,10 @@
 const express = require('express');
-const { addPaymentMethod, getPaymentsByInvoice, deletePayment, updatePayment } = require('../controllers/paymentController');
+const {
+  addPaymentMethod,
+  getPaymentsByInvoice,
+  deletePayment,
+  updatePayment,
+} = require('../controllers/paymentController');
 const router = express.Router();
 
 router.post('/', addPaymentMethod);

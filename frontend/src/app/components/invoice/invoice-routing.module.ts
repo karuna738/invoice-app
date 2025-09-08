@@ -5,13 +5,13 @@ import { InvoiceListComponent } from './invoice-list/invoice-list.component';
 import { InvoiceViewComponent } from './invoice-view/invoice-view.component';
 
 const routes: Routes = [
-    { path: '', component: InvoiceListComponent },
-    { path: 'create', component: InvoiceCreateComponent },
-    { path: 'view', component: InvoiceViewComponent}
+  { path: '', component: InvoiceListComponent },
+  { path: 'create', component: InvoiceCreateComponent },
+  { path: 'view', component: InvoiceViewComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class InvoiceRoutingModule { }
+export class InvoiceRoutingModule {}

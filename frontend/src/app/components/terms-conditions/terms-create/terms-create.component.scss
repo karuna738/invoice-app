@@ -34,11 +34,11 @@
     outline: none;
     transition: border-color 0.3s;
 
-      &:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
-      }
+    &:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+    }
 
     &::placeholder {
       color: #999;
@@ -71,7 +71,9 @@
   cursor: pointer;
   // transition: background 0.3s ease;
   font-size: 14px;
-  transition: background 0.25s ease, transform 0.15s ease;
+  transition:
+    background 0.25s ease,
+    transform 0.15s ease;
 
   i {
     font-size: 16px;
@@ -97,4 +99,3 @@
     transform: translateY(-1px);
   }
 }
-

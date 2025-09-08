@@ -30,7 +30,13 @@
     </tbody>
   </table>
   <!-- Common Pagination -->
-  <app-pagination [totalItems]="payments.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5,10,20,50]"
-    [currentPage]="page" (pageChange)="onPageChanged($event)" (pageSizeChange)="onPageSizeChanged($event)">
+  <app-pagination
+    [totalItems]="payments.length"
+    [pageSize]="itemsPerPage"
+    [pageSizeOptions]="[5, 10, 20, 50]"
+    [currentPage]="page"
+    (pageChange)="onPageChanged($event)"
+    (pageSizeChange)="onPageSizeChanged($event)"
+  >
   </app-pagination>
 </div>

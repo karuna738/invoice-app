@@ -9,7 +9,7 @@ export class SidebarComponent implements OnInit {
   @Output() toggle = new EventEmitter<boolean>();
   isClosed = false;
   menuItems = [
-    { label: 'Dashboard', icon: 'fas fa-chart-line', route: '/dashboard' }, 
+    { label: 'Dashboard', icon: 'fas fa-chart-line', route: '/dashboard' },
     { label: 'Invoice', icon: 'fas fa-tasks', route: '/invoices' },
     { label: 'Customers', icon: 'fas fa-users', route: '/customers' },
     { label: 'Payments', icon: 'fas fa-credit-card', route: '/payments' },

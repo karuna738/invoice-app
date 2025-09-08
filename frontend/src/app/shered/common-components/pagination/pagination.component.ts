@@ -3,13 +3,13 @@ import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnChanges {
-  @Input() totalItems = 0;         // total records
-  @Input() pageSize = 10;          // items per page
-  @Input() currentPage = 1;        // active page (1-based)
-  @Input() maxPagesToShow = 5;     // how many page buttons to display
+  @Input() totalItems = 0; // total records
+  @Input() pageSize = 10; // items per page
+  @Input() currentPage = 1; // active page (1-based)
+  @Input() maxPagesToShow = 5; // how many page buttons to display
   @Input() pageSizeOptions: number[] = [5, 10, 20, 50];
 
   @Output() pageChange = new EventEmitter<number>();
@@ -24,14 +24,14 @@ export class PaginationComponent implements OnChanges {
     this.pages = this.buildPages();
   }
 
-changePageSize(event: Event) {
-  const selectElement = event.target as HTMLSelectElement;
-  const size = +selectElement.value;
-  this.pageSize = size;
-  this.currentPage = 1;
-  this.pageSizeChange.emit(this.pageSize);
-  this.ngOnChanges();
-}
+  changePageSize(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const size = +selectElement.value;
+    this.pageSize = size;
+    this.currentPage = 1;
+    this.pageSizeChange.emit(this.pageSize);
+    this.ngOnChanges();
+  }
 
   private buildPages(): number[] {
     const total = this.totalPages;
@@ -63,8 +63,16 @@ changePageSize(event: Event) {
     this.pages = this.buildPages();
   }
 
-  first()  { this.goTo(1); }
-  prev()   { this.goTo(this.currentPage - 1); }
-  next()   { this.goTo(this.currentPage + 1); }
-  last()   { this.goTo(this.totalPages); }
+  first() {
+    this.goTo(1);
+  }
+  prev() {
+    this.goTo(this.currentPage - 1);
+  }
+  next() {
+    this.goTo(this.currentPage + 1);
+  }
+  last() {
+    this.goTo(this.totalPages);
+  }
 }

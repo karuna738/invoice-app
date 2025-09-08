@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 
-
 export interface Customer {
   customer_id?: number;
   name: string;
@@ -31,8 +30,8 @@ export class CustomerService {
     return this.http.get<Customer[]>(this.apiUrl);
   }
 
-  deleteCustomers(id:any): Observable<any> {
-     return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteCustomers(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
   updateCustomer(id: number, data: any): Observable<any> {

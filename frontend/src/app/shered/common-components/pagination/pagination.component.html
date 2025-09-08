@@ -2,19 +2,18 @@
   <button (click)="first()" [disabled]="currentPage === 1" aria-label="First">«</button>
   <button (click)="prev()" [disabled]="currentPage === 1" aria-label="Previous">‹</button>
 
-<select (change)="changePageSize($event)">
-  <option *ngFor="let s of pageSizeOptions" [value]="s" [selected]="s === pageSize">{{ s }}</option>
-</select>
-
+  <select (change)="changePageSize($event)">
+    <option *ngFor="let s of pageSizeOptions" [value]="s" [selected]="s === pageSize">
+      {{ s }}
+    </option>
+  </select>
 
   <ng-container *ngIf="pages[0] > 1">
     <button (click)="goTo(1)">1</button>
     <span class="ellipsis">…</span>
   </ng-container>
 
-  <button *ngFor="let p of pages"
-          (click)="goTo(p)"
-          [class.active]="p === currentPage">
+  <button *ngFor="let p of pages" (click)="goTo(p)" [class.active]="p === currentPage">
     {{ p }}
   </button>
 
