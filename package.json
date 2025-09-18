@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "start:backend": "cd backend && nodemon server.js",
-    "start:frontend": "cd frontend && ng serve",
+    "start:backend": "cd backend && nodemon server.js --host 0.0.0.0",
+    "start:frontend": "cd frontend && ng serve --host 0.0.0.0",
     "build:frontend": "cd frontend && ng build",
     "watch:frontend": "cd frontend && ng build --watch --configuration development",
     "test:frontend": "cd frontend && ng test",
