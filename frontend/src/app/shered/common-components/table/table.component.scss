@@ -16,11 +16,6 @@
   }
 
   .action-col {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-
     .btn {
       padding: 6px 14px;
       font-size: 14px;
@@ -28,6 +23,7 @@
       border-radius: 4px;
       cursor: pointer;
       transition: all 0.2s ease;
+      margin-right: 6px;
 
       &.btn-view {
         background-color: #007bff;
@@ -115,3 +111,5 @@
     }
   }
 }
+
+

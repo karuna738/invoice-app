@@ -18,6 +18,7 @@ export class InvoiceListComponent implements OnInit {
     { key: 'bill_from_name', label: 'Bill From' },
     { key: 'bill_to_name', label: 'Bill To' },
     { key: 'total', label: 'Total' },
+    // { key: 'paymentStatus', label: 'Payment Status'}
   ];
   constructor(
     private invoiceService: InvoiceService,
@@ -76,3 +77,10 @@ export class InvoiceListComponent implements OnInit {
     });
   }
 }
+
+
+
+    // <option value="Draft">Draft</option>
+    //   <option value="Sent">Sent</option>
+    //   <option value="Paid">Paid</option>
+    //   <option value="Overdue">Overdue</option>
