@@ -78,9 +78,7 @@ export class InvoiceListComponent implements OnInit {
   }
 }
 
-
-
-    // <option value="Draft">Draft</option>
-    //   <option value="Sent">Sent</option>
-    //   <option value="Paid">Paid</option>
-    //   <option value="Overdue">Overdue</option>
+// <option value="Draft">Draft</option>
+//   <option value="Sent">Sent</option>
+//   <option value="Paid">Paid</option>
+//   <option value="Overdue">Overdue</option>
