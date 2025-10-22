@@ -1,0 +1,83 @@
+.card {
+  h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  i {
+    margin-right: 8px;
+    color: #1976d2;
+  }
+}
+
+
+.tables-sec {
+  display: flex;
+  gap: 1rem;
+}
+
+#invoiceChart {
+  width: 100%;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #eaeaea;
+    text-align: left;
+  }
+
+  th {
+    background: #f4f6f8;
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background: #f9fbfd;
+  }
+
+  .status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+
+    &.paid {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    &.pending {
+      background: #fff8e1;
+      color: #f57c00;
+    }
+
+    &.overdue {
+      background: #ffebee;
+      color: #c62828;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tables-sec {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+}
+}

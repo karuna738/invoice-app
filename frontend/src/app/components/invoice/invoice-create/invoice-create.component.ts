@@ -81,6 +81,7 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   getEditValues(id: any) {
+    if (!id) return;
     this.invoiceService.getInvoiceItems(id).subscribe((res: any) => {
       this.invoiceForm.get('invoice')?.patchValue({
         bill_from_id: res.bill_from_id,

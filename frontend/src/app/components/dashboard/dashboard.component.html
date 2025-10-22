@@ -1,1 +1,113 @@
-<p>dashboard works!</p>
+<div class="layout">
+  <main class="main-content">
+    <div class="container">
+      <div class="flex space-between" style="flex-wrap: wrap; gap: 1rem">
+        <div class="card" style="flex: 1; min-width: 220px">
+          <h4>Total Invoices <i class="fas fa-file-invoice-dollar" style="color:#1976d2;"></i></h4>
+          <h2>128</h2>
+        </div>
+        <div class="card" style="flex: 1; min-width: 220px">
+          <h4>Pending Payments <i class="fas fa-hourglass-half" style="color:#f57c00;"></i> </h4>
+          <h2>₹45,000</h2>
+        </div>
+        <div class="card" style="flex: 1; min-width: 220px">
+          <h4>Paid Invoices <i class="fas fa-money-bill-wave" style="color:#2e7d32;"></i></h4>
+          <h2>₹1,20,000</h2>
+        </div>
+        <div class="card" style="flex: 1; min-width: 220px">
+          <h4>Overdue <i class="fas fa-exclamation-triangle" style="color:#c62828;"></i></h4>
+          <h2>₹8,500</h2>
+        </div>
+      </div>
+
+
+
+      <div class="tables-sec">
+        <!-- Invoice Table -->
+        <div class="card common-list">
+          <div class="header">
+            <h2>Recent Invoices</h2>
+            <button class="btn-add">View All</button>
+          </div>
+
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th class="hide-on-mobile">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>INV001</td>
+                <td>John Doe</td>
+                <td>Oct 18, 2025</td>
+                <td><span class="status paid">Paid</span></td>
+                <td>₹5,000</td>
+                <td class="hide-on-mobile">
+                  <button class="btn" style="padding: 4px 10px">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>INV002</td>
+                <td>Acme Corp</td>
+                <td>Oct 15, 2025</td>
+                <td><span class="status pending">Pending</span></td>
+                <td>₹2,500</td>
+                <td class="hide-on-mobile">
+                  <button class="btn" style="padding: 4px 10px">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>INV003</td>
+                <td>Delta Co.</td>
+                <td>Oct 10, 2025</td>
+                <td><span class="status overdue">Overdue</span></td>
+                <td>₹1,200</td>
+                <td class="hide-on-mobile">
+                  <button class="btn" style="padding: 4px 10px">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>INV003</td>
+                <td>Delta Co.</td>
+                <td>Oct 10, 2025</td>
+                <td><span class="status overdue">Overdue</span></td>
+                <td>₹1,200</td>
+                <td class="hide-on-mobile">
+                  <button class="btn" style="padding: 4px 10px">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>INV003</td>
+                <td>Delta Co.</td>
+                <td>Oct 10, 2025</td>
+                <td><span class="status overdue">Overdue</span></td>
+                <td>₹1,200</td>
+                <td class="hide-on-mobile">
+                  <button class="btn" style="padding: 4px 10px">View</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="card common-list">
+          <div class="card chart-section">
+            <div class="header">
+              <h2>Monthly Invoice Summary</h2>
+            </div>
+            <canvas id="invoiceChart" width="600" height="300"></canvas>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+</div>
