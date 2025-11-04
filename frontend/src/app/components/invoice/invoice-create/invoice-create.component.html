@@ -4,7 +4,7 @@
     <!-- Invoice Details -->
     <div formGroupName="invoice" class="invoice-info">
       <div class="input-container">
-        <label>Bill from</label>
+        <label>Bill from<sup>*</sup></label>
         <select name="" id="dropdown" formControlName="bill_from_id">
           <option value="" disabled selected>Select bill from</option>
           <option *ngFor="let item of customerDataFrom" [ngValue]="item.customer_id">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="input-container">
-        <label>Bill to</label>
+        <label>Bill to<sup>*</sup></label>
         <select name="" id="dropdown" formControlName="bill_to_id">
           <option value="" disabled selected>Select bill to</option>
           <option *ngFor="let item of customerDataTo" [ngValue]="item.customer_id">
@@ -30,7 +30,7 @@
       </div>
 
       <div class="input-container">
-        <label>Invoice date</label>
+        <label>Invoice date<sup>*</sup></label>
         <input type="date" formControlName="invoice_date" placeholder="Select invoice date" />
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.invoice_date')?.invalid && submited">
           This field is required
@@ -38,7 +38,7 @@
       </div>
 
       <div class="input-container">
-        <label>Due date</label>
+        <label>Due date<sup>*</sup></label>
         <input type="date" formControlName="due_date" placeholder="Select due date" />
         <p class="error-msg" *ngIf="invoiceForm.get('invoice.due_date')?.invalid && submited">
           This field is required
@@ -120,7 +120,7 @@
     <!-- Payment and Terms -->
     <div class="invoice-info" formGroupName="invoice" style="margin-top: 20px">
       <div class="input-container">
-        <label>Payment Method</label>
+        <label>Payment Method<sup>*</sup></label>
         <select formControlName="payment_id">
           <option value="" disabled selected>Select payment method</option>
           <option *ngFor="let method of paymentMethods" [value]="method.payment_id">
@@ -133,7 +133,7 @@
       </div>
 
       <div class="input-container">
-        <label>Terms & Conditions</label>
+        <label>Terms & Conditions<sup>*</sup></label>
         <select formControlName="term_id">
           <option value="" disabled selected>Select terms</option>
           <option *ngFor="let term of termsOptions" [value]="term.term_id">

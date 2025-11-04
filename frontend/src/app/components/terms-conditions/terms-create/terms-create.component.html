@@ -4,7 +4,7 @@
   <form [formGroup]="termsForm">
     <div class="invoice-info">
       <div class="input-container">
-        <label>Terms & Conditions</label>
+        <label>Terms & Conditions<sup>*</sup></label>
         <input type="text" formControlName="terms" placeholder="Enter terms and conditions" />
         <div class="error-msg" *ngIf="submitted && termsForm.controls['terms'].invalid">
           Terms & Conditions are required.

@@ -5,7 +5,7 @@
     <div class="invoice-info">
       <!-- Name -->
       <div class="input-container">
-        <label>Name</label>
+        <label>Name<sup>*</sup></label>
         <input type="text" placeholder="Enter full name" formControlName="name" />
         <div class="error-msg" *ngIf="submitted && customerForm.get('name')?.errors">
           Name is required.
@@ -44,7 +44,7 @@
 
       <!-- Email -->
       <div class="input-container">
-        <label>Email</label>
+        <label>Email<sup>*</sup></label>
         <input type="email" placeholder="Enter email address" formControlName="email" />
         <div class="error-msg" *ngIf="submitted && customerForm.get('email')?.errors?.['required']">
           Email is required.
@@ -56,7 +56,7 @@
 
       <!-- Phone -->
       <div class="input-container">
-        <label>Phone</label>
+        <label>Phone<sup>*</sup></label>
         <input
           type="text"
           appOnlyNumbers
@@ -70,7 +70,7 @@
 
       <!-- Type -->
       <div class="input-container">
-        <label>Type</label>
+        <label>Type<sup>*</sup></label>
         <select formControlName="type">
           <option value="">Select type</option>
           <option *ngFor="let type of customerTypes" [value]="type">
