@@ -11,7 +11,8 @@ const Customer = {
   },
 
   getAll: (callback) => {
-    db.query('SELECT * FROM customers', callback);
+    // db.query('SELECT * FROM customers', callback);
+    db.query('SELECT * FROM customers ORDER BY customer_id DESC', callback);
   },
 
   deleteCustomer: (id, callback) => {

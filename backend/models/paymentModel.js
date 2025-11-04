@@ -11,7 +11,7 @@ exports.add = (data, callback) => {
 };
 
 exports.getByInvoice = (invoice_id, callback) => {
-  db.query('SELECT * FROM payment_methods', [invoice_id], callback);
+  db.query('SELECT * FROM payment_methods ORDER BY payment_id DESC', [invoice_id], callback);
 };
 
 exports.delete = (id, callback) => {

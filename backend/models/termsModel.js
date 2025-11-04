@@ -6,7 +6,7 @@ exports.add = (data, callback) => {
 };
 
 exports.getByInvoice = (invoice_id, callback) => {
-  db.query('SELECT * FROM terms_conditions', callback);
+  db.query('SELECT * FROM terms_conditions ORDER BY term_id DESC', callback);
 };
 
 exports.delete = (id, callback) => {
