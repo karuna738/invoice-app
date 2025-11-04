@@ -1,12 +1,14 @@
 <div class="common-list">
   <div class="header">
     <h2>Terms & Conditions List</h2>
-    <button class="btn-add" [routerLink]="['/terms&conditions/create']">➕ Add</button>
+    <button class="btn-add" [routerLink]="['/terms&conditions/create']"><i class="fa fa-plus"></i> Add</button>
   </div>
 
   <app-table
     [columns]="columns"
     [data]="paginatedTerms"
+    [currentPage]="page"
+    [pageSize]="itemsPerPage"
     (edit)="editTerm($event)"
     (delete)="deleteTerm($event)"
   >

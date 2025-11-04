@@ -1,12 +1,14 @@
 <div class="common-list">
   <div class="header">
     <h2>Payments List</h2>
-    <button class="btn-add" [routerLink]="['/payments/create']">➕ Add</button>
+    <button class="btn-add" [routerLink]="['/payments/create']"><i class="fa fa-plus"></i> Add</button>
   </div>
 
   <app-table
     [columns]="columns"
     [data]="paginatedPayments"
+    [currentPage]="page"
+    [pageSize]="itemsPerPage"
     (edit)="editPayment($event)"
     (delete)="deletePayment($event)"
   >

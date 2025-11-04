@@ -1,12 +1,14 @@
 <div class="common-list">
   <div class="header">
     <h2>Invoice List</h2>
-    <button class="btn-add" (click)="addPage()">➕ Add</button>
+    <button class="btn-add" (click)="addPage()"><i class="fa fa-plus"></i> Add</button>
   </div>
 
   <app-table
     [columns]="columns"
     [data]="paginatedInvoices"
+    [currentPage]="page"
+    [pageSize]="itemsPerPage"
     (view)="viewPage($event)"
     (edit)="editPage($event)"
     (delete)="deleteInvoice($event)"

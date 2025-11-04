@@ -2,6 +2,7 @@
   <table>
     <thead>
       <tr>
+        <th>#</th>
         <th *ngFor="let col of columns">{{ col.label }}</th>
         <th *ngIf="edit.observers.length || delete.observers.length || view.observers.length">
           Action
@@ -10,6 +11,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of data; let i = index">
+        <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
         <td *ngFor="let col of columns">
           {{ col.formatter ? col.formatter(row) : row[col.key] }}
         </td>

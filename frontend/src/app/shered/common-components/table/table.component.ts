@@ -17,6 +17,8 @@ export class TableComponent {
   @Input() showView = true;
   @Input() showEdit = true;
   @Input() showDelete = true;
+  @Input() currentPage = 1;
+  @Input() pageSize = 10;
 
   @Output() view = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
