@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, SidebarComponent, MainLayoutComponent],
@@ -28,7 +29,11 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true,
     }),
   ],
-  providers: [],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true, // ✅ allow multiple interceptors
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,20 +5,27 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+// Import routes
 const customerRoutes = require('./routes/customerRoutes');
 const invoiceRoutes = require('./routes/invoiceRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const termsRoutes = require('./routes/termsRoutes');
+const authRoutes = require('./routes/authRoutes'); // ✅ Auth route
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Register routes
 app.use('/api/customers', customerRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/terms', termsRoutes);
+app.use('/api/auth', authRoutes); // ✅ Connect auth API
 
+// Server setup
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
-app.listen(PORT, HOST, () => console.log(`Server running at http://${HOST}:${PORT}`));
+app.listen(PORT, HOST, () =>
+  console.log(`🚀 Server running at http://${HOST}:${PORT}`)
+);
