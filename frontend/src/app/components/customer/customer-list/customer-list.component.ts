@@ -9,14 +9,18 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./customer-list.component.scss'],
 })
 export class CustomerListComponent implements OnInit {
-  
-  billFrom :any = [];
-  billTo :any = [];
+  billFrom: any[] = [];
+  billTo: any[] = [];
   paginatedCustomersFrom: any[] = [];
   paginatedCustomersTo: any[] = [];
-  page = 1;
-  itemsPerPage = 5;
-  isSubscribedToEmailsMessage: any
+
+  pageFrom = 1;
+  pageTo = 1;
+  itemsPerPageFrom = 5;
+  itemsPerPageTo = 5;
+
+  activeTabIndex = 0;
+
   columns = [
     { key: 'name', label: 'Name' },
     { key: 'company_name', label: 'Company Name' },
@@ -28,7 +32,6 @@ export class CustomerListComponent implements OnInit {
       formatter: (row: any) => (row.type === 'BILL_FROM' ? 'Bill from' : 'Bill to'),
     },
   ];
-
 
   constructor(
     private customerService: CustomerService,
@@ -42,34 +45,49 @@ export class CustomerListComponent implements OnInit {
 
   getCustomers() {
     this.customerService.getCustomers().subscribe((res) => {
-      this.billFrom = res.filter(val => val.type === "BILL_FROM");
-      this.billTo = res.filter(val => val.type === "BILL_TO");
+      this.billFrom = res.filter((val) => val.type === 'BILL_FROM');
+      this.billTo = res.filter((val) => val.type === 'BILL_TO');
       this.updatePaginatedCustomers();
     });
   }
 
+  onTabChange(index: number) {
+    this.activeTabIndex = index;
+  }
+
   updatePaginatedCustomers() {
-    const startIndex = (this.page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedCustomersFrom = this.billFrom.slice(startIndex, endIndex);
-    this.paginatedCustomersTo = this.billTo.slice(startIndex, endIndex);
+    const startFrom = (this.pageFrom - 1) * this.itemsPerPageFrom;
+    const endFrom = startFrom + this.itemsPerPageFrom;
+    this.paginatedCustomersFrom = this.billFrom.slice(startFrom, endFrom);
+
+    const startTo = (this.pageTo - 1) * this.itemsPerPageTo;
+    const endTo = startTo + this.itemsPerPageTo;
+    this.paginatedCustomersTo = this.billTo.slice(startTo, endTo);
   }
 
   onPageChanged(p: number) {
-    this.page = p;
+    if (this.activeTabIndex === 0) {
+      this.pageFrom = p;
+    } else {
+      this.pageTo = p;
+    }
     this.updatePaginatedCustomers();
   }
 
   onPageSizeChanged(size: number) {
-    this.itemsPerPage = size;
-    this.page = 1;
+    if (this.activeTabIndex === 0) {
+      this.itemsPerPageFrom = size;
+      this.pageFrom = 1;
+    } else {
+      this.itemsPerPageTo = size;
+      this.pageTo = 1;
+    }
     this.updatePaginatedCustomers();
   }
 
   addPage() {
     this.rout.navigate(['/customers/create']);
   }
-  viewPage(dd: any) {}
 
   editCustomer(customer: any) {
     this.rout.navigate(['/customers/create'], {
@@ -79,7 +97,7 @@ export class CustomerListComponent implements OnInit {
 
   deleteCustomer(customer: any) {
     this.customerService.deleteCustomers(customer.customer_id).subscribe((res) => {
-      if(res){
+      if (res) {
         this.getCustomers();
         this.toastr.success('Data deleted successfully!', 'Success');
       }

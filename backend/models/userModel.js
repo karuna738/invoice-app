@@ -11,9 +11,7 @@ exports.createUser = (name, email, phone, hashedPassword) =>
 exports.findByEmailOrPhone = (username) =>
   new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM users WHERE email = ? OR phone = ? LIMIT 1';
-    db.query(sql, [username, username], (err, rows) =>
-      err ? reject(err) : resolve(rows[0])
-    );
+    db.query(sql, [username, username], (err, rows) => (err ? reject(err) : resolve(rows[0])));
   });
 
 exports.findByEmail = (email) =>

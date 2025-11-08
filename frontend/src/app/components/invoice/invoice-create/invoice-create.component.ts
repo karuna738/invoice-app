@@ -21,11 +21,11 @@ export class InvoiceCreateComponent implements OnInit {
   paymentMethods: any = [];
   termsOptions: any = [];
   editId: any;
-  paymentStatus:any = [
-    {id: 1, value:'Pending'},
-    {id: 2, value:'Overdue'},
-    {id: 3, value:'Paid'}
-  ]
+  paymentStatus: any = [
+    { id: 1, value: 'Pending' },
+    { id: 2, value: 'Overdue' },
+    { id: 3, value: 'Paid' },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -66,7 +66,7 @@ export class InvoiceCreateComponent implements OnInit {
         total: [0],
         payment_id: ['', Validators.required],
         term_id: ['', Validators.required],
-        payment_status: ['', Validators.required]
+        payment_status: ['', Validators.required],
       }),
       items: this.fb.array([this.itemformInit()]),
     });
@@ -99,7 +99,7 @@ export class InvoiceCreateComponent implements OnInit {
         total: res.total,
         payment_id: res.payment_id,
         term_id: res.term_id,
-        payment_status: res.payment_status
+        payment_status: res.payment_status,
       });
 
       const itemsFormArray = this.invoiceForm.get('items') as FormArray;

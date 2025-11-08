@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;

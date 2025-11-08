@@ -17,7 +17,7 @@ export class InvoiceListComponent implements OnInit {
     { key: 'invoice_number', label: 'Invoice Number' },
     { key: 'bill_from_name', label: 'Bill From' },
     { key: 'bill_to_name', label: 'Bill To' },
-    { key: 'payment_status', label: 'Payment Status'},
+    { key: 'payment_status', label: 'Payment Status' },
     { key: 'formattedTotal', label: 'Total' },
   ];
   constructor(

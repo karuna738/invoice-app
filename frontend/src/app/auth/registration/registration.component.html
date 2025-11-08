@@ -14,8 +14,7 @@
         />
         <div
           *ngIf="
-            registerForm.get('name')?.invalid &&
-            (registerForm.get('name')?.dirty || submitted)
+            registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || submitted)
           "
           class="required"
         >
@@ -34,8 +33,7 @@
         />
         <div
           *ngIf="
-            registerForm.get('email')?.invalid &&
-            (registerForm.get('email')?.dirty || submitted)
+            registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || submitted)
           "
           class="required"
         >
@@ -54,8 +52,7 @@
         />
         <div
           *ngIf="
-            registerForm.get('phone')?.invalid &&
-            (registerForm.get('phone')?.dirty || submitted)
+            registerForm.get('phone')?.invalid && (registerForm.get('phone')?.dirty || submitted)
           "
           class="required"
         >
@@ -108,12 +105,7 @@
             (click)="showConfirmPassword = !showConfirmPassword"
           ></i>
         </div>
-        <div
-          *ngIf="
-            registerForm.hasError('passwordMismatch') && submitted
-          "
-          class="required"
-        >
+        <div *ngIf="registerForm.hasError('passwordMismatch') && submitted" class="required">
           Passwords do not match.
         </div>
       </div>

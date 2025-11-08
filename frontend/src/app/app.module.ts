@@ -29,11 +29,13 @@ import { AuthInterceptor } from './core/auth.interceptor';
       closeButton: true,
     }),
   ],
-  providers: [{
+  providers: [
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true, // ✅ allow multiple interceptors
-  }],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -161,8 +161,14 @@
 
     <!-- Totals -->
     <div class="totals">
-      <p>Subtotal: {{ invoiceForm.get('invoice.subtotal')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</p>
-      <p>Total (with tax): {{ invoiceForm.get('invoice.total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</p>
+      <p>
+        Subtotal:
+        {{ invoiceForm.get('invoice.subtotal')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}
+      </p>
+      <p>
+        Total (with tax):
+        {{ invoiceForm.get('invoice.total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}
+      </p>
     </div>
 
     <!-- Save & Cancel Buttons -->

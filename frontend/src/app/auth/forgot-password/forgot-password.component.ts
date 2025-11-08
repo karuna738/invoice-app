@@ -4,10 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent {
- forgotForm!: FormGroup;
+  forgotForm!: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
@@ -16,11 +16,9 @@ export class ForgotPasswordComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(
-            /^(\+?\d{10,15}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
-          )
-        ]
-      ]
+          Validators.pattern(/^(\+?\d{10,15}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/),
+        ],
+      ],
     });
   }
 

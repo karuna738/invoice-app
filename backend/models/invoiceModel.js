@@ -53,7 +53,7 @@ const Invoice = {
               total,
               payment_id,
               term_id,
-              payment_status
+              payment_status,
             ],
             (err, invoiceResult) => {
               if (err) {
@@ -264,9 +264,9 @@ const Invoice = {
             tax_rate,
             total,
             payment_id,
-            payment_status,  
-            term_id,         
-            id,             
+            payment_status,
+            term_id,
+            id,
           ],
           (err) => {
             if (err) {

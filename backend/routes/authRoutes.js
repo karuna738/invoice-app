@@ -18,7 +18,6 @@
 
 // export default router;
 
-
 const express = require('express');
 const {
   register,
@@ -38,4 +37,3 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
 module.exports = router; // ✅ CommonJS export
-

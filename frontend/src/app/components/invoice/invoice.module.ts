@@ -11,6 +11,6 @@ import { SheredModule } from 'src/app/shered/shered.module';
 @NgModule({
   declarations: [InvoiceListComponent, InvoiceCreateComponent, InvoiceViewComponent],
   imports: [CommonModule, InvoiceRoutingModule, FormsModule, ReactiveFormsModule, SheredModule],
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe],
 })
 export class InvoiceModule {}
