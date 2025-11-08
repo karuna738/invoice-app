@@ -40,8 +40,8 @@ const Invoice = {
           // Insert invoice
           connection.query(
             `INSERT INTO invoices 
-                        (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id, payment_status) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id, payment_status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
               invoice_number,
               bill_to_id,
