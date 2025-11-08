@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 export interface TableColumn {
   key: string;
   label: string;
@@ -23,4 +23,18 @@ export class TableComponent {
   @Output() view = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+
+  getStatusClass(status: string): string {
+    if (!status) return '';
+    switch (status.toLowerCase()) {
+      case 'paid':
+        return 'status-paid';
+      case 'pending':
+        return 'status-pending';
+      case 'overdue':
+        return 'status-overdue';
+      default:
+        return '';
+    }
+  }
 }

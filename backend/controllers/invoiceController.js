@@ -24,6 +24,7 @@ exports.createInvoice = (req, res) => {
         bill_from_name: results[0].bill_from_name,
         payment_id: results[0].payment_id,
         term_id: results[0].term_id,
+        payment_status: results[0].payment_status,
         invoice_items: results
           .filter((row) => row.item_id)
           .map((row) => ({
@@ -76,6 +77,7 @@ exports.getInvoiceItems = (req, res) => {
       account_number: firstRow.account_number,
       term_id: firstRow.term_id,
       terms: firstRow.terms,
+      payment_status: firstRow.payment_status,
       invoice_items: results
         .filter((row) => row.item_id)
         .map((row) => ({
@@ -132,6 +134,7 @@ exports.updateInvoice = (req, res) => {
         account_number: results[0].account_number,
         term_id: results[0].term_id,
         terms: results[0].terms,
+        payment_status: results[0].payment_status,
         invoice_items: results
           .filter((row) => row.item_id)
           .map((row) => ({

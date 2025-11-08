@@ -46,6 +46,19 @@
       </div>
 
       <div class="input-container">
+        <label>Payment status<sup>*</sup></label>
+        <select name="" id="dropdown" formControlName="payment_status">
+          <option value="" disabled selected>Select bill to</option>
+          <option *ngFor="let item of paymentStatus" [ngValue]="item.value">
+            {{ item.value }}
+          </option>
+        </select>
+        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">
+          This field is required
+        </p>
+      </div>
+
+      <div class="input-container">
         <label>Tax rate (%)</label>
         <input
           type="text"

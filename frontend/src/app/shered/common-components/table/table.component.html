@@ -9,12 +9,28 @@
         </th>
       </tr>
     </thead>
+
     <tbody>
       <tr *ngFor="let row of data; let i = index">
+        <!-- Serial number -->
         <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+
+        <!-- Data columns -->
         <td *ngFor="let col of columns">
-          {{ col.formatter ? col.formatter(row) : row[col.key] }}
+          <!-- Check if it's the payment_status column -->
+          <ng-container *ngIf="col.key === 'payment_status'; else defaultCell">
+            <span class="status-badge" [ngClass]="getStatusClass(row[col.key])">
+              {{ row[col.key] }}
+            </span>
+          </ng-container>
+
+          <!-- Default cell rendering -->
+          <ng-template #defaultCell>
+            {{ col.formatter ? col.formatter(row) : row[col.key] }}
+          </ng-template>
         </td>
+
+        <!-- Action buttons -->
         <td
           class="action-col"
           *ngIf="edit.observers.length || delete.observers.length || view.observers.length"
@@ -31,6 +47,7 @@
         </td>
       </tr>
 
+      <!-- No data fallback -->
       <tr *ngIf="!data || data.length === 0">
         <td [attr.colspan]="columns.length + 1" class="no-data">No data found</td>
       </tr>
