@@ -17,8 +17,8 @@ export class InvoiceListComponent implements OnInit {
     { key: 'invoice_number', label: 'Invoice Number' },
     { key: 'bill_from_name', label: 'Bill From' },
     { key: 'bill_to_name', label: 'Bill To' },
+    { key: 'payment_status', label: 'Payment Status'},
     { key: 'formattedTotal', label: 'Total' },
-    // { key: 'paymentStatus', label: 'Payment Status'}
   ];
   constructor(
     private invoiceService: InvoiceService,
@@ -37,8 +37,6 @@ export class InvoiceListComponent implements OnInit {
         ...item,
         formattedTotal: this.currencyPipe.transform(item.total, 'INR', 'symbol', '1.2-2'),
       }));
-      console.log(this.invoices);
-
       this.updatePaginatedInvoices();
     });
   }

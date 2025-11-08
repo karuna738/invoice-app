@@ -12,6 +12,7 @@ const Invoice = {
       total,
       payment_id,
       term_id,
+      payment_status,
       items,
     } = data;
 
@@ -39,7 +40,7 @@ const Invoice = {
           // Insert invoice
           connection.query(
             `INSERT INTO invoices 
-                        (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id) 
+                        (invoice_number, bill_to_id, bill_from_id, due_date, invoice_date, subtotal, tax_rate, total, payment_id, term_id, payment_status) 
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
               invoice_number,
@@ -52,6 +53,7 @@ const Invoice = {
               total,
               payment_id,
               term_id,
+              payment_status
             ],
             (err, invoiceResult) => {
               if (err) {
@@ -145,6 +147,7 @@ const Invoice = {
             i.subtotal,
             i.tax_rate,
             i.total,
+            i.payment_status,
             c1.customer_id AS bill_to_id,
             c1.name AS bill_to_name,
             c2.customer_id AS bill_from_id,
@@ -225,6 +228,7 @@ const Invoice = {
       total,
       payment_id,
       term_id,
+      payment_status,
       items,
     } = data;
 
@@ -248,6 +252,7 @@ const Invoice = {
                     tax_rate = ?, 
                     total = ?, 
                     payment_id = ?, 
+                    payment_status = ?,
                     term_id = ?
                  WHERE invoice_id = ?`,
           [
@@ -259,8 +264,9 @@ const Invoice = {
             tax_rate,
             total,
             payment_id,
-            term_id,
-            id,
+            payment_status,  
+            term_id,         
+            id,             
           ],
           (err) => {
             if (err) {
