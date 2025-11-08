@@ -3,23 +3,24 @@
     <h2>Customer List</h2>
     <button class="btn-add" (click)="addPage()"><i class="fa fa-plus"></i> Add</button>
   </div>
-
-  <app-table
-    [columns]="columns"
-    [data]="paginatedCustomers"
-    [currentPage]="page"
-    [pageSize]="itemsPerPage"
-    (edit)="editCustomer($event)"
-    (delete)="deleteCustomer($event)"
-    class="common-action"
-  ></app-table>
-
-  <app-pagination
-    [totalItems]="customers.length"
-    [pageSize]="itemsPerPage"
-    [pageSizeOptions]="[5, 10, 20, 50]"
-    [currentPage]="page"
-    (pageChange)="onPageChanged($event)"
-    (pageSizeChange)="onPageSizeChanged($event)"
-  ></app-pagination>
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Bill from">
+      <div style="margin-top: 20px;">
+        <app-table [columns]="columns" [data]="paginatedCustomersFrom" [currentPage]="page" [pageSize]="itemsPerPage"
+          (edit)="editCustomer($event)" (delete)="deleteCustomer($event)" class="common-action"></app-table>
+        <app-pagination [totalItems]="billFrom.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20, 50]"
+          [currentPage]="page" (pageChange)="onPageChanged($event)"
+          (pageSizeChange)="onPageSizeChanged($event)"></app-pagination>
+      </div>
+    </mat-tab>
+    <mat-tab label="Bill to">
+      <div style="margin-top: 20px;">
+        <app-table [columns]="columns" [data]="paginatedCustomersTo" [currentPage]="page" [pageSize]="itemsPerPage"
+          (edit)="editCustomer($event)" (delete)="deleteCustomer($event)" class="common-action"></app-table>
+        <app-pagination [totalItems]="billTo.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20, 50]"
+          [currentPage]="page" (pageChange)="onPageChanged($event)"
+          (pageSizeChange)="onPageSizeChanged($event)"></app-pagination>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
