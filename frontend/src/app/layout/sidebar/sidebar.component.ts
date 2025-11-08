@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
     { label: 'Invoice', icon: 'fas fa-tasks', route: '/invoices' },
     { label: 'Customers', icon: 'fas fa-users', route: '/customers' },
     { label: 'Payments', icon: 'fas fa-credit-card', route: '/payments' },
-    { label: 'Terms & Conditions', icon: 'fas fa-file-contract', route: '/terms&conditions'},
+    { label: 'Terms & Conditions', icon: 'fas fa-file-contract', route: '/terms&conditions' },
   ];
 
   ngOnInit() {}
@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
     this.toggle.emit(this.isClosed);
   }
 
-  logOut(){
+  logOut() {
     this.tostr.success('Logout successful');
     this.authService.logout();
   }

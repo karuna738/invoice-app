@@ -23,9 +23,7 @@ exports.register = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
     if (!name || !password || (!email && !phone))
-      return res
-        .status(400)
-        .json({ message: 'Name, password and email/phone required' });
+      return res.status(400).json({ message: 'Name, password and email/phone required' });
 
     const hashed = await bcrypt.hash(password, 10);
     await createUser(name, email || null, phone || null, hashed);
@@ -34,9 +32,7 @@ exports.register = async (req, res) => {
     if (err && err.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ message: 'Email or Phone already exists' });
     }
-    res
-      .status(500)
-      .json({ message: 'Registration failed', error: err.message });
+    res.status(500).json({ message: 'Registration failed', error: err.message });
   }
 };
 
@@ -44,9 +40,7 @@ exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password)
-      return res
-        .status(400)
-        .json({ message: 'Username and password required' });
+      return res.status(400).json({ message: 'Username and password required' });
 
     const user = await findByEmailOrPhone(username);
     if (!user) return res.status(401).json({ message: 'Invalid credentials' });
@@ -71,10 +65,7 @@ exports.forgotPassword = async (req, res) => {
     if (!email) return res.status(400).json({ message: 'Email required' });
 
     const user = await findByEmail(email);
-    if (!user)
-      return res
-        .status(200)
-        .json({ message: 'If account exists, email sent' });
+    if (!user) return res.status(200).json({ message: 'If account exists, email sent' });
 
     const token = signJwt({ email }, '15m');
     const resetUrl = `http://localhost:4200/reset-password/${token}`;
@@ -88,9 +79,7 @@ exports.forgotPassword = async (req, res) => {
 
     res.json({ message: 'If account exists, email sent' });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: 'Email send failed', error: err.message });
+    res.status(500).json({ message: 'Email send failed', error: err.message });
   }
 };
 
@@ -98,8 +87,7 @@ exports.resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
     const { newPassword } = req.body;
-    if (!token || !newPassword)
-      return res.status(400).json({ message: 'Invalid request' });
+    if (!token || !newPassword) return res.status(400).json({ message: 'Invalid request' });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const hashed = await bcrypt.hash(newPassword, 10);

@@ -3,7 +3,6 @@
     <h2 class="text-center">Login</h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-
       <!-- Email or Phone -->
       <div class="form-group">
         <label>Email or Phone Number<sup>*</sup></label>
@@ -15,8 +14,7 @@
         />
         <div
           *ngIf="
-            loginForm.get('username')?.invalid &&
-            (loginForm.get('username')?.dirty || submitted)
+            loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || submitted)
           "
           class="required"
         >
@@ -45,8 +43,7 @@
 
         <div
           *ngIf="
-            loginForm.get('password')?.invalid &&
-            (loginForm.get('password')?.dirty || submitted)
+            loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || submitted)
           "
           class="required"
         >
@@ -66,7 +63,8 @@
 
       <!-- Register Link -->
       <div class="register-container text-center">
-        <p>Don’t have an account?
+        <p>
+          Don’t have an account?
           <a routerLink="register" class="register-link">Register</a>
         </p>
       </div>

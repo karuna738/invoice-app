@@ -3,23 +3,54 @@
     <h2>Customer List</h2>
     <button class="btn-add" (click)="addPage()"><i class="fa fa-plus"></i> Add</button>
   </div>
-  <mat-tab-group mat-stretch-tabs>
+  <mat-tab-group
+    mat-stretch-tabs
+    [(selectedIndex)]="activeTabIndex"
+    (selectedIndexChange)="onTabChange($event)"
+  >
+    <!-- BILL FROM -->
     <mat-tab label="Bill from">
-      <div style="margin-top: 20px;">
-        <app-table [columns]="columns" [data]="paginatedCustomersFrom" [currentPage]="page" [pageSize]="itemsPerPage"
-          (edit)="editCustomer($event)" (delete)="deleteCustomer($event)" class="common-action"></app-table>
-        <app-pagination [totalItems]="billFrom.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20, 50]"
-          [currentPage]="page" (pageChange)="onPageChanged($event)"
-          (pageSizeChange)="onPageSizeChanged($event)"></app-pagination>
+      <div style="margin-top: 20px">
+        <app-table
+          [columns]="columns"
+          [data]="paginatedCustomersFrom"
+          [currentPage]="pageFrom"
+          [pageSize]="itemsPerPageFrom"
+          (edit)="editCustomer($event)"
+          (delete)="deleteCustomer($event)"
+        ></app-table>
+
+        <app-pagination
+          [totalItems]="billFrom.length"
+          [pageSize]="itemsPerPageFrom"
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          [currentPage]="pageFrom"
+          (pageChange)="onPageChanged($event)"
+          (pageSizeChange)="onPageSizeChanged($event)"
+        ></app-pagination>
       </div>
     </mat-tab>
+
+    <!-- BILL TO -->
     <mat-tab label="Bill to">
-      <div style="margin-top: 20px;">
-        <app-table [columns]="columns" [data]="paginatedCustomersTo" [currentPage]="page" [pageSize]="itemsPerPage"
-          (edit)="editCustomer($event)" (delete)="deleteCustomer($event)" class="common-action"></app-table>
-        <app-pagination [totalItems]="billTo.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 20, 50]"
-          [currentPage]="page" (pageChange)="onPageChanged($event)"
-          (pageSizeChange)="onPageSizeChanged($event)"></app-pagination>
+      <div style="margin-top: 20px">
+        <app-table
+          [columns]="columns"
+          [data]="paginatedCustomersTo"
+          [currentPage]="pageTo"
+          [pageSize]="itemsPerPageTo"
+          (edit)="editCustomer($event)"
+          (delete)="deleteCustomer($event)"
+        ></app-table>
+
+        <app-pagination
+          [totalItems]="billTo.length"
+          [pageSize]="itemsPerPageTo"
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          [currentPage]="pageTo"
+          (pageChange)="onPageChanged($event)"
+          (pageSizeChange)="onPageSizeChanged($event)"
+        ></app-pagination>
       </div>
     </mat-tab>
   </mat-tab-group>

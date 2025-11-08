@@ -55,33 +55,32 @@
   }
 
   /* 🔹 Payment Status Badge Styles */
-.status-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-  font-size: 13px;
-}
+  .status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 13px;
+  }
 
-.status-paid {
-  background-color: #dcfce7;
-  color: #15803d;
-  width: 80px;
-}
+  .status-paid {
+    background-color: #dcfce7;
+    color: #15803d;
+    width: 80px;
+  }
 
-.status-pending {
-  background-color: #fef9c3; 
-  color: #a16207; 
-  width: 80px;
-}
+  .status-pending {
+    background-color: #fef9c3;
+    color: #a16207;
+    width: 80px;
+  }
 
-.status-overdue {
-  background-color: #fee2e2; 
-  color: #b91c1c; 
-  width: 80px;
-}
-
+  .status-overdue {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    width: 80px;
+  }
 
   .no-data {
     text-align: center;
@@ -140,5 +139,3 @@
     }
   }
 }
-
-

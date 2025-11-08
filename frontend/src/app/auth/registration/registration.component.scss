@@ -1,152 +1,152 @@
 .login-wrapper {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #2c3e50, #1abc9c);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50, #1abc9c);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-card {
-    // background: rgba(255, 255, 255, 0.15);
-    // background: #2c3e50;
-    background: linear-gradient(to bottom right, #2c3e50, #1abc9c);
-    backdrop-filter: blur(20px);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
+  // background: rgba(255, 255, 255, 0.15);
+  // background: #2c3e50;
+  background: linear-gradient(to bottom right, #2c3e50, #1abc9c);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  color: #fff;
+
+  h2 {
+    margin-bottom: 1.5rem;
     color: #fff;
+  }
 
-    h2 {
-        margin-bottom: 1.5rem;
-        color: #fff;
+  .form-group {
+    margin-bottom: 1rem;
+    position: relative;
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #fff;
     }
 
-    .form-group {
-        margin-bottom: 1rem;
-        position: relative;
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
 
-        label {
-            display: block;
-            margin-bottom: 0.3rem;
-            font-weight: 500;
-            color: #fff;
-        }
+      &:focus {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
 
-        .form-control {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.3s ease;
-
-            &:focus {
-                background: rgba(255, 255, 255, 0.18);
-                border-color: rgba(255, 255, 255, 0.6);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            }
-
-            &::placeholder {
-                color: rgba(255, 255, 255, 0.75);
-            }
-        }
-
-        .required {
-            color: #ffb3b3;
-            font-size: 12px;
-            margin-top: 4px;
-        }
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.75);
+      }
     }
 
-    .password-group {
-        position: relative;
-
-        .password-wrapper {
-            position: relative;
-
-            .form-control {
-                padding-right: 40px;
-            }
-
-            .toggle-password {
-                position: absolute;
-                right: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: #1abc9c;
-                cursor: pointer;
-                font-size: 18px;
-                transition: color 0.3s ease;
-
-                &:hover {
-                    color: #1abc9c;
-                }
-            }
-        }
+    .required {
+      color: #ffb3b3;
+      font-size: 12px;
+      margin-top: 4px;
     }
+  }
 
-    .forgot-container {
-        text-align: right;
-        margin-top: 0.3rem;
-        margin-bottom: 1rem;
+  .password-group {
+    position: relative;
 
-        .forgot-link {
-            color: #00e0c6;
-            font-size: 13px;
-            text-decoration: none;
-            transition: color 0.3s ease;
+    .password-wrapper {
+      position: relative;
 
-            &:hover {
-                color: #fff;
-            }
-        }
-    }
+      .form-control {
+        padding-right: 40px;
+      }
 
-    .register-container {
-        margin-top: 1rem;
-
-        p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .register-link {
-            color: #00ffc8;
-            //   font-weight: 600;
-            text-decoration: none;
-            margin-left: 4px;
-            transition: all 0.3s ease;
-
-            &:hover {
-                color: #fff;
-                text-decoration: underline;
-            }
-        }
-    }
-
-    .btn {
-        width: 100%;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 6px;
-        margin-top: 0.5rem;
-        background-color: #1abc9c;
-        border: none;
-        color: #fff;
-        transition: 0.3s;
+      .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #1abc9c;
+        cursor: pointer;
+        font-size: 18px;
+        transition: color 0.3s ease;
 
         &:hover {
-            background-color: #16a085;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          color: #1abc9c;
         }
+      }
     }
+  }
+
+  .forgot-container {
+    text-align: right;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+
+    .forgot-link {
+      color: #00e0c6;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  .register-container {
+    margin-top: 1rem;
+
+    p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .register-link {
+      color: #00ffc8;
+      //   font-weight: 600;
+      text-decoration: none;
+      margin-left: 4px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #fff;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    background-color: #1abc9c;
+    border: none;
+    color: #fff;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #16a085;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
 }

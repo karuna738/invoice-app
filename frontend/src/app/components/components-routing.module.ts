@@ -13,22 +13,23 @@ const routes: Routes = [
   {
     path: 'invoices',
     loadChildren: () => import('./invoice/invoice.module').then((m) => m.InvoiceModule),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'customers',
     loadChildren: () => import('./customer/customer.module').then((m) => m.CustomerModule),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'payments',
     loadChildren: () => import('./payments/payments.module').then((m) => m.PaymentsModule),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
   },
   {
     path: 'terms&conditions',
-    loadChildren: () => import('./terms-conditions/terms-conditions.module').then((m) => m.TermsConditionsModule),
-    canActivate: [authGuard]
+    loadChildren: () =>
+      import('./terms-conditions/terms-conditions.module').then((m) => m.TermsConditionsModule),
+    canActivate: [authGuard],
   },
 ];
 

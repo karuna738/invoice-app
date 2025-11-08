@@ -3,10 +3,9 @@ import { Component, AfterViewInit } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements AfterViewInit {
-
   constructor() {}
 
   ngAfterViewInit(): void {
@@ -15,14 +14,14 @@ export class DashboardComponent implements AfterViewInit {
 
   drawChart() {
     // Type assertion to HTMLCanvasElement
-    const canvas = document.getElementById("invoiceChart") as HTMLCanvasElement;
+    const canvas = document.getElementById('invoiceChart') as HTMLCanvasElement;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     // Sample data
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
     const values = [5000, 12000, 8000, 15000, 10000, 18000];
 
     const chartWidth = canvas.width - 40;
@@ -32,8 +31,8 @@ export class DashboardComponent implements AfterViewInit {
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#1976d2";
-    ctx.font = "12px Arial";
+    ctx.fillStyle = '#1976d2';
+    ctx.font = '12px Arial';
 
     // Draw Y axis
     ctx.beginPath();
@@ -54,12 +53,12 @@ export class DashboardComponent implements AfterViewInit {
       const y = canvas.height - 20 - barHeight;
 
       // Bar
-      ctx.fillStyle = "#1976d2";
+      ctx.fillStyle = '#1976d2';
       ctx.fillRect(x, y, barWidth, barHeight);
 
       // Value label
-      ctx.fillStyle = "#000";
-      ctx.fillText("₹" + val, x, y - 5);
+      ctx.fillStyle = '#000';
+      ctx.fillText('₹' + val, x, y - 5);
 
       // Month label
       ctx.fillText(months[i], x, canvas.height - 5);
