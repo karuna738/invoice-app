@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { InvoiceService } from 'src/app/services/invoice.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 @Component({
   selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html',
@@ -17,6 +17,8 @@ export class InvoiceListComponent implements OnInit {
     { key: 'invoice_number', label: 'Invoice Number' },
     { key: 'bill_from_name', label: 'Bill From' },
     { key: 'bill_to_name', label: 'Bill To' },
+    { key: 'formattedInvoiceDate', label: 'Invoice date' },
+    { key: 'formattedDueDate', label: 'Due date' },
     { key: 'payment_status', label: 'Payment Status' },
     { key: 'formattedTotal', label: 'Total' },
   ];
@@ -24,7 +26,8 @@ export class InvoiceListComponent implements OnInit {
     private invoiceService: InvoiceService,
     private rout: Router,
     private toastr: ToastrService,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -36,7 +39,10 @@ export class InvoiceListComponent implements OnInit {
       this.invoices = data.map((item) => ({
         ...item,
         formattedTotal: this.currencyPipe.transform(item.total, 'INR', 'symbol', '1.2-2'),
+        formattedInvoiceDate: this.datePipe.transform(item.invoice_date, 'MMM dd, yyyy'),
+        formattedDueDate: this.datePipe.transform(item.due_date, 'MMM dd, yyyy'),
       }));
+
       this.updatePaginatedInvoices();
     });
   }
