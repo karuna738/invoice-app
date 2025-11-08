@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { InvoiceService } from 'src/app/services/invoice.service';
-
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html',
@@ -17,13 +17,14 @@ export class InvoiceListComponent implements OnInit {
     { key: 'invoice_number', label: 'Invoice Number' },
     { key: 'bill_from_name', label: 'Bill From' },
     { key: 'bill_to_name', label: 'Bill To' },
-    { key: 'total', label: 'Total' },
+    { key: 'formattedTotal', label: 'Total' },
     // { key: 'paymentStatus', label: 'Payment Status'}
   ];
   constructor(
     private invoiceService: InvoiceService,
     private rout: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private currencyPipe: CurrencyPipe
   ) {}
 
   ngOnInit() {
@@ -32,7 +33,12 @@ export class InvoiceListComponent implements OnInit {
 
   getInvoiceData() {
     this.invoiceService.getInvoices().subscribe((data) => {
-      this.invoices = data;
+      this.invoices = data.map((item) => ({
+        ...item,
+        formattedTotal: this.currencyPipe.transform(item.total, 'INR', 'symbol', '1.2-2'),
+      }));
+      console.log(this.invoices);
+
       this.updatePaginatedInvoices();
     });
   }

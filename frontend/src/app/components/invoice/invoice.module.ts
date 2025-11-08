@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { InvoiceCreateComponent } from './invoice-create/invoice-create.component';
@@ -11,5 +11,6 @@ import { SheredModule } from 'src/app/shered/shered.module';
 @NgModule({
   declarations: [InvoiceListComponent, InvoiceCreateComponent, InvoiceViewComponent],
   imports: [CommonModule, InvoiceRoutingModule, FormsModule, ReactiveFormsModule, SheredModule],
+  providers: [CurrencyPipe]
 })
 export class InvoiceModule {}
