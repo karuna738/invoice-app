@@ -106,7 +106,7 @@
               (input)="calculateTotals()"
             />
           </td>
-          <td>{{ item.get('total')?.value | currency }}</td>
+          <td>{{ item.get('total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</td>
           <td>
             <button type="button" [disabled]="getitemsForms().length == 1" (click)="removeItem(i)">
               Remove
@@ -148,8 +148,8 @@
 
     <!-- Totals -->
     <div class="totals">
-      <p>Subtotal: {{ invoiceForm.get('invoice.subtotal')?.value | currency }}</p>
-      <p>Total (with tax): {{ invoiceForm.get('invoice.total')?.value | currency }}</p>
+      <p>Subtotal: {{ invoiceForm.get('invoice.subtotal')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</p>
+      <p>Total (with tax): {{ invoiceForm.get('invoice.total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</p>
     </div>
 
     <!-- Save & Cancel Buttons -->

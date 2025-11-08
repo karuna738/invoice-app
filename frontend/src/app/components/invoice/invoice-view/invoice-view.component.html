@@ -44,16 +44,16 @@
     <tbody>
       <tr *ngFor="let item of invoice.invoice_items">
         <td>{{ item.description }}</td>
-        <td>{{ item.price | currency }}</td>
+        <td>{{ item.price | currency: 'INR' : 'symbol' : '1.2-2' }}</td>
         <td>{{ item.quantity }}</td>
-        <td>{{ item.item_total | currency }}</td>
+        <td>{{ item.item_total | currency: 'INR' : 'symbol' : '1.2-2' }}</td>
       </tr>
     </tbody>
   </table>
 
   <div class="totals">
     <p>
-      Subtotal: <strong>{{ invoice.subtotal | currency }}</strong>
+      Subtotal: <strong>{{ invoice.subtotal | currency: 'INR' : 'symbol' : '1.2-2' }}</strong>
     </p>
     <p>
       Tax ({{ invoice.tax_rate }}%):
@@ -62,7 +62,7 @@
       }}</strong>
     </p>
     <p class="total">
-      Total: <strong>{{ invoice.total | currency }}</strong>
+      Total: <strong>{{ invoice.total | currency: 'INR' : 'symbol' : '1.2-2' }}</strong>
     </p>
   </div>
 
