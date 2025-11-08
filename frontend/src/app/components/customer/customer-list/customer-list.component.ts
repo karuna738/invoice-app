@@ -9,11 +9,14 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./customer-list.component.scss'],
 })
 export class CustomerListComponent implements OnInit {
-  customers: any[] = [];
-  paginatedCustomers: any[] = [];
+  
+  billFrom :any = [];
+  billTo :any = [];
+  paginatedCustomersFrom: any[] = [];
+  paginatedCustomersTo: any[] = [];
   page = 1;
   itemsPerPage = 5;
-
+  isSubscribedToEmailsMessage: any
   columns = [
     { key: 'name', label: 'Name' },
     { key: 'company_name', label: 'Company Name' },
@@ -25,6 +28,7 @@ export class CustomerListComponent implements OnInit {
       formatter: (row: any) => (row.type === 'BILL_FROM' ? 'Bill from' : 'Bill to'),
     },
   ];
+
 
   constructor(
     private customerService: CustomerService,
@@ -38,7 +42,8 @@ export class CustomerListComponent implements OnInit {
 
   getCustomers() {
     this.customerService.getCustomers().subscribe((res) => {
-      this.customers = res;
+      this.billFrom = res.filter(val => val.type === "BILL_FROM");
+      this.billTo = res.filter(val => val.type === "BILL_TO");
       this.updatePaginatedCustomers();
     });
   }
@@ -46,7 +51,8 @@ export class CustomerListComponent implements OnInit {
   updatePaginatedCustomers() {
     const startIndex = (this.page - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedCustomers = this.customers.slice(startIndex, endIndex);
+    this.paginatedCustomersFrom = this.billFrom.slice(startIndex, endIndex);
+    this.paginatedCustomersTo = this.billTo.slice(startIndex, endIndex);
   }
 
   onPageChanged(p: number) {
@@ -73,7 +79,10 @@ export class CustomerListComponent implements OnInit {
 
   deleteCustomer(customer: any) {
     this.customerService.deleteCustomers(customer.customer_id).subscribe((res) => {
-      this.toastr.success('Data deleted successfully!', 'Success');
+      if(res){
+        this.getCustomers();
+        this.toastr.success('Data deleted successfully!', 'Success');
+      }
     });
   }
 }
