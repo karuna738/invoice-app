@@ -27,11 +27,11 @@ export class AuthService {
   //   return this.http.post(`${this.apiUrl}/reset-password/${token}`, { newPassword });
   // }
 
-  // getProfile(): Observable<any> {
-  //   const token = localStorage.getItem('token');
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //   return this.http.get(`${this.apiUrl}/me`, { headers });
-  // }
+  getProfile(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/me`, { headers });
+  }
 
   logout(): void {
     localStorage.removeItem('token');

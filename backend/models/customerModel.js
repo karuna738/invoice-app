@@ -1,41 +1,55 @@
 const db = require('../config/db');
 
 const Customer = {
+
   create: (data, callback) => {
-    const { name, company_name, address, city, state, zip_code, email, phone, type } = data;
+    const { name, company_name, address, city, state, zip_code, email, phone, type, user_id } = data;
+
     db.query(
-      'INSERT INTO customers (name, company_name, address, city, state, zip_code, email, phone, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [name, company_name, address, city, state, zip_code, email, phone, type],
+      `INSERT INTO customers 
+      (name, company_name, address, city, state, zip_code, email, phone, type, user_id) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name, company_name, address, city, state, zip_code, email, phone, type, user_id],
       callback
     );
   },
 
-  getAll: (callback) => {
-    // db.query('SELECT * FROM customers', callback);
-    db.query('SELECT * FROM customers ORDER BY customer_id DESC', callback);
-  },
-
-  deleteCustomer: (id, callback) => {
-    db.query('DELETE FROM customers WHERE customer_id = ?', [id], (err, result) => {
-      if (err) return callback(err);
-      callback(null, result.affectedRows > 0);
-    });
-  },
-
-  update: (id, data, callback) => {
-    const { name, company_name, address, city, state, zip_code, email, phone, type } = data;
+  getAll: (userId, callback) => {
     db.query(
-      `UPDATE customers 
-         SET name = ?, company_name = ?, address = ?, city = ?, state = ?, 
-             zip_code = ?, email = ?, phone = ?, type = ?
-         WHERE customer_id = ?`,
-      [name, company_name, address, city, state, zip_code, email, phone, type, id],
+      `SELECT * FROM customers WHERE user_id = ? ORDER BY customer_id DESC`,
+      [userId],
+      callback
+    );
+  },
+
+  deleteCustomer: (id, userId, callback) => {
+    db.query(
+      `DELETE FROM customers 
+       WHERE customer_id = ? AND user_id = ?`,
+      [id, userId],
       (err, result) => {
         if (err) return callback(err);
         callback(null, result.affectedRows > 0);
       }
     );
   },
+
+  update: (id, data, callback) => {
+    const { name, company_name, address, city, state, zip_code, email, phone, type, user_id } = data;
+
+    db.query(
+      `UPDATE customers
+       SET name = ?, company_name = ?, address = ?, city = ?, state = ?, 
+           zip_code = ?, email = ?, phone = ?, type = ?
+       WHERE customer_id = ? AND user_id = ?`,
+      [name, company_name, address, city, state, zip_code, email, phone, type, id, user_id],
+      (err, result) => {
+        if (err) return callback(err);
+        callback(null, result.affectedRows > 0);
+      }
+    );
+  }
 };
 
 module.exports = Customer;
+

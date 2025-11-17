@@ -1,28 +1,52 @@
 const db = require('../config/db');
 
 exports.add = (data, callback) => {
-  const { bank_name, account_number } = data;
+  const { bank_name, account_number, user_id } = data;
 
   db.query(
-    'INSERT INTO payment_methods (bank_name, account_number) VALUES (?, ?)',
-    [bank_name, account_number],
+    `INSERT INTO payment_methods (bank_name, account_number, user_id)
+     VALUES (?, ?, ?)`,
+    [bank_name, account_number, user_id],
     callback
   );
 };
 
-exports.getByInvoice = (invoice_id, callback) => {
-  db.query('SELECT * FROM payment_methods ORDER BY payment_id DESC', [invoice_id], callback);
-};
-
-exports.delete = (id, callback) => {
-  db.query('DELETE FROM payment_methods WHERE payment_id = ?', [id], callback);
-};
-
-exports.update = (id, data, callback) => {
-  const { bank_name, account_number } = data;
+exports.getAll = (user_id, callback) => {
   db.query(
-    'UPDATE payment_methods SET bank_name = ?, account_number = ? WHERE payment_id = ?',
-    [bank_name, account_number, id],
+    `SELECT * FROM payment_methods 
+     WHERE user_id = ? 
+     ORDER BY payment_id DESC`,
+    [user_id],
+    callback
+  );
+};
+
+exports.getById = (payment_id, user_id, callback) => {
+  db.query(
+    `SELECT * FROM payment_methods 
+     WHERE payment_id = ? AND user_id = ?`,
+    [payment_id, user_id],
+    callback
+  );
+};
+
+exports.delete = (payment_id, user_id, callback) => {
+  db.query(
+    `DELETE FROM payment_methods 
+     WHERE payment_id = ? AND user_id = ?`,
+    [payment_id, user_id],
+    callback
+  );
+};
+
+exports.update = (payment_id, data, callback) => {
+  const { bank_name, account_number, user_id } = data;
+
+  db.query(
+    `UPDATE payment_methods 
+     SET bank_name = ?, account_number = ?
+     WHERE payment_id = ? AND user_id = ?`,
+    [bank_name, account_number, payment_id, user_id],
     callback
   );
 };

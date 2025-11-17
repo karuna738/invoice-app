@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
 
 @Component({
@@ -22,18 +23,23 @@ export class DashboardComponent implements OnInit {
   ];
   paidPeyments: any;
   overduePeyments: any;
+  userId: any;
 
   constructor(
     private invoiceService: InvoiceService,
     private currencyPipe: CurrencyPipe,
     private rout: Router,
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
-    this.getInvoices();
+    this.authService.getProfile().subscribe((res) => {
+      this.userId = res.user.id;
+      this.getInvoices();
+    });
   }
 
   getInvoices() {
-    this.invoiceService.getInvoices().subscribe((data) => {
+    this.invoiceService.getInvoices(this.userId).subscribe((data) => {
       if (data) {
         this.invoicesData = data
           .map((item) => ({
@@ -46,7 +52,7 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-    viewPage(item: any) {
+  viewPage(item: any) {
     this.rout.navigate(['/invoices/view'], {
       queryParams: { id: item.invoice_id },
     });
@@ -77,7 +83,7 @@ export class DashboardComponent implements OnInit {
 
     invoiceData.forEach((item) => {
       const date = new Date(item.invoice_date);
-      const monthName = date.toLocaleString('en-US', { month: 'short' }); 
+      const monthName = date.toLocaleString('en-US', { month: 'short' });
       const total = parseFloat(item.total) || 0;
       monthTotals[monthName] = (monthTotals[monthName] || 0) + total;
     });
@@ -96,7 +102,7 @@ export class DashboardComponent implements OnInit {
       'Nov',
       'Dec',
     ];
-    const months = allMonths.filter((m) => monthTotals[m]); 
+    const months = allMonths.filter((m) => monthTotals[m]);
     const values = months.map((m) => parseFloat(monthTotals[m].toFixed(2)));
 
     const chartWidth = canvas.width - 40;

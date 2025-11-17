@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class PaymentsListComponent implements OnInit {
   paginatedPayments: any[] = [];
   page = 1;
   itemsPerPage = 5;
+  userId!: number;
 
   columns = [
     { key: 'bank_name', label: 'Bank Name' },
@@ -20,28 +22,34 @@ export class PaymentsListComponent implements OnInit {
 
   constructor(
     private paymentService: PaymentService,
-    private route: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.getPayments();
+    // 1️⃣ Load user first
+    this.authService.getProfile().subscribe(res => {
+      this.userId = res.user.id;
+
+      // 2️⃣ Only after userId is ready → load payments
+      this.getPayments();
+    });
   }
 
   getPayments() {
-    this.paymentService.getPaymentsByInvoice().subscribe((res) => {
+    this.paymentService.getPayments(this.userId).subscribe(res => {
       this.payments = res;
       this.updatePaginatedPayments();
     });
   }
 
   updatePaginatedPayments() {
-    const startIndex = (this.page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedPayments = this.payments.slice(startIndex, endIndex);
+    const start = (this.page - 1) * this.itemsPerPage;
+    this.paginatedPayments = this.payments.slice(start, start + this.itemsPerPage);
   }
 
-  onPageChanged(p: number) {
-    this.page = p;
+  onPageChanged(page: number) {
+    this.page = page;
     this.updatePaginatedPayments();
   }
 
@@ -52,13 +60,13 @@ export class PaymentsListComponent implements OnInit {
   }
 
   editPayment(payment: any) {
-    this.route.navigate(['/payments/create'], {
+    this.router.navigate(['/payments/create'], {
       queryParams: { id: payment.payment_id },
     });
   }
 
   deletePayment(payment: any) {
-    this.paymentService.deletePayments(payment.payment_id).subscribe((res) => {
+    this.paymentService.deletePayment(payment.payment_id, this.userId).subscribe(res => {
       if (res) {
         this.getPayments();
       }

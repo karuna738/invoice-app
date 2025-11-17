@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
@@ -32,24 +33,39 @@ export class CustomerListComponent implements OnInit {
       formatter: (row: any) => (row.type === 'BILL_FROM' ? 'Bill from' : 'Bill to'),
     },
   ];
+  userId: any;
 
   constructor(
     private customerService: CustomerService,
     private rout: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
   ) {}
-
   ngOnInit(): void {
-    this.getCustomers();
-  }
+  this.authService.getProfile().subscribe({
+    next: (res) => {
+      this.userId = res.user.id;
+      this.getCustomers();
+    },
+    error: (err) => {
+      console.error('Error fetching profile:', err);
+    },
+  });
+}
 
-  getCustomers() {
-    this.customerService.getCustomers().subscribe((res) => {
-      this.billFrom = res.filter((val) => val.type === 'BILL_FROM');
-      this.billTo = res.filter((val) => val.type === 'BILL_TO');
+getCustomers(): void {
+  this.customerService.getCustomers(this.userId).subscribe({
+    next: (res) => {
+      this.billFrom = res.filter(val => val.type === 'BILL_FROM');
+      this.billTo = res.filter(val => val.type === 'BILL_TO');
       this.updatePaginatedCustomers();
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Error fetching customers:', err);
+    },
+  });
+}
+
 
   onTabChange(index: number) {
     this.activeTabIndex = index;
@@ -96,7 +112,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   deleteCustomer(customer: any) {
-    this.customerService.deleteCustomers(customer.customer_id).subscribe((res) => {
+    this.customerService.deleteCustomer(customer.customer_id, this.userId).subscribe((res) => {
       if (res) {
         this.getCustomers();
         this.toastr.success('Data deleted successfully!', 'Success');

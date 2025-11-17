@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { TermsService } from 'src/app/services/terms.service';
 
 @Component({
@@ -7,27 +8,34 @@ import { TermsService } from 'src/app/services/terms.service';
   templateUrl: './terms-list.component.html',
   styleUrls: ['./terms-list.component.scss'],
 })
-export class TermsListComponent {
-  invoiceId!: number;
+export class TermsListComponent implements OnInit {
   terms: any[] = [];
   paginatedTerms: any[] = [];
   page = 1;
   itemsPerPage = 5;
+  userId!: number;
 
   columns = [{ key: 'terms', label: 'Terms & Conditions' }];
 
   constructor(
     private termsService: TermsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.getTerm();
+    // 1️⃣ Load user first
+    this.authService.getProfile().subscribe(res => {
+      this.userId = res.user.id;
+
+      // 2️⃣ After userId is ready → load terms
+      this.getTerms();
+    });
   }
 
-  getTerm() {
-    this.termsService.getTermsByInvoice().subscribe((res) => {
+  getTerms() {
+    this.termsService.getTerms(this.userId).subscribe(res => {
       this.terms = res;
       this.updatePaginatedTerms();
     });
@@ -35,12 +43,11 @@ export class TermsListComponent {
 
   updatePaginatedTerms() {
     const startIndex = (this.page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedTerms = this.terms.slice(startIndex, endIndex);
+    this.paginatedTerms = this.terms.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  onPageChanged(p: number) {
-    this.page = p;
+  onPageChanged(page: number) {
+    this.page = page;
     this.updatePaginatedTerms();
   }
 
@@ -57,9 +64,9 @@ export class TermsListComponent {
   }
 
   deleteTerm(item: any) {
-    this.termsService.deleteTerms(item.term_id).subscribe((res) => {
+    this.termsService.deleteTerms(item.term_id, this.userId).subscribe(res => {
       if (res) {
-        this.getTerm();
+        this.getTerms();
       }
     });
   }
