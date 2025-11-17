@@ -1,152 +1,112 @@
 const Invoice = require('../models/invoiceModel');
 
+// CREATE invoice
 exports.createInvoice = (req, res) => {
-  Invoice.createWithItems(req.body, (err, result) => {
+  const user_id = req.body.user_id; // ⬅⬅⬅ added
+
+  if (!user_id) {
+    return res.status(400).json({ message: 'user_id is required' });
+  }
+
+  const payload = { ...req.body, user_id };
+
+  Invoice.createWithItems(payload, (err, result) => {
     if (err) return res.status(500).json({ error: err });
 
-    // Fetch the created invoice with its items
-    Invoice.getInvoiceWithItems(result.invoiceId, (err2, results) => {
-      if (err2) return res.status(500).json({ error: err2 });
-
+    Invoice.getInvoiceWithItems(result.invoiceId, user_id, (err2, results) => {
       if (!results || results.length === 0) {
-        return res.status(201).json(result); // fallback
+        return res.status(201).json(result);
       }
 
-      const invoice = {
-        invoice_id: results[0].invoice_id,
-        invoice_number: results[0].invoice_number,
-        due_date: results[0].due_date,
-        invoice_date: results[0].invoice_date,
-        subtotal: results[0].subtotal,
-        tax_rate: results[0].tax_rate,
-        total: results[0].total,
-        bill_to_name: results[0].bill_to_name,
-        bill_from_name: results[0].bill_from_name,
-        payment_id: results[0].payment_id,
-        term_id: results[0].term_id,
-        payment_status: results[0].payment_status,
-        invoice_items: results
-          .filter((row) => row.item_id)
-          .map((row) => ({
-            item_id: row.item_id,
-            description: row.description,
-            price: row.price,
-            quantity: row.quantity,
-            item_total: row.item_total,
-          })),
-      };
-
+      const invoice = formatInvoice(results);
       res.status(201).json(invoice);
     });
   });
 };
 
+// GET all invoices for specific user
 exports.getInvoices = (req, res) => {
-  Invoice.getAll((err, results) => {
+  const user_id = req.query.user_id; // ⬅⬅⬅ added
+  if (!user_id) return res.status(400).json({ message: 'user_id required' });
+
+  Invoice.getAll(user_id, (err, results) => {
     if (err) return res.status(500).json({ error: err });
     res.json(results);
   });
 };
 
+// GET a specific invoice with items
 exports.getInvoiceItems = (req, res) => {
+  const user_id = req.query.user_id; // ⬅⬅⬅ added
   const { id } = req.params;
 
-  Invoice.getInvoiceWithItems(id, (err, results) => {
-    if (err) return res.status(500).json({ error: err });
-
-    if (results.length === 0) {
+  Invoice.getInvoiceWithItems(id, user_id, (err, results) => {
+    if (!results || results.length === 0) {
       return res.status(404).json({ message: 'Invoice not found' });
     }
 
-    const firstRow = results[0];
-
-    const invoice = {
-      invoice_id: firstRow.invoice_id,
-      invoice_number: firstRow.invoice_number,
-      due_date: firstRow.due_date,
-      invoice_date: firstRow.invoice_date,
-      subtotal: firstRow.subtotal,
-      tax_rate: firstRow.tax_rate,
-      total: firstRow.total,
-      bill_to_id: firstRow.bill_to_id,
-      bill_to_name: firstRow.bill_to_name,
-      bill_from_id: firstRow.bill_from_id,
-      bill_from_name: firstRow.bill_from_name,
-      payment_id: firstRow.payment_id,
-      bank_name: firstRow.bank_name,
-      account_number: firstRow.account_number,
-      term_id: firstRow.term_id,
-      terms: firstRow.terms,
-      payment_status: firstRow.payment_status,
-      invoice_items: results
-        .filter((row) => row.item_id)
-        .map((row) => ({
-          item_id: row.item_id,
-          description: row.description,
-          price: row.price,
-          quantity: row.quantity,
-          item_total: row.item_total,
-        })),
-    };
-
+    const invoice = formatInvoice(results);
     res.status(200).json(invoice);
   });
 };
 
+// DELETE an invoice (user protected)
 exports.deleteInvoiceItem = (req, res) => {
+  const user_id = req.query.user_id; // ⬅⬅⬅ added
   const { id } = req.params;
-  Invoice.deleteInvoice(id, (err, success) => {
-    if (err) return res.status(500).json({ error: err });
-    if (!success) {
+
+  Invoice.deleteInvoice(id, user_id, (err, success) => {
+    if (!success)
       return res.status(404).json({ message: 'Invoice not found' });
-    }
+
     res.status(200).json({ message: 'Invoice deleted successfully' });
   });
 };
 
+// UPDATE invoice
 exports.updateInvoice = (req, res) => {
+  const user_id = req.body.user_id; // ⬅⬅⬅ added
   const { id } = req.params;
 
-  Invoice.updateWithItems(id, req.body, (err, result) => {
-    if (err) return res.status(500).json({ error: err });
-
-    // Return updated invoice with items
-    Invoice.getInvoiceWithItems(id, (err2, results) => {
-      if (err2) return res.status(500).json({ error: err2 });
-      if (!results || results.length === 0) {
-        return res.status(404).json({ message: 'Invoice not found after update' });
-      }
-
-      const invoice = {
-        invoice_id: results[0].invoice_id,
-        invoice_number: results[0].invoice_number,
-        due_date: results[0].due_date,
-        invoice_date: results[0].invoice_date,
-        subtotal: results[0].subtotal,
-        tax_rate: results[0].tax_rate,
-        total: results[0].total,
-        bill_to_id: results[0].bill_to_id,
-        bill_to_name: results[0].bill_to_name,
-        bill_from_id: results[0].bill_from_id,
-        bill_from_name: results[0].bill_from_name,
-        payment_id: results[0].payment_id,
-        bank_name: results[0].bank_name,
-        account_number: results[0].account_number,
-        term_id: results[0].term_id,
-        terms: results[0].terms,
-        payment_status: results[0].payment_status,
-        invoice_items: results
-          .filter((row) => row.item_id)
-          .map((row) => ({
-            item_id: row.item_id,
-            description: row.description,
-            price: row.price,
-            quantity: row.quantity,
-            item_total: row.item_total,
-          })),
-      };
-
+  Invoice.updateWithItems(id, { ...req.body, user_id }, (err) => {
+    // Get updated invoice
+    Invoice.getInvoiceWithItems(id, user_id, (err2, results) => {
+      const invoice = formatInvoice(results);
       res.status(200).json(invoice);
     });
   });
 };
+
+// helper: format invoice data
+function formatInvoice(results) {
+  const first = results[0];
+
+  return {
+    invoice_id: first.invoice_id,
+    invoice_number: first.invoice_number,
+    due_date: first.due_date,
+    invoice_date: first.invoice_date,
+    subtotal: first.subtotal,
+    tax_rate: first.tax_rate,
+    total: first.total,
+    bill_to_id: first.bill_to_id,
+    bill_to_name: first.bill_to_name,
+    bill_from_id: first.bill_from_id,
+    bill_from_name: first.bill_from_name,
+    payment_id: first.payment_id,
+    bank_name: first.bank_name,
+    account_number: first.account_number,
+    term_id: first.term_id,
+    terms: first.terms,
+    payment_status: first.payment_status,
+    invoice_items: results
+      .filter((row) => row.item_id)
+      .map((row) => ({
+        item_id: row.item_id,
+        description: row.description,
+        price: row.price,
+        quantity: row.quantity,
+        item_total: row.item_total,
+      })),
+  };
+}

@@ -1,80 +1,87 @@
 <div class="invoice-container">
-  <h2>Create Invoice</h2>
+  <h2>{{ editId ? 'Edit Invoice' : 'Create Invoice' }}</h2>
+
   <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
-    <!-- Invoice Details -->
-    <div formGroupName="invoice" class="invoice-info">
+    <!-- INVOICE INFO -->
+    <div class="invoice-info" formGroupName="invoice">
+
+      <!-- BILL FROM -->
       <div class="input-container">
-        <label>Bill from<sup>*</sup></label>
-        <select name="" id="dropdown" formControlName="bill_from_id">
-          <option value="" disabled selected>Select bill from</option>
-          <option *ngFor="let item of customerDataFrom" [ngValue]="item.customer_id">
+        <label>Bill from <sup>*</sup></label>
+        <select formControlName="bill_from_id">
+          <option value="">Select bill from</option>
+          <option *ngFor="let item of customerDataFrom" [value]="item.customer_id">
             {{ item.name }}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_from_id')?.invalid && submited">
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.bill_from_id')?.invalid">
           This field is required
         </p>
       </div>
 
+      <!-- BILL TO -->
       <div class="input-container">
-        <label>Bill to<sup>*</sup></label>
-        <select name="" id="dropdown" formControlName="bill_to_id">
-          <option value="" disabled selected>Select bill to</option>
-          <option *ngFor="let item of customerDataTo" [ngValue]="item.customer_id">
+        <label>Bill to <sup>*</sup></label>
+        <select formControlName="bill_to_id">
+          <option value="">Select bill to</option>
+          <option *ngFor="let item of customerDataTo" [value]="item.customer_id">
             {{ item.name }}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.bill_to_id')?.invalid">
           This field is required
         </p>
       </div>
 
+      <!-- INVOICE DATE -->
       <div class="input-container">
-        <label>Invoice date<sup>*</sup></label>
-        <input type="date" formControlName="invoice_date" placeholder="Select invoice date" />
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.invoice_date')?.invalid && submited">
+        <label>Invoice date <sup>*</sup></label>
+        <input type="date" formControlName="invoice_date" />
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.invoice_date')?.invalid">
           This field is required
         </p>
       </div>
 
+      <!-- DUE DATE -->
       <div class="input-container">
-        <label>Due date<sup>*</sup></label>
-        <input type="date" formControlName="due_date" placeholder="Select due date" />
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.due_date')?.invalid && submited">
+        <label>Due date <sup>*</sup></label>
+        <input type="date" formControlName="due_date" />
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.due_date')?.invalid">
           This field is required
         </p>
       </div>
 
+      <!-- PAYMENT STATUS -->
       <div class="input-container">
-        <label>Payment status<sup>*</sup></label>
-        <select name="" id="dropdown" formControlName="payment_status">
-          <option value="" disabled selected>Select bill to</option>
-          <option *ngFor="let item of paymentStatus" [ngValue]="item.value">
+        <label>Payment status <sup>*</sup></label>
+        <select formControlName="payment_status">
+          <option value="">Select status</option>
+          <option *ngFor="let item of paymentStatus" [value]="item.value">
             {{ item.value }}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.bill_to_id')?.invalid && submited">
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.payment_status')?.invalid">
           This field is required
         </p>
       </div>
 
+      <!-- TAX RATE -->
       <div class="input-container">
         <label>Tax rate (%)</label>
         <input
           type="text"
-          appDecimalOnly
           formControlName="tax_rate"
-          placeholder="Enter tax rate"
+          appDecimalOnly
+          placeholder="Enter tax"
           (input)="calculateTotals()"
         />
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.tax_rate')?.invalid && submited">
-          This field is required
-        </p>
       </div>
+
     </div>
 
-    <!-- Invoice Items -->
+    <!-- ITEMS SECTION -->
     <h3>Items</h3>
+
     <table class="invoice-table">
       <thead>
         <tr>
@@ -85,96 +92,94 @@
           <th>Action</th>
         </tr>
       </thead>
+
       <tbody formArrayName="items">
         <tr *ngFor="let item of getitemsForms().controls; let i = index" [formGroupName]="i">
+          
           <td>
             <input
               type="text"
               formControlName="description"
-              placeholder="Item description"
-              [class.invalid-border]="
-                invoiceForm.get('items.' + i + '.description')?.invalid && submited
-              "
+              placeholder="Description"
+              [class.invalid-border]="submited && item.get('description')?.invalid"
             />
           </td>
+
           <td>
             <input
               type="text"
-              appDecimalOnly
               formControlName="price"
+              appDecimalOnly
               placeholder="Price"
-              [class.invalid-border]="invoiceForm.get('items.' + i + '.price')?.invalid && submited"
               (input)="calculateTotals()"
+              [class.invalid-border]="submited && item.get('price')?.invalid"
             />
           </td>
+
           <td>
             <input
               type="text"
-              appOnlyNumbers
               formControlName="quantity"
+              appOnlyNumbers
               placeholder="Qty"
-              [class.invalid-border]="
-                invoiceForm.get('items.' + i + '.quantity')?.invalid && submited
-              "
               (input)="calculateTotals()"
+              [class.invalid-border]="submited && item.get('quantity')?.invalid"
             />
           </td>
-          <td>{{ item.get('total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}</td>
+
+          <td>{{ item.get('total')?.value | currency:'INR':'symbol':'1.2-2' }}</td>
+
           <td>
-            <button type="button" [disabled]="getitemsForms().length == 1" (click)="removeItem(i)">
+            <button type="button" (click)="removeItem(i)" [disabled]="getitemsForms().length === 1">
               Remove
             </button>
           </td>
+
         </tr>
       </tbody>
     </table>
+
     <button type="button" class="add-btn" (click)="addItem()">+ Add Item</button>
 
-    <!-- Payment and Terms -->
-    <div class="invoice-info" formGroupName="invoice" style="margin-top: 20px">
+    <!-- PAYMENT & TERMS -->
+    <div formGroupName="invoice" class="invoice-info" style="margin-top:15px">
+
       <div class="input-container">
-        <label>Payment Method<sup>*</sup></label>
+        <label>Payment Method <sup>*</sup></label>
         <select formControlName="payment_id">
-          <option value="" disabled selected>Select payment method</option>
+          <option value="">Select payment method</option>
           <option *ngFor="let method of paymentMethods" [value]="method.payment_id">
             {{ method.bank_name }} ({{ method.account_number }})
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.payment_id')?.invalid && submited">
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.payment_id')?.invalid">
           This field is required
         </p>
       </div>
 
       <div class="input-container">
-        <label>Terms & Conditions<sup>*</sup></label>
+        <label>Terms & Conditions <sup>*</sup></label>
         <select formControlName="term_id">
-          <option value="" disabled selected>Select terms</option>
+          <option value="">Select terms</option>
           <option *ngFor="let term of termsOptions" [value]="term.term_id">
             {{ term.terms }}
           </option>
         </select>
-        <p class="error-msg" *ngIf="invoiceForm.get('invoice.term_id')?.invalid && submited">
+        <p class="error-msg" *ngIf="submited && invoiceForm.get('invoice.term_id')?.invalid">
           This field is required
         </p>
       </div>
+
     </div>
 
-    <!-- Totals -->
+    <!-- TOTALS -->
     <div class="totals">
-      <p>
-        Subtotal:
-        {{ invoiceForm.get('invoice.subtotal')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}
-      </p>
-      <p>
-        Total (with tax):
-        {{ invoiceForm.get('invoice.total')?.value | currency: 'INR' : 'symbol' : '1.2-2' }}
-      </p>
+      <p>Subtotal: {{ invoiceForm.get('invoice.subtotal')?.value | currency:'INR' }}</p>
+      <p>Total: {{ invoiceForm.get('invoice.total')?.value | currency:'INR' }}</p>
     </div>
 
-    <!-- Save & Cancel Buttons -->
-    <button type="submit" class="save-btn"><i class="fas fa-save"></i>Save Invoice</button>
-    <button class="btn-delete" [routerLink]="['/invoices']">
-      <i class="fas fa-times"></i>Cancel
-    </button>
+    <button type="submit" class="save-btn"><i class="fas fa-save"></i> Save Invoice</button>
+    <button class="btn-delete" [routerLink]="['/invoices']"><i class="fas fa-times"></i> Cancel</button>
+
   </form>
 </div>

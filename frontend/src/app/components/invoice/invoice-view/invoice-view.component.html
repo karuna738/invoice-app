@@ -59,13 +59,26 @@
       Tax ({{ invoice.tax_rate }}%):
       <strong>{{
         (invoice.subtotal * invoice.tax_rate) / 100 | currency: 'INR' : 'symbol' : '1.2-2'
-      }}</strong>
+        }}</strong>
     </p>
     <p class="total">
       Total: <strong>{{ invoice.total | currency: 'INR' : 'symbol' : '1.2-2' }}</strong>
     </p>
   </div>
-
+  <div>
+    <img *ngIf="invoice.payment_status === 'Paid'" src="../../../../assets/payments-img/paid.png" alt="" style="position: absolute;
+    top: 625px;
+    width: 234px;
+    right: 120px;;">
+    <img *ngIf="invoice.payment_status === 'Pending'" src="../../../../assets/payments-img/pending.png" alt="" style="position: absolute;
+    top: 668px;
+    width: 349px;
+    right: 77px;">
+    <img *ngIf="invoice.payment_status === 'Overdue'" src="../../../../assets/payments-img/overdue.png" alt="" style="position: absolute;
+    top: 669px;
+    width: 349px;
+    right: 87px;">
+  </div>
   <div class="payment">
     <h3>Payment Method</h3>
     <p><strong>Bank:</strong> {{ invoice.bank_name || '-' }}</p>

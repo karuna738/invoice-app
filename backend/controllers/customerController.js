@@ -1,14 +1,24 @@
 const Customer = require('../models/customerModel');
 
 exports.createCustomer = (req, res) => {
+  const { user_id } = req.body;
+  if (!user_id) {
+    return res.status(400).json({ message: "user_id is required" });
+  }
+
   Customer.create(req.body, (err, result) => {
     if (err) return res.status(500).json({ error: err });
-    res.status(201).json({ message: 'Customer created', customerId: result.insertId });
+    res.status(201).json({ 
+      message: 'Customer created', 
+      customerId: result.insertId 
+    });
   });
 };
 
 exports.getCustomers = (req, res) => {
-  Customer.getAll((err, results) => {
+  const { user_id } = req.query;
+  
+  Customer.getAll(user_id, (err, results) => {
     if (err) return res.status(500).json({ error: err });
     res.json(results);
   });
@@ -16,11 +26,11 @@ exports.getCustomers = (req, res) => {
 
 exports.deleteCustomer = (req, res) => {
   const { id } = req.params;
-  Customer.deleteCustomer(id, (err, success) => {
+  const { user_id } = req.query;
+
+  Customer.deleteCustomer(id, user_id, (err, success) => {
     if (err) return res.status(500).json({ error: err });
-    if (!success) {
-      return res.status(404).json({ message: 'Customer not found' });
-    }
+    if (!success) return res.status(404).json({ message: 'Customer not found' });
     res.status(200).json({ message: 'Customer deleted successfully' });
   });
 };
@@ -30,9 +40,8 @@ exports.updateCustomer = (req, res) => {
 
   Customer.update(id, req.body, (err, success) => {
     if (err) return res.status(500).json({ error: err });
-    if (!success) {
-      return res.status(404).json({ message: 'Customer not found' });
-    }
+    if (!success) return res.status(404).json({ message: 'Customer not found' });
     res.status(200).json({ message: 'Customer updated successfully' });
   });
 };
+
