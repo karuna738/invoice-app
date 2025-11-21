@@ -14,7 +14,6 @@ import { TermsService } from 'src/app/services/terms.service';
   styleUrls: ['./invoice-create.component.scss'],
 })
 export class InvoiceCreateComponent implements OnInit {
-  
   invoiceForm!: FormGroup;
   customerDataFrom: any[] = [];
   customerDataTo: any[] = [];
@@ -28,7 +27,7 @@ export class InvoiceCreateComponent implements OnInit {
   paymentStatus = [
     { id: 1, value: 'Pending' },
     { id: 2, value: 'Overdue' },
-    { id: 3, value: 'Paid' }
+    { id: 3, value: 'Paid' },
   ];
 
   constructor(
@@ -44,9 +43,10 @@ export class InvoiceCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(res => {
+    this.formInit();
+
+    this.authService.getProfile().subscribe((res) => {
       this.userId = res.user.id;
-      this.formInit();
       this.loadDropdownData();
       this.checkEditMode();
     });
@@ -66,7 +66,8 @@ export class InvoiceCreateComponent implements OnInit {
         term_id: ['', Validators.required],
         payment_status: ['', Validators.required],
       }),
-      items: this.fb.array([this.itemForm()])
+
+      items: this.fb.array([this.itemForm()]),
     });
   }
 
@@ -84,22 +85,22 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   loadDropdownData() {
-    this.customerService.getCustomers(this.userId).subscribe(res => {
-      this.customerDataFrom = res.filter(x => x.type === 'BILL_FROM');
-      this.customerDataTo = res.filter(x => x.type === 'BILL_TO');
+    this.customerService.getCustomers(this.userId).subscribe((res) => {
+      this.customerDataFrom = res.filter((x) => x.type === 'BILL_FROM');
+      this.customerDataTo = res.filter((x) => x.type === 'BILL_TO');
     });
 
-    this.paymentService.getPayments(this.userId).subscribe(res => {
+    this.paymentService.getPayments(this.userId).subscribe((res) => {
       this.paymentMethods = res;
     });
 
-    this.termService.getTerms(this.userId).subscribe(res => {
+    this.termService.getTerms(this.userId).subscribe((res) => {
       this.termsOptions = res;
     });
   }
 
   checkEditMode() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['id']) {
         this.editId = params['id'];
         this.loadInvoiceForEdit();
@@ -108,7 +109,7 @@ export class InvoiceCreateComponent implements OnInit {
   }
 
   loadInvoiceForEdit() {
-    this.invoiceService.getInvoiceItems(this.editId, this.userId).subscribe(res => {
+    this.invoiceService.getInvoiceItems(this.editId, this.userId).subscribe((res) => {
       this.invoiceForm.get('invoice')?.patchValue({
         bill_from_id: res.bill_from_id,
         bill_to_id: res.bill_to_id,
@@ -119,19 +120,21 @@ export class InvoiceCreateComponent implements OnInit {
         total: res.total,
         payment_id: res.payment_id,
         term_id: res.term_id,
-        payment_status: res.payment_status
+        payment_status: res.payment_status,
       });
 
       const items = this.getitemsForms();
       items.clear();
 
-      res.invoice_items.forEach((item: any) => {
-        items.push(this.fb.group({
-          description: item.description,
-          price: item.price,
-          quantity: item.quantity,
-          total: item.item_total,
-        }));
+      res.invoice_items.forEach((itm: any) => {
+        items.push(
+          this.fb.group({
+            description: itm.description,
+            price: itm.price,
+            quantity: itm.quantity,
+            total: itm.item_total,
+          })
+        );
       });
     });
   }
@@ -148,7 +151,7 @@ export class InvoiceCreateComponent implements OnInit {
   calculateTotals() {
     let subtotal = 0;
 
-    this.getitemsForms().controls.forEach(item => {
+    this.getitemsForms().controls.forEach((item) => {
       const price = +item.get('price')?.value || 0;
       const qty = +item.get('quantity')?.value || 0;
       const total = price * qty;
@@ -160,7 +163,7 @@ export class InvoiceCreateComponent implements OnInit {
     this.invoiceForm.get('invoice.subtotal')?.setValue(subtotal);
 
     const taxRate = +this.invoiceForm.get('invoice.tax_rate')?.value || 0;
-    const total = subtotal + (subtotal * taxRate / 100);
+    const total = subtotal + (subtotal * taxRate) / 100;
 
     this.invoiceForm.get('invoice.total')?.setValue(total);
   }
@@ -172,7 +175,7 @@ export class InvoiceCreateComponent implements OnInit {
 
     const data = {
       ...this.invoiceForm.get('invoice')?.value,
-      items: this.invoiceForm.get('items')?.value
+      items: this.invoiceForm.get('items')?.value,
     };
 
     if (this.editId) {

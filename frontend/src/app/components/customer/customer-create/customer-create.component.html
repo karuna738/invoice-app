@@ -6,7 +6,7 @@
       <!-- Name -->
       <div class="input-container">
         <label>Name<sup>*</sup></label>
-        <input type="text" placeholder="Enter full name" formControlName="name" />
+        <input type="text" placeholder="Enter full name" formControlName="name" [ngClass]="{'invalid-input':customerForm.controls['name'].invalid && submitted}"/>
         <div class="error-msg" *ngIf="submitted && customerForm.get('name')?.errors">
           Name is required.
         </div>
@@ -45,7 +45,7 @@
       <!-- Email -->
       <div class="input-container">
         <label>Email<sup>*</sup></label>
-        <input type="email" placeholder="Enter email address" formControlName="email" />
+        <input type="email" placeholder="Enter email address" formControlName="email" [ngClass]="{'invalid-input':customerForm.controls['email'].invalid && submitted}"/>
         <div class="error-msg" *ngIf="submitted && customerForm.get('email')?.errors?.['required']">
           Email is required.
         </div>
@@ -62,6 +62,7 @@
           appOnlyNumbers
           placeholder="Enter phone number"
           formControlName="phone"
+          [ngClass]="{'invalid-input':customerForm.controls['phone'].invalid && submitted}"
         />
         <div class="error-msg" *ngIf="submitted && customerForm.get('phone')?.errors">
           Phone number is required.
@@ -71,7 +72,7 @@
       <!-- Type -->
       <div class="input-container">
         <label>Type<sup>*</sup></label>
-        <select formControlName="type">
+        <select formControlName="type" [ngClass]="{'invalid-input':customerForm.controls['type'].invalid && submitted}">
           <option value="">Select type</option>
           <option *ngFor="let type of customerTypes" [value]="type">
             {{ type == 'BILL_FROM' ? 'Bill from' : 'Bill to' }}
