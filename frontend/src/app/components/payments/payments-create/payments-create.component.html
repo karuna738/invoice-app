@@ -6,13 +6,14 @@
       <!-- Bank Name -->
       <div class="input-container">
         <label for="bankName">Bank Name<sup>*</sup></label>
-        <div class="input-with-icon">
+        <div class="input-with-icon" [ngClass]="{'invalid-input':paymentForm.controls['bank_name'].invalid && submitted}">
           <i class="fas fa-university"></i>
           <input
             id="bankName"
             type="text"
             placeholder="Enter bank name"
             formControlName="bank_name"
+            
           />
         </div>
         <div class="error-msg" *ngIf="submitted && paymentForm.get('bank_name')?.errors">
@@ -23,7 +24,7 @@
       <!-- Account Number -->
       <div class="input-container">
         <label for="accountNumber">Account Number<sup>*</sup></label>
-        <div class="input-with-icon">
+        <div class="input-with-icon" [ngClass]="{'invalid-input':paymentForm.controls['account_number'].invalid && submitted}">
           <i class="fas fa-credit-card"></i>
           <input
             id="accountNumber"
