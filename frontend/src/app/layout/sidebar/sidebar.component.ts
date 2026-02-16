@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
   isClosed = false;
   menuItems = [
     { label: 'Dashboard', icon: 'fas fa-chart-line', route: '/dashboard' },
+    { label: 'Users',  icon: 'fas fa-id-badge', route: '/users'},
     { label: 'Invoice', icon: 'fas fa-tasks', route: '/invoices' },
     { label: 'Customers', icon: 'fas fa-users', route: '/customers' },
     { label: 'Payments', icon: 'fas fa-credit-card', route: '/payments' },

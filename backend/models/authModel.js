@@ -27,3 +27,12 @@ exports.updatePasswordByEmail = (email, hashedPassword) =>
       err ? reject(err) : resolve(r)
     );
   });
+
+exports.getUsers = () => {
+ return new Promise((resolve, reject) => {
+    db.query('SELECT * FROM users', (err, results) => {
+      err ? reject(err) : resolve(results)
+    })
+  });
+
+}
