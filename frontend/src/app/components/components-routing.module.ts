@@ -31,6 +31,12 @@ const routes: Routes = [
       import('./terms-conditions/terms-conditions.module').then((m) => m.TermsConditionsModule),
     canActivate: [authGuard],
   },
+  {
+    path: 'users',
+    loadChildren: () => 
+      import('./users/users.module').then((m) => m.UsersModule),
+    canActivate: [authGuard],
+  }
 ];
 
 @NgModule({

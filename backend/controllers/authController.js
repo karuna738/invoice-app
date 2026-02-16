@@ -7,8 +7,8 @@ const {
   findByEmailOrPhone,
   findByEmail,
   updatePasswordByEmail,
-} = require('../models/userModel');
-
+  userModel
+} = require('../models/authModel');
 dotenv.config();
 
 const signJwt = (payload, expiresIn = '1h') =>
@@ -97,3 +97,11 @@ exports.resetPassword = async (req, res) => {
     res.status(400).json({ message: 'Invalid or expired token' });
   }
 };
+
+exports.getUsersAll = (req, res) => {
+  userModel.getUsers((err, results) => {
+    if (err) return res.status(500).json({ error: err });
+    res.json(results);
+  });
+};
+

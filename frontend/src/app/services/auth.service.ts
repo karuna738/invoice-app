@@ -33,6 +33,10 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/me`, { headers });
   }
 
+  getUsers(): Observable<any> {
+     return this.http.get(`${this.apiUrl}/getUsers`);
+  }
+
   logout(): void {
     localStorage.removeItem('token');
   }
